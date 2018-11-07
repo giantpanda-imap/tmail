@@ -5,3 +5,4 @@ config.log
 *.a
 *.orig
 *.rej
+*.patch
