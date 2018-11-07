@@ -55,6 +55,7 @@ typedef struct imap_cap {
   unsigned int imap4 : 1;	/* server is IMAP4 (RFC 1730) */
   unsigned int imap4rev1 : 1;	/* server is IMAP4rev1 */
   unsigned int acl : 1;		/* server has ACL (RFC 2086) */
+  unsigned int annotate : 1;	/* server has ANNOTATE (RFC 5257) */
   unsigned int quota : 1;	/* server has QUOTA (RFC 2087) */
   unsigned int litplus : 1;	/* server has LITERAL+ (RFC 2088) */
   unsigned int idle : 1;	/* server has IDLE (RFC 2177) */
@@ -122,6 +123,11 @@ typedef struct imap_cap {
 /* Has ACL extension */
 
 #define LEVELACL(stream) imap_cap (stream)->acl
+
+
+/* Has ANNOTATE extension */
+
+#define LEVELANNOTATE(stream) imap_cap(stream)->annotate
 
 
 /* Has X-GM-EXT-1 extension */
@@ -274,6 +280,8 @@ long imap_cache (MAILSTREAM *stream,unsigned long msgno,char *seg,
 long imap_setacl (MAILSTREAM *stream,char *mailbox,char *id,char *rights);
 long imap_deleteacl (MAILSTREAM *stream,char *mailbox,char *id);
 long imap_getacl (MAILSTREAM *stream,char *mailbox);
+long imap_getannotation (MAILSTREAM *stream,char *mailbox,STRINGLIST *entries,STRINGLIST *attributes);
+long imap_setannotation (MAILSTREAM *stream,ANNOTATION *annotation);
 long imap_listrights (MAILSTREAM *stream,char *mailbox,char *id);
 long imap_myrights (MAILSTREAM *stream,char *mailbox);
 long imap_setquota (MAILSTREAM *stream,char *qroot,STRINGLIST *limits);

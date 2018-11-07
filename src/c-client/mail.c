@@ -66,6 +66,8 @@ static sendcommand_t mailsendcommand = NIL;
 static newsrcquery_t mailnewsrcquery = NIL;
 				/* ACL results callback */
 static getacl_t mailaclresults = NIL;
+				/* annotation results callback */
+static getannotation_t mailannotationresults = NIL;
 				/* list rights results callback */
 static listrights_t maillistrightsresults = NIL;
 				/* my rights results callback */
@@ -604,6 +606,11 @@ void *mail_parameters (MAILSTREAM *stream,long function,void *value)
     mailaclresults = (getacl_t) value;
   case GET_ACL:
     ret = (void *) mailaclresults;
+    break;
+  case SET_ANNOTATION:
+    mailannotationresults = (getannotation_t) value;
+  case GET_ANNOTATION:
+    ret = (void *) mailannotationresults;
     break;
   case SET_LISTRIGHTS:
     maillistrightsresults = (listrights_t) value;
@@ -5804,6 +5811,25 @@ ACLLIST *mail_newacllist (void)
 }
 
 
+/* Mail instantiate new annotation
+ * Returns: new annotation
+ */
+
+ANNOTATION *mail_newannotation (void)
+{
+  return (ANNOTATION *) memset (fs_get (sizeof (ANNOTATION)),0,sizeof(ANNOTATION));
+}
+
+/* Mail instantiate new annotationvalues
+ * Returns: new annotation_values
+ */
+
+ANNOTATION_VALUES *mail_newannotationvalue (void)
+{
+  return (ANNOTATION_VALUES *) memset (fs_get (sizeof (ANNOTATION_VALUES)),0,sizeof(ANNOTATION_VALUES));
+}
+
+
 /* Mail instantiate new quotalist
  * Returns: new quotalist
  */
@@ -6124,6 +6150,36 @@ void mail_free_acllist (ACLLIST **al)
     if ((*al)->rights) fs_give ((void **) &(*al)->rights);
     mail_free_acllist (&(*al)->next);
     fs_give ((void **) al);	/* return acllist to free storage */
+  }
+}
+
+
+/* Mail garbage collect annotation_values
+ * Accepts: pointer to annotation_values pointer
+ */
+
+static void mail_free_annotation_values(ANNOTATION_VALUES **val)
+{
+  if (*val) {			/* only free if exists */
+    if ((*val)->attr) fs_give ((void**) &(*val)->attr);
+    if ((*val)->value) fs_give ((void**) &(*val)->value);
+    mail_free_annotation_values (&(*val)->next);
+    fs_give ((void **) val);	/* return annotation_values to free storage */
+  }
+}
+
+/* Mail garbage collect annotation
+ * Accepts: pointer to annotation pointer
+ */
+
+void mail_free_annotation(ANNOTATION **al)
+{
+  if (*al) {			/* only free if exists */
+    if((*al)->mbox) fs_give ((void**) &(*al)->mbox);
+    if((*al)->entry) fs_give ((void**) &(*al)->entry);
+    if((*al)->values)
+      mail_free_annotation_values(&(*al)->values);
+    fs_give ((void **) al);	/* return annotation to free storage */
   }
 }
 

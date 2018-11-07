@@ -358,6 +358,8 @@
 #define SET_SCANCONTENTS (long) 573
 #define GET_MHALLOWINBOX (long) 574
 #define SET_MHALLOWINBOX (long) 575
+#define GET_ANNOTATION (long) 576
+#define SET_ANNOTATION (long) 577
 
 /* Driver flags */
 
@@ -1095,6 +1097,24 @@ ACLLIST {
   ACLLIST *next;
 };
 
+/* ANNOTATION response */
+
+#define ANNOTATION_VALUES struct annotation_value_list
+
+ANNOTATION_VALUES {
+	char *attr;			/* attribute of field */
+	char *value;			/* value of the field */
+	ANNOTATION_VALUES *next;			/* next value in the list */
+};
+
+#define ANNOTATION struct annotation
+
+ANNOTATION {
+	char *mbox;			/* mailbox of field */
+	char *entry;			/* entry of field */
+	ANNOTATION_VALUES * values;			/*  value in the list */
+ };
+
 /* Quota resource list */
 
 #define QUOTALIST struct quota_list
@@ -1385,6 +1405,7 @@ typedef long (*kinit_t) (char *host,char *reason);
 typedef void (*sendcommand_t) (MAILSTREAM *stream,char *cmd,long flags);
 typedef char *(*newsrcquery_t) (MAILSTREAM *stream,char *mulname,char *name);
 typedef void (*getacl_t) (MAILSTREAM *stream,char *mailbox,ACLLIST *acl);
+typedef void (*getannotation_t) (MAILSTREAM *stream,ANNOTATION* annot);
 typedef void (*listrights_t) (MAILSTREAM *stream,char *mailbox,char *id,
 			      char *alwaysrights,STRINGLIST *possiblerights);
 typedef void (*myrights_t) (MAILSTREAM *stream,char *mailbox,char *rights);
@@ -1833,6 +1854,8 @@ SEARCHPGMLIST *mail_newsearchpgmlist (void);
 SORTPGM *mail_newsortpgm (void);
 THREADNODE *mail_newthreadnode (SORTCACHE *sc);
 ACLLIST *mail_newacllist (void);
+ANNOTATION* mail_newannotation(void);
+ANNOTATION_VALUES* mail_newannotationvalue(void);
 QUOTALIST *mail_newquotalist (void);
 void mail_free_idlist (IDLIST **idlist);
 void mail_free_body (BODY **body);
@@ -1853,6 +1876,7 @@ void mail_free_namespace (NAMESPACE **n);
 void mail_free_sortpgm (SORTPGM **pgm);
 void mail_free_threadnode (THREADNODE **thr);
 void mail_free_acllist (ACLLIST **al);
+void mail_free_annotation(ANNOTATION **a);
 void mail_free_quotalist (QUOTALIST **ql);
 void auth_link (AUTHENTICATOR *auth);
 char *mail_auth (char *mechanism,authresponse_t resp,int argc,char *argv[]);
