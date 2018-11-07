@@ -2614,6 +2614,7 @@ long imap_append_referral (char *mailbox,char *tmp,append_t af,void *data,
   return NIL;			/* bogus mailbox */
 }
 
+
 /* IMAP append single message
  * Accepts: mail stream
  *	    destination mailbox
@@ -2663,6 +2664,7 @@ IMAPPARSEDREPLY *imap_append_single (MAILSTREAM *stream,char *mailbox,
   return reply;
 }
 
+
 /* IMAP garbage collect stream
  * Accepts: Mail stream
  *	    garbage collection flags
@@ -2686,6 +2688,7 @@ void imap_gc (MAILSTREAM *stream,long gcflags)
     if ((elt = (MESSAGECACHE *) (*mc) (stream,i,CH_ELT)) &&
 	(elt->lockcount == 1)) (*mc) (stream,i,CH_FREE);
 }
+
 
 /* IMAP garbage collect body texts
  * Accepts: body to GC
@@ -2720,6 +2723,7 @@ void imap_gc_body (BODY *body)
   }
 }
 
+
 /* IMAP get capabilities
  * Accepts: mail stream
  */
@@ -2743,6 +2747,7 @@ void imap_capability (MAILSTREAM *stream)
     LOCAL->cap.imap2bis = LOCAL->cap.rfc1176 = T;
   }
 }
+
 
 /* IMAP set ACL
  * Accepts: mail stream
@@ -3047,6 +3052,7 @@ long imap_setid (MAILSTREAM *stream, IDLIST *idlist)
   return ret;
 }
 
+
 /* IMAP get quota
  * Accepts: mail stream
  *	    quota root name
@@ -3167,10 +3173,10 @@ IMAPPARSEDREPLY *imap_send (MAILSTREAM *stream,char *cmd,IMAPARG *args[])
       list = (STRINGLIST *) arg->text;
       c = '(';			/* open paren */
       do {			/* for each list item */
-	*s++ = c;		/* write prefix character */
-	if ((reply = imap_send_astring (stream,tag,&s,&list->text,NIL,
+        *s++ = c;		/* write prefix character */
+        if ((reply = imap_send_astring (stream,tag,&s,&list->text,NIL,
 				       CMDBASE+MAXCOMMAND)) != NULL) return reply;
-	c = ' ';		/* prefix character for subsequent strings */
+          c = ' ';		/* prefix character for subsequent strings */
       }
       while ((list = list->next) != NULL); 
       *s++ = ')';		/* close list */
@@ -3190,7 +3196,7 @@ IMAPPARSEDREPLY *imap_send (MAILSTREAM *stream,char *cmd,IMAPARG *args[])
     case SEARCHPROGRAM:		/* search program */
       if ((reply = imap_send_spgm (stream,tag,CMDBASE,&s,arg->text,
 				  CMDBASE+MAXCOMMAND)) != NULL)
-	return reply;
+        return reply;
       break;
     case SORTPROGRAM:		/* search program */
       c = '(';			/* open paren */

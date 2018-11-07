@@ -65,11 +65,10 @@ typedef struct imap_cap {
   unsigned int namespace :1;	/* server has NAMESPACE (RFC 2342) */
   unsigned int uidplus : 1;	/* server has UIDPLUS (RFC 2359) */
   unsigned int starttls : 1;	/* server has STARTTLS (RFC 2595) */
-				/* server disallows LOGIN command (RFC 2595) */
-  unsigned int logindisabled : 1;
+  unsigned int logindisabled : 1; /* server disallows LOGIN command (RFC 2595) */
   unsigned int id : 1;		/* server has ID (RFC 2971) */
   unsigned int children : 1;	/* server has CHILDREN (RFC 3348) */
-  unsigned int multiappend : 1;	/* server has multi-APPEND (RFC 3502) ;*/
+  unsigned int multiappend : 1;	/* server has multi-APPEND (RFC 3502) */
   unsigned int binary : 1;	/* server has BINARY (RFC 3516) */
   unsigned int unselect : 1;	/* server has UNSELECT */
   unsigned int sasl_ir : 1;	/* server has SASL-IR initial response */
@@ -81,9 +80,8 @@ typedef struct imap_cap {
   unsigned int esearch : 1;	/* server has ESEARCH (RFC 4731) */
   unsigned int within : 1;	/* server has WITHIN (RFC 5032) */
   unsigned int extlevel;	/* extension data level supported by server */
-  unsigned int x_gm_ext1:1;	/* special extension for gmail server */
-				/* supported authenticators */
-  unsigned int auth : MAXAUTHENTICATORS;
+  unsigned int x_gm_ext1 : 1;	/* special extension for gmail server */
+  unsigned int auth : MAXAUTHENTICATORS; /* supported authenticators */
   THREADER *threader;		/* list of threaders */
 } IMAPCAP;
 
@@ -132,7 +130,7 @@ typedef struct imap_cap {
 
 /* Has X-GM-EXT-1 extension */
 
-#define XGMEXT1(stream)	imap_cap(stream)->x_gm_ext1
+#define XGMEXT1(stream) imap_cap(stream)->x_gm_ext1
 
 
 /* Has QUOTA extension */
