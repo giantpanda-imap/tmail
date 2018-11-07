@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- QNX Neutrino RTP version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1993
  * Last Edited:	30 August 2006
  */
-
+
 #include "tcp_unix.h"		/* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
@@ -56,7 +49,7 @@ extern int errno;		/* just in case */
 #include "gethstid.c"
 #include "flocksim.c"
 #include "utime.c"
-
+
 /* QNX local readdir()
  * Accepts: directory structure
  * Returns: direct struct or NIL if failed

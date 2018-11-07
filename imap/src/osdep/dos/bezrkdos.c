@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Berkeley mail routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	24 June 1992
  * Last Edited:	30 August 2006
@@ -49,7 +42,7 @@
 #include "dummy.h"
 #include "misc.h"
 #include "fdstring.h"
-
+
 /* Berkeley I/O stream local data */
 	
 typedef struct bezerk_local {
@@ -62,7 +55,7 @@ typedef struct bezerk_local {
 /* Convenient access to local data */
 
 #define LOCAL ((BEZERKLOCAL *) stream->local)
-
+
 /* Function prototypes */
 
 DRIVER *bezerk_valid (char *name);
@@ -95,7 +88,7 @@ long bezerk_badname (char *tmp,char *s);
 long bezerk_parse (MAILSTREAM *stream);
 unsigned long bezerk_hdrpos (MAILSTREAM *stream,unsigned long msgno,
 			     unsigned long *size);
-
+
 /* Berkeley mail routines */
 
 
@@ -143,7 +136,7 @@ DRIVER bezerkdriver = {
 
 				/* prototype stream */
 MAILSTREAM bezerkproto = {&bezerkdriver};
-
+
 /* Berkeley mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -186,7 +179,7 @@ long bezerk_isvalid (char *name,char *tmp)
 	   ((name[4] == 'X') || (name[4] == 'x')) && !name[5]) errno = -1;
   return ret;			/* return what we should */
 }
-
+
 /* Validate line
  * Accepts: pointer to candidate string to validate as a From header
  *	    return pointer to end of date/time field
@@ -240,7 +233,7 @@ int bezerk_valid_line (char *s,char **rx,int *rzn)
   if (rzn) *rzn = zn;
   return ti;
 }
-
+
 /* Berkeley manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -288,7 +281,7 @@ void bezerk_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (stream,ref,pat);
 }
-
+
 /* Berkeley mail create mailbox
  * Accepts: MAIL stream
  *	    mailbox name to create
@@ -324,7 +317,7 @@ long bezerk_rename (MAILSTREAM *stream,char *old,char *newname)
 {
   return dummy_rename (stream,old,newname);
 }
-
+
 /* Berkeley mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -366,7 +359,7 @@ MAILSTREAM *bezerk_open (MAILSTREAM *stream)
   stream->perm_user_flags = NIL;
   return stream;		/* return stream to caller */
 }
-
+
 /* Berkeley mail close
  * Accepts: MAIL stream
  *	    close options
@@ -385,7 +378,7 @@ void bezerk_close (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* Berkeley mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -443,7 +436,7 @@ long bezerk_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,fd_string,(void *) &d,elt->rfc822_size - hdrsize);
   return T;			/* success */
 }
-
+
 /* Berkeley mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream still alive, NIL if not
@@ -471,7 +464,7 @@ void bezerk_check (MAILSTREAM *stream)
     mm_log ("Check completed",(long) NIL);
   }
 }
-
+
 /* Berkeley mail expunge mailbox
  * Accepts: MAIL stream
  *	    sequence to expunge if non-NIL
@@ -484,7 +477,7 @@ long bezerk_expunge (MAILSTREAM *stream,char *sequence,long options)
   if (!stream->silent) mm_log ("Expunge ignored on readonly mailbox",WARN);
   return LONGT;
 }
-
+
 /* Berkeley mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -525,7 +518,7 @@ long bezerk_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     mm_log (tmp,ERROR);
     return NIL;
   }
-
+
   mm_critical (stream);		/* go critical */
   fstat (fd,&sbuf);		/* get current file size */
 				/* for each requested message */
@@ -556,7 +549,7 @@ long bezerk_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     mm_log ("Can not return meaningful COPYUID with this mailbox format",WARN);
   return T;
 }
-
+
 /* Berkeley mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -607,7 +600,7 @@ long bezerk_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
     sprintf (tmp,"Unable to create scratch file: %.80s",strerror (errno));
     mm_log (tmp,ERROR);
   }
-
+
   do {				/* parse date */
     if (!date) rfc822_date (date = tmp);
     if (!mail_parse_date (&elt,date)) {
@@ -639,7 +632,7 @@ long bezerk_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
     return NIL;			/* give up */
   }
   i = sbuf.st_size;		/* size of scratch file */
-
+
   mm_critical (stream);		/* go critical */
 				/* open the destination */
   if (!mailboxfile (tmp,mailbox) || 
@@ -671,7 +664,7 @@ long bezerk_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	    WARN);
   return ret;
 }
-
+
 /* Write single message to append scratch file
  * Accepts: MAIL stream
  *	    scratch file
@@ -741,7 +734,7 @@ long bezerk_badname (char *tmp,char *s)
   mm_log (tmp,ERROR);
   return (long) NIL;
 }
-
+
 /* Parse mailbox
  * Accepts: MAIL stream
  * Returns: T if parse OK
@@ -780,7 +773,7 @@ long bezerk_parse (MAILSTREAM *stream)
       bezerk_close (stream,NIL);
       return NIL;
     }
-
+
 				/* swell the cache */
     mail_exists (stream,++nmsgs);
 				/* instantiate an elt for this message */
@@ -817,7 +810,7 @@ long bezerk_parse (MAILSTREAM *stream)
     }
 				/* set internal date */
     if (!mail_parse_date (elt,db)) mm_log (datemsg,WARN);
-
+
     curpos += s - tmp;		/* advance position after header */
     t = strchr (s,'\012');	/* start of next line */
 				/* find start of next message */
@@ -854,7 +847,7 @@ long bezerk_parse (MAILSTREAM *stream)
   mail_recent (stream,recent);	/* and of change in recent messages */
   return T;			/* return the winnage */
 }
-
+
 /* Berkeley locate header for a message
  * Accepts: MAIL stream
  *	    message number

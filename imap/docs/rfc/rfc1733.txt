@@ -56,7 +56,7 @@ Distributed Electronic Mail Models
 
 
 Crispin                                                         [Page 1]
-
+
 RFC 1733                     IMAP4 - Model                 December 1994
 
 
@@ -112,7 +112,7 @@ RFC 1733                     IMAP4 - Model                 December 1994
 
 
 Crispin                                                         [Page 2]
-
+
 RFC 1733                     IMAP4 - Model                 December 1994
 
 
@@ -168,4 +168,4 @@ Author's Address:
 
 
 Crispin                                                         [Page 3]
-
+

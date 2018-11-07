@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	flock emulation via fcntl() locking
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 April 2001
  * Last Edited:	11 October 2007
@@ -40,7 +33,7 @@
 #ifndef NSIG			/* don't know if this can happen */
 #define NSIG 32			/* a common maximum */
 #endif
-
+
 /* Emulator for flock() call
  * Accepts: file descriptor
  *	    operation bitmask
@@ -73,7 +66,7 @@ int flocksim (int fd,int op)
   }
 				/* always return success if disabled */
   if (mail_parameters (NIL,GET_DISABLEFCNTLLOCK,NIL)) return 0;
-
+
   /*  Make fcntl() locking of NFS files be a no-op the way it is with flock()
    * on BSD.  This is because the rpc.statd/rpc.lockd daemons don't work very
    * well and cause cluster-wide hangs if you exercise them at all.  The
@@ -131,7 +124,7 @@ int flocksim (int fd,int op)
 #endif		/* NOFSTATVFS */
     if (!ustat (sbuf.st_dev,&usbuf) && !++usbuf.f_tinode) return 0;
   }
-
+
 				/* do the lock */
   while (fcntl (fd,(op & LOCK_NB) ? F_SETLK : F_SETLKW,&fl))
     if (errno != EINTR) {
@@ -152,7 +145,7 @@ int flocksim (int fd,int op)
     }
   return 0;			/* success */
 }
-
+
 /* Master/slave procedures for safe fcntl() locking.
  *
  *  The purpose of this nonsense is to work around a bad bug in fcntl()
@@ -217,7 +210,7 @@ main ()
   }
 }
 #endif
-
+
 /*  Beware of systems such as AIX which offer flock() as a compatibility
  * function that is just a jacket into fcntl() locking.  The program below
  * is a variant of the program above, only using flock().  It can be used
@@ -263,7 +256,7 @@ main ()
   }
 }
 #endif
-
+
 /* Master/slave details
  *
  *  On broken systems, we invoke an inferior fork to execute any driver
@@ -311,7 +304,7 @@ main ()
  * If the master has data, it will then send the flags, internal date, and
  * message text, each as <text octet count><SPACE><text>.
  */
-
+
 /*  It should be alright for lockslavep to be a global, since it will always
  * be zero in the master (which is where threads would be).  The slave won't
  * ever thread, since any driver which threads in its methods probably can't
@@ -366,7 +359,7 @@ static long master (MAILSTREAM *stream,append_t af,void *data)
     close (pipei[0]);		/* close parent's side of the pipes */
     close (pipeo[1]);
   }
-
+
   else {			/* master process */
     void *blockdata = (*bn) (BLOCK_SENSITIVE,NIL);
     close (pipei[1]);		/* close slave's side of the pipes */
@@ -406,7 +399,7 @@ static long master (MAILSTREAM *stream,append_t af,void *data)
       case '&':			/* slave wants a proxycopy? */
 	lockproxycopy = T;
 	break;
-
+
       case 'L':			/* mm_log() */
 	i = strtoul (event+1,&s,10);
 	if (!s || (*s++ != ' ')) {
@@ -426,7 +419,7 @@ static long master (MAILSTREAM *stream,append_t af,void *data)
 	}
 	sprintf (tmp,"Invalid notify event arguments: %.500s",event);
 	fatal (tmp);
-
+
       case 'S':			/* mm_status() */
 	st = (MAILSTREAM *) strtoul (event+1,&s,16);
 	if (s && (*s++ == ' ')) {
@@ -461,7 +454,7 @@ static long master (MAILSTREAM *stream,append_t af,void *data)
 	st = (MAILSTREAM *) strtoul (event+1,&s,16);
 	mm_nocritical ((st == stream) ? stream : NIL);
 	break;
-
+
       case 'D':			/* mm_diskerror() */
 	st = (MAILSTREAM *) strtoul (event+1,&s,16);
 	if (s && (*s++ == ' ')) {
@@ -506,7 +499,7 @@ static long master (MAILSTREAM *stream,append_t af,void *data)
   }
   return ret;			/* return status */
 }
-
+
 /* Safe driver calls */
 
 
@@ -573,7 +566,7 @@ long safe_scan_contents (DRIVER *dtb,char *name,char *contents,
   if (lockslavep) exit (scan_contents (dtb,name,contents,csiz,fsiz));
   return ret;
 }
-
+
 /* Safely copy message to mailbox
  * Accepts: driver to call under slave
  *	    MAIL stream
@@ -631,7 +624,7 @@ long safe_append (DRIVER *dtb,MAILSTREAM *stream,char *mbx,append_t af,
   }
   return ret;
 }
-
+
 /* Slave callbacks */
 
 
@@ -666,7 +659,7 @@ void slave_flags (MAILSTREAM *stream,unsigned long number)
 {
   /* this event never passed by slaves */
 }
-
+
 /* Mailbox status
  * Accepts: MAIL stream
  *	    mailbox name
@@ -689,7 +682,7 @@ void slave_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
   putc ('\n',slaveout);
   fflush (slaveout);
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -731,7 +724,7 @@ void slave_log (char *string,long errflg)
   putc ('\n',slaveout);
   fflush (slaveout);
 }
-
+
 /* About to enter critical code
  * Accepts: stream
  */
@@ -752,7 +745,7 @@ void slave_nocritical (MAILSTREAM *stream)
   fprintf (slaveout,"X%lx\n",(unsigned long) stream);
   fflush (slaveout);
 }
-
+
 /* Disk error found
  * Accepts: stream
  *	    system error code
@@ -803,7 +796,7 @@ void slave_fatal (char *string)
   fflush (slaveout);
   abort ();			/* die */
 }
-
+
 /* Append read buffer
  * Accepts: number of bytes to read
  *	    error message if fails
@@ -834,7 +827,7 @@ static char *slave_append_read (unsigned long n,char *error)
   }
   return s;
 }
-
+
 /* Append message callback
  * Accepts: MAIL stream
  *	    append data package
@@ -902,7 +895,7 @@ long slave_append (MAILSTREAM *stream,void *data,char **flags,char **date,
   }
   return NIL;			/* return failure */
 }
-
+
 /* Proxy copy across mailbox formats
  * Accepts: mail stream
  *	    sequence to copy on this stream

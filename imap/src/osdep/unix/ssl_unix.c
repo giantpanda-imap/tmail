@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2009 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	22 September 1998
  * Last Edited:	8 November 2009
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 #define crypt ssl_private_crypt
 #define STRING OPENSSL_STRING
 #include <x509v3.h>
@@ -103,7 +100,7 @@ typedef struct ssl_stream {
 } SSLSTREAM;
 
 #include "sslio.h"
-
+
 /* Function prototypes */
 const SSL_METHOD *ssl_connect_mthd(int flag);
 static SSLSTREAM *ssl_start(TCPSTREAM *tstream,char *host,unsigned long flags);
@@ -142,7 +139,7 @@ static struct ssl_driver ssldriver = {
 				/* non-NIL if doing SSL primary I/O */
 static SSLSTDIOSTREAM *sslstdio = NIL;
 static char *start_tls = NIL;	/* non-NIL if start TLS requested */
-
+
 /* One-time SSL initialization */
 
 static int sslonceonly = 0;
@@ -178,7 +175,7 @@ void ssl_onceonlyinit (void)
 #endif /* OPENSSL_1_1_0 */
   }
 }
-
+
 /* SSL open
  * Accepts: host name
  *	    contact service name
@@ -300,7 +297,7 @@ static SSLSTREAM *ssl_start (TCPSTREAM *tstream,char *host,unsigned long flags)
   }
   return stream;
 }
-
+
 /* Start SSL/TLS negotiations worker routine
  * Accepts: SSL stream
  *	    user's host name
@@ -359,7 +356,7 @@ static char *ssl_start_work (SSLSTREAM *stream,char *host,unsigned long flags)
     }
     if (s != t) memset (s,0,sl);/* erase certificate if different from key */
   }
-
+
 				/* create connection */
   if (!(stream->con = (SSL *) SSL_new (stream->context)))
     return "SSL connection failed";
@@ -383,7 +380,7 @@ static char *ssl_start_work (SSLSTREAM *stream,char *host,unsigned long flags)
   }
   return NIL;
 }
-
+
 /* SSL certificate verification callback
  * Accepts: error flag
  *	    X509 context
@@ -456,7 +453,7 @@ static char *ssl_validate_cert (X509 *cert,char *host)
   else ret = "Unable to locate common name in certificate";
   return ret;
 }
-
+
 /* Case-independent wildcard pattern match
  * Accepts: base string
  *	    pattern string
@@ -483,7 +480,7 @@ static long ssl_compare_hostnames (unsigned char *s,unsigned char *pat)
   }
   return ret;
 }
-
+
 /* SSL receive line
  * Accepts: SSL stream
  * Returns: text line string or NIL if failure
@@ -516,7 +513,7 @@ char *ssl_getline (SSLSTREAM *stream)
   }
   return ret;
 }
-
+
 /* SSL receive line or partial line
  * Accepts: SSL stream
  *	    pointer to return size
@@ -554,7 +551,7 @@ static char *ssl_getline_work (SSLSTREAM *stream,unsigned long *size,
   else *contd = LONGT;		/* continuation needed */
   return ret;
 }
-
+
 /* SSL receive buffer
  * Accepts: SSL stream
  *	    size in bytes
@@ -578,7 +575,7 @@ long ssl_getbuffer (SSLSTREAM *stream,unsigned long size,char *buffer)
   buffer[0] = '\0';		/* tie off string */
   return T;
 }
-
+
 /* SSL receive data
  * Accepts: TCP/IP stream
  * Returns: T if success, NIL otherwise
@@ -646,7 +643,7 @@ long ssl_getdata (SSLSTREAM *stream)
   (*bn) (BLOCK_NONE,NIL);
   return T;
 }
-
+
 /* SSL send string as record
  * Accepts: SSL stream
  *	    string pointer
@@ -689,7 +686,7 @@ long ssl_sout (SSLSTREAM *stream,char *string,unsigned long size)
   (*bn) (BLOCK_NONE,NIL);
   return LONGT;			/* all done */
 }
-
+
 /* SSL close
  * Accepts: SSL stream
  */
@@ -725,7 +722,7 @@ static long ssl_abort (SSLSTREAM *stream)
   (*bn) (BLOCK_NONE,NIL);
   return NIL;
 }
-
+
 /* SSL get host name
  * Accepts: SSL stream
  * Returns: host name for this stream
@@ -768,7 +765,7 @@ char *ssl_localhost (SSLSTREAM *stream)
 {
   return tcp_localhost (stream->tcpstream);
 }
-
+
 /* Start TLS
  * Accepts: /etc/services service name
  * Returns: cpystr'd error string if TLS failed, else NIL for success
@@ -790,7 +787,7 @@ char *ssl_start_tls (char *server)
   }
   return NIL;
 }
-
+
 /* Init server for SSL
  * Accepts: server name
  */
@@ -847,7 +844,7 @@ void ssl_server_init (char *server)
 					       SSL_FILETYPE_PEM)))
       syslog (LOG_ALERT,"Unable to load private key from %.80s, host=%.80s",
 	      key,tcp_clienthost ());
-
+
     else {			/* generate key if needed */
 #ifdef OPENSSL_1_1_0
       if (0)
@@ -890,7 +887,7 @@ void ssl_server_init (char *server)
   ssl_close (stream);		/* punt stream */
   exit (1);			/* punt this program too */
 }
-
+
 /* Generate one-time key for server
  * Accepts: SSL connection
  *	    export flag
@@ -923,7 +920,7 @@ static RSA *ssl_genkey (SSL_CTX_TYPE *con,int export,int keylength)
   }
   return key;
 }
-
+
 /* Wait for stdin input
  * Accepts: timeout in seconds
  * Returns: T if have input on stdin, else NIL

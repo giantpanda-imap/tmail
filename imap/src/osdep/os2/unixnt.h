@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,13 +14,6 @@
  * Program:	UNIX mail routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
- *
  * Date:	20 December 1989
  * Last Edited:	30 August 2006
  */
@@ -38,7 +30,7 @@
  *
  *  Lift a leg, Yunie.  Luv ya forever!!!!
  */
-
+
 /* Validate line
  * Accepts: pointer to candidate string to validate as a From header
  *	    return pointer to end of date/time field
@@ -103,7 +95,7 @@
  * Plus all of the above with `` remote from xxx'' after it. Thank you very
  * much, smail and Solaris, for making my life considerably more complicated.
  */
-
+
 /*
  * What?  You want to understand the VALID macro anyway?  Alright, since you
  * insist.  Actually, it isn't really all that difficult, provided that you
@@ -154,7 +146,7 @@
  * see if unquoted spaces were possible.  They are, and I've encountered enough
  * evil mail to be totally unwilling to trust that ``it will never happen''.
  */
-
+
 /* Build parameters */
 
 #define KODRETRY 15		/* kiss-of-death retry in seconds */

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Exclusive create of a file, NFS kludge version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	17 December 1999
  * Last Edited:	30 August 2006
@@ -31,7 +24,7 @@
  * And everywhere that it was installed, It was a total loss.
  *  -- MRC 9/25/91
  */
-
+
 /* Exclusive create of a file
  * Accepts: file name
  * Return: T if success, NIL if failed, -1 if retry

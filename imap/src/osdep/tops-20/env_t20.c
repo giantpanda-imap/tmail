@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Environment routines -- TOPS-20 version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 August 2006
@@ -33,7 +26,7 @@
  * equaled by more `modern' operating systems.
  * Wasureru mon ka!!!!
  */
-
+
 /* c-client environment parameters */
 
 static char *myUserName = NIL;	/* user name */
@@ -87,7 +80,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time in RFC 822 format
  * Accepts: destination string
  */
@@ -127,7 +120,7 @@ void internal_date (char *date)
   argblk[3] = 0340005000012;
   jsys (NOUT,argblk);
 }
-
+
 /* Return my user name
  * Accepts: pointer to optional flags
  * Returns: my user name
@@ -163,7 +156,7 @@ char *myusername_full (unsigned long *flags)
   }
   return myUserName;
 }
-
+
 /* Return my local host name
  * Returns: my local host name
  */
@@ -203,7 +196,7 @@ MAILSTREAM *default_proto (long type)
 {
   return NIL;			/* no default prototype */
 }
-
+
 /* Emulator for BSD syslog() routine
  * Accepts: priority
  *	    message

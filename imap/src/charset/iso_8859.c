@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	ISO-8859 conversion tables
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	3 July 1997
  * Last Edited:	30 August 2006
  */
-
+
 /* ISO-8859 conversion tables */
 
 				/* Latin-2 (East European) */

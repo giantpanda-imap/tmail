@@ -1,8 +1,5 @@
-/* 
- * Copyright 2016 - Eduardo Chappa
- * Last Modified: August 11, 2016
- */
 /* ========================================================================
+ * Copyright 2016 - Eduardo Chappa
  * Copyright 1988-2006 University of Washington
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +8,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -19,15 +15,9 @@
  * Program:	Newsrc manipulation routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	12 September 1994
- * Last Edited:	30 August 2006
+ * Last Edited:	August 11, 2016
  */
 
 
@@ -39,7 +29,7 @@
 #ifndef OLDFILESUFFIX
 #define OLDFILESUFFIX ".old"
 #endif
-
+
 /* Error message
  * Accepts: message format
  *	    additional message string
@@ -85,7 +75,7 @@ FILE *newsrc_create (MAILSTREAM *stream,int notify)
   else if (notify) newsrc_error ("Creating news state %.80s",newsrc,WARN);
   return f;
 }
-
+
 /* Write new state in newsrc
  * Accepts: file designator of newsrc
  *	    group
@@ -146,7 +136,7 @@ long newsrc_newmessages (FILE *f,MAILSTREAM *stream,char *nl)
 				/* write trailing newline, return */
   return (fputs (nl,f) == EOF) ? NIL : LONGT;
 }
-
+
 /* List subscribed newsgroups
  * Accepts: MAIL stream
  *	    prefix to append name
@@ -182,7 +172,7 @@ void newsrc_lsub (MAILSTREAM *stream,char *pattern)
     fclose (f);
   }
 }
-
+
 /* Update subscription status of newsrc
  * Accepts: MAIL stream
  * 	    group
@@ -227,7 +217,7 @@ long newsrc_update (MAILSTREAM *stream,char *group,char state)
 	else ungetc (c,f);	/* nope, push it back */
       }
     } while (c != EOF);
-
+
     if (f) {			/* still haven't written it yet? */
       if (nl[0]) {		/* know its newline convention? */
 	fseek (f,0L,2);		/* yes, seek to end of file */
@@ -247,7 +237,7 @@ long newsrc_update (MAILSTREAM *stream,char *group,char state)
   else ret = newsrc_newstate (newsrc_create (stream,T),group,state,"\n");
   return ret;			/* return with update status */
 }
-
+
 /* Update newsgroup status in stream
  * Accepts: newsgroup name
  *	    MAIL stream
@@ -289,7 +279,7 @@ long newsrc_read (char *group,MAILSTREAM *stream)
 		    (elt->private.uid == i)) && m++)
 	      elt->valid = elt->deleted = T;
 	  }
-
+
 	  switch (c) {		/* what is the delimiter? */
 	  case ',':		/* more to come */
 	    c = getc (f);	/* get first character of number */
@@ -331,7 +321,7 @@ long newsrc_read (char *group,MAILSTREAM *stream)
   }
   return recent;
 }
-
+
 /* Update newsgroup entry in newsrc
  * Accepts: newsgroup name
  *	    MAIL stream
@@ -391,7 +381,7 @@ long newsrc_write (char *group,MAILSTREAM *stream)
     if ((f = newsrc_create (stream,T)) != NULL) bf = NIL;
     else return NIL;		/* can't create newsrc */
   }
-  
+  
   while (bf) {			/* read newsrc */
     for (s = tmp; (s < (tmp + MAILTMPLEN - 1)) && ((c = getc (bf)) != EOF) &&
 	 (c != ':') && (c != '!') && (c != '\015') && (c != '\012'); *s++ = c);
@@ -442,7 +432,7 @@ long newsrc_write (char *group,MAILSTREAM *stream)
   else ret = LONGT;
   return ret;
 }
-
+
 /* Get newsgroup state as text stream
  * Accepts: MAIL stream
  *	    newsgroup name
@@ -485,7 +475,7 @@ char *newsrc_state (MAILSTREAM *stream,char *group)
   if (f) fclose (f);		/* close the file */
   return NIL;			/* not found return */
 }
-
+
 /* Check UID in newsgroup state
  * Accepts: newsgroup state string
  *	    uid

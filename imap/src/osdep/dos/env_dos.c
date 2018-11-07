@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	DOS environment routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 August 2006
@@ -56,7 +49,7 @@ static NAMESPACE *nslist[3] = {&nshome,NIL,NIL};
 /* Get all authenticators */
 
 #include "auths.c"
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -104,7 +97,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -164,7 +157,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -214,7 +207,7 @@ MAILSTREAM *default_proto (long type)
   extern MAILSTREAM DEFAULTPROTO;
   return &DEFAULTPROTO;		/* return default driver's prototype */
 }
-
+
 /* Global data */
 
 static unsigned rndm = 0;	/* initial `random' number */
@@ -228,7 +221,7 @@ long random ()
   if (!rndm) srand (rndm = (unsigned) time (0L));
   return (long) rand ();
 }
-
+
 /* Default mailgets routine on DOS
  * Accepts: readin function pointer
  *	    stream to use
@@ -277,7 +270,7 @@ char *dos_default_gets (readfn_t f,void *stream,unsigned long size,
   }
   return ret;
 }
-
+
 /* Emulator for BSD syslog() routine
  * Accepts: priority
  *	    message

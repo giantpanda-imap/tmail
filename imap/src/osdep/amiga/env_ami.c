@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,22 +18,12 @@
  *
  * Date:	1 August 1988
  * Last Edited:	3 April 2010
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
  */
 
 #include <grp.h>
 #include <signal.h>
 #include <sys/wait.h>
-
+
 /* c-client environment parameters */
 
 static char *myUserName = NIL;	/* user name */
@@ -85,7 +83,7 @@ static NAMESPACE *nslist[3];	/* namespace list */
 static int logtry = 3;		/* number of server login tries */
 				/* block notification */
 static blocknotify_t mailblocknotify = mm_blocknotify;
-
+
 /* Amiga namespaces */
 
 				/* personal mh namespace */
@@ -112,7 +110,7 @@ static NAMESPACE nsworld = {"/",'/',NIL,&nsshared};
 /* Get all authenticators */
 
 #include "auths.c"
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -162,7 +160,7 @@ void *env_parameters (long function,void *value)
   case GET_NEWSSPOOL:
     ret = (void *) newsSpool;
     break;
-
+
   case SET_ANONYMOUSHOME:
     if (anonymousHome) fs_give ((void **) &anonymousHome);
     anonymousHome = cpystr ((char *) value);
@@ -199,7 +197,7 @@ void *env_parameters (long function,void *value)
   case GET_LISTMAXLEVEL:
     ret = (void *) list_max_level;
     break;
-
+
   case SET_MBXPROTECTION:
     mbx_protection = (long) value;
   case GET_MBXPROTECTION:
@@ -245,7 +243,7 @@ void *env_parameters (long function,void *value)
   case GET_SHAREDDIRPROTECTION:
     ret = (void *) shared_dir_protection;
     break;
-
+
   case SET_LOCKTIMEOUT:
     locktimeout = (long) value;
   case GET_LOCKTIMEOUT:
@@ -299,7 +297,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -335,7 +333,7 @@ static void do_date (char *date,char *prefix,char *fmt,int suffix)
 				/* append timezone suffix if desired */
   if (suffix) rfc822_timezone (date,(void *) t);
 }
-
+
 /* Write current time in RFC 822 format
  * Accepts: destination string
  */
@@ -365,7 +363,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Initialize server
  * Accepts: server name for syslog or NIL
  *	    /etc/services service name or NIL
@@ -422,7 +420,7 @@ void server_init (char *server,char *service,char *sslservice,
     }
   }
 }
-
+
 /* Wait for stdin input
  * Accepts: timeout in seconds
  * Returns: T if have input on stdin, else NIL
@@ -439,7 +437,7 @@ long server_input_wait (long seconds)
   tmo.tv_sec = seconds; tmo.tv_usec = 0;
   return select (1,&rfd,0,&efd,&tmo) ? LONGT : NIL;
 }
-
+
 /* Return Amiga password entry for user name
  * Accepts: user name string
  * Returns: password entry
@@ -494,7 +492,7 @@ static struct passwd *valpwd (char *user,char *pwd,int argc,char *argv[])
   }
   return ret;
 }
-
+
 /* Server log in
  * Accepts: user name string
  *	    password string
@@ -526,7 +524,7 @@ long server_login (char *user,char *pwd,char *authuser,int argc,char *argv[])
   sleep (3);			/* slow down possible cracker */
   return NIL;
 }
-
+
 /* Authenticated server log in
  * Accepts: user name string
  *	    authenticating user name string
@@ -554,7 +552,7 @@ long anonymous_login (int argc,char *argv[])
 		   (char *) mail_parameters (NIL,GET_ANONYMOUSHOME,NIL),
 		   argc,argv);
 }
-
+
 /* Finish log in and environment initialization
  * Accepts: passwd struct for loginpw()
  *	    optional authentication user name
@@ -592,7 +590,7 @@ long pw_login (struct passwd *pw,char *auser,char *user,char *home,int argc,
   }
   return ret;			/* return status */
 }
-
+
 /* Initialize environment
  * Accepts: user name (NIL for anonymous)
  *	    home directory name
@@ -646,7 +644,7 @@ long env_init (char *user,char *home)
   endpwent ();			/* close pw database */
   return T;
 }
- 
+ 
 /* Return my user name
  * Accepts: pointer to optional flags
  * Returns: my user name
@@ -698,7 +696,7 @@ char *mylocalhost ()
   }
   return myLocalHost ? myLocalHost : "random-amiga";
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -742,7 +740,7 @@ char *sysinbox ()
   }
   return sysInbox;
 }
-
+
 /* Return mailbox directory name
  * Accepts: destination buffer
  *	    directory prefix
@@ -770,7 +768,7 @@ char *mailboxdir (char *dst,char *dir,char *name)
   else strcpy (dst,mymailboxdir ());
   return dst;			/* return the name */
 }
-
+
 /* Return mailbox file name
  * Accepts: destination buffer
  *	    mailbox name
@@ -810,7 +808,7 @@ char *mailboxfile (char *dst,char *name)
       sprintf (dst,"%s/%s",s,compare_cstring (name,"INBOX") ? name : "INBOX");
     else dst = NIL;		/* unknown namespace */
     break;
-
+
   case '/':			/* root access */
     if (anonymous) dst = NIL;	/* anonymous forbidden to do this */
     else if ((restrictBox & RESTRICTROOT) && strcmp (name,sysinbox ()))
@@ -857,7 +855,7 @@ char *mailboxfile (char *dst,char *name)
   }
   return dst;			/* return final name */
 }
-
+
 /* Dot-lock file locker
  * Accepts: file name to lock
  *	    destination buffer for lock file name
@@ -918,7 +916,7 @@ long dotlock_lock (char *file,DOTLOCK *base,int fd)
     }
     umask (mask)		/* restore old umask */
   }
-
+
   if (fd >= 0) switch (errno) {
   case EACCES:			/* protection failure? */
 				/* make command pipes */
@@ -992,7 +990,7 @@ long dotlock_lock (char *file,DOTLOCK *base,int fd)
   base->lock[0] = '\0';		/* don't use lock files */
   return NIL;
 }
-
+
 /* Dot-lock file unlocker
  * Accepts: lock file name
  * Returns: T if success, NIL if failure
@@ -1011,7 +1009,7 @@ long dotlock_unlock (DOTLOCK *base)
   }
   return ret;
 }
-
+
 /* Lock file name
  * Accepts: scratch buffer
  *	    file name
@@ -1040,7 +1038,7 @@ int lockfd (int fd,char *lock,int op)
   struct stat sbuf;
   return fstat (fd,&sbuf) ? -1 : lock_work (lock,&sbuf,op,NIL);
 }
-
+
 /* Lock file name worker
  * Accepts: lock file name
  *	    pointer to stat() buffer
@@ -1086,7 +1084,7 @@ int lock_work (char *lock,void *sb,int op,long *pid)
       umask (mask);		/* restore old mask */
       return -1;		/* fail: can't open lock file */
     }
-
+
 				/* non-blocking form */
     if (op & LOCK_NB) i = flock (fd,op);
     else {			/* blocking form */
@@ -1113,7 +1111,7 @@ int lock_work (char *lock,void *sb,int op,long *pid)
   umask (mask);			/* restore old mask */
   return fd;			/* success */
 }
-
+
 /* Check to make sure not a symlink
  * Accepts: file name
  *	    stat buffer
@@ -1148,7 +1146,7 @@ void unlockfd (int fd,char *lock)
   flock (fd,LOCK_UN);		/* unlock it */
   close (fd);			/* close it */
 }
-
+
 /* Set proper file protection for mailbox
  * Accepts: mailbox name
  *	    actual file path name
@@ -1191,7 +1189,7 @@ long set_mbx_protections (char *mailbox,char *path)
   chmod (path,mode);		/* set the new protection, ignore failure */
   return LONGT;
 }
-
+
 /* Get proper directory protection
  * Accepts: mailbox name
  * Returns: directory mode, always
@@ -1221,7 +1219,7 @@ long get_dir_protection (char *mailbox)
   }
   return dir_protection;
 }
-
+
 /* Determine default prototype stream to user
  * Accepts: type (NIL for create, T for append)
  * Returns: default prototype stream
@@ -1260,7 +1258,7 @@ char *default_user_flag (unsigned long i)
   myusername ();		/* make sure initialized */
   return userFlags[i];
 }
-
+
 /* Default block notify routine
  * Accepts: reason for calling
  *	    data

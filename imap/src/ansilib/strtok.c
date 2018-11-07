@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,16 +14,11 @@
  * Program:	String return successive tokens
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
  *
  * Date:	11 May 1989
  * Last Edited:	30 January 2007
  */
-
+
 /* Find token in string
  * Accepts: source pointer or NIL to use previous source
  *	    vector of token delimiters pointer

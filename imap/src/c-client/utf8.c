@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,24 +18,13 @@
  *
  * Date:	11 June 1997
  * Last Edited:	28 May 2010
- * 
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
 #include <stdio.h>
 #include <ctype.h>
 #include "c-client.h"
-
+
 /*	*** IMPORTANT ***
  *
  *  There is a very important difference between "character set" and "charset",
@@ -61,7 +58,7 @@ static ucs4width_t ucs4width = NIL;
 #include "widths.c"		/* Unicode character widths */
 #include "tmap.c"		/* Unicode titlecase mapping */
 #include "decomtab.c"		/* Unicode decomposions */
-
+
 /* EUC parameters */
 
 #ifdef GBTOUNICODE		/* PRC simplified Chinese */
@@ -106,7 +103,7 @@ static const struct utf8_eucparam ksc_param = {
   BASE_KSC5601_KU,BASE_KSC5601_TEN,MAX_KSC5601_KU,MAX_KSC5601_TEN,
   (void *) ksc5601tab};
 #endif
-
+
 /* List of supported charsets */
 
 static const CHARSET utf8_csvalid[] = {
@@ -160,7 +157,7 @@ static const CHARSET utf8_csvalid[] = {
    (void *) tis620tab,SC_THAI,"ISO-8859-11"},
   {"VISCII",CT_1BYTE8,CF_PRIMARY | CF_DISPLAY | CF_POSTING,
    (void *) visciitab,SC_VIETNAMESE,NIL},
-
+
 #ifdef GBTOUNICODE
   {"GBK",CT_DBYTE,CF_PRIMARY | CF_DISPLAY | CF_POSTING,
      (void *) &gb_param,SC_CHINESE_SIMPLIFIED,NIL},
@@ -214,7 +211,7 @@ static const CHARSET utf8_csvalid[] = {
 #endif
 #endif
 #endif
-
+
 #ifdef KSCTOUNICODE
   {"ISO-2022-KR",CT_2022,CF_PRIMARY | CF_DISPLAY | CF_UNSUPRT,
      NIL,SC_KOREAN,"EUC-KR"},
@@ -233,7 +230,7 @@ static const CHARSET utf8_csvalid[] = {
   {"KS_C_5601-1997",CT_DBYTE,CF_DISPLAY,
      (void *) &ksc_param,SC_KOREAN,"EUC-KR"},
 #endif
-
+
 				/* deep sigh */
   {"WINDOWS-874",CT_1BYTE,CF_PRIMARY | CF_DISPLAY,
      (void *) windows_874tab,SC_THAI,"ISO-8859-11"},
@@ -289,7 +286,7 @@ static const CHARSET utf8_csvalid[] = {
      (void *) windows_1258tab,SC_VIETNAMESE,"VISCII"},
   {"CP1258",CT_1BYTE,CF_DISPLAY,
      (void *) windows_1258tab,SC_VIETNAMESE,"VISCII"},
-
+
 				/* deeper sigh */
   {"IBM367",CT_ASCII,CF_PRIMARY | CF_DISPLAY,
      NIL,NIL,"US-ASCII"},
@@ -339,7 +336,7 @@ static const CHARSET utf8_csvalid[] = {
      NIL,SC_UNICODE,"UTF-8"},
   NIL
 };
-
+
 /* Non-Unicode Script table */
 
 static const SCRIPT utf8_scvalid[] = {
@@ -366,7 +363,7 @@ static const SCRIPT utf8_scvalid[] = {
   {"Vietnamese",NIL,SC_VIETNAMESE},
   NIL
 };
-
+
 /* Look up script name or return entire table
  * Accepts: script name or NIL
  * Returns: pointer to script table entry or NIL if unknown
@@ -399,7 +396,7 @@ const CHARSET *utf8_charset (char *charset)
 	return (CHARSET *) &utf8_csvalid[i];
   return NIL;			/* failed */
 }
-
+
 /* Validate charset and generate error message if invalid
  * Accepts: bad character set
  * Returns: NIL if good charset, else error message string
@@ -435,7 +432,7 @@ char *utf8_badcharset (char *charset)
   }
   return msg;
 }
-
+
 /* Convert charset labelled sized text to UTF-8
  * Accepts: source sized text
  *	    charset
@@ -492,7 +489,7 @@ long utf8_text (SIZEDTEXT *text,char *charset,SIZEDTEXT *ret,long flags)
   do b = utf8_put (b,c);			\
   while (more && (c = (*de) (U8G_ERROR,&more)));\
 }
-
+
 /* Convert sized text to UTF-8 given CHARSET block
  * Accepts: source sized text
  *	    CHARSET block
@@ -553,7 +550,7 @@ long utf8_text_cs (SIZEDTEXT *text,const CHARSET *cs,SIZEDTEXT *ret,
   }
   return LONGT;			/* return success */
 }
-
+
 /* Reverse mapping routines
  *
  * These routines only support character sets, not all possible charsets.  In
@@ -585,7 +582,7 @@ long utf8_cstext (SIZEDTEXT *text,char *charset,SIZEDTEXT *ret,
   unsigned short *rmap = utf8_rmap (iso2022jp ? "EUC-JP" : charset);
   return rmap ? utf8_rmaptext (text,rmap,ret,errch,iso2022jp) : NIL;
 }
-
+
 /* Convert charset labelled sized text to another charset
  * Accepts: source sized text
  *	    source charset
@@ -628,7 +625,7 @@ long utf8_cstocstext (SIZEDTEXT *src,char *sc,SIZEDTEXT *dst,char *dc,
   }
   return ret;
 }
-
+
 /* Cached rmap */
 
 static const CHARSET *currmapcs = NIL;
@@ -663,7 +660,7 @@ unsigned short *utf8_rmap_cs (const CHARSET *cs)
   }
   return ret;
 }
-
+
 /* Return map for UTF-8 -> character set given CHARSET block
  * Accepts: CHARSET block
  *	    old map to recycle
@@ -721,7 +718,7 @@ unsigned short *utf8_rmap_gen (const CHARSET *cs,unsigned short *oldmap)
 	    rmap[u] = ((ku + param->base_ku) << 8) +
 	      (ten + param->base_ten) + 0x8080;
       break;
-
+
     case CT_DBYTE:		/* 2 byte ASCII + utf8_eucparam */
       for (param = (struct utf8_eucparam *) cs->tab,
 	     tab = (unsigned short *) param->tab, ku = 0;
@@ -770,7 +767,7 @@ unsigned short *utf8_rmap_gen (const CHARSET *cs,unsigned short *oldmap)
   }
   return rmap;			/* return map */
 }
-
+
 /* Convert UTF-8 sized text to charset using rmap
  * Accepts: source sized text
  *	    conversion rmap
@@ -845,7 +842,7 @@ long utf8_rmaptext (SIZEDTEXT *text,unsigned short *rmap,SIZEDTEXT *ret,
   ret->size = 0;
   return NIL;			/* failure */
 }
-
+
 /* Calculate size of convertsion of UTF-8 sized text to charset using rmap
  * Accepts: source sized text
  *	    conversion rmap
@@ -895,7 +892,7 @@ unsigned long utf8_rmapsize (SIZEDTEXT *text,unsigned short *rmap,
   }
   return ret;
 }
-
+
 /* Convert UCS-4 to charset using rmap
  * Accepts: source UCS-4 character(s)
  *	    numver of UCS-4 characters
@@ -915,7 +912,7 @@ long ucs4_rmaptext (unsigned long *ucs4,unsigned long len,unsigned short *rmap,
     ucs4_rmapbuf (ret->data = (unsigned char *) fs_get ((ret->size = size) +1),
 		  ucs4,len,rmap,errch) : NIL;
 }
-
+
 /* Return size of UCS-4 string converted to other CS via rmap
  * Accepts: source UCS-4 character(s)
  *	    numver of UCS-4 characters
@@ -964,7 +961,7 @@ long ucs4_rmapbuf (unsigned char *t,unsigned long *ucs4,unsigned long len,
   *t++ = NIL;			/* tie off returned data */
   return LONGT;
 }
-
+
 /* Return UCS-4 Unicode character from UTF-8 string
  * Accepts: pointer to string
  *	    remaining octets in string
@@ -989,7 +986,7 @@ unsigned long utf8_get (unsigned char **s,unsigned long *i)
   }
   return ret;			/* return value */
 }
-
+
 /* Return raw (including non-Unicode) UCS-4 character from UTF-8 string
  * Accepts: pointer to string
  *	    remaining octets in string
@@ -1080,7 +1077,7 @@ unsigned long utf8_get_raw (unsigned char **s,unsigned long *i)
   }
   return ret;			/* return value */
 }
-
+
 /* Return UCS-4 character from named charset string
  * Accepts: charset
  *	    pointer to string
@@ -1113,7 +1110,7 @@ unsigned long ucs4_cs_get (CHARSET *cs,unsigned char **s,unsigned long *i)
   case CT_1BYTE8:		/* 1 byte table 0x00 - 0xff */
     ret = ((unsigned short *) cs->tab)[c];
     break;
-
+
   case CT_EUC:			/* 2 byte ASCII + utf8_eucparam base/CS2/CS3 */
     if (c & BIT8) {
       p1 = (struct utf8_eucparam *) cs->tab;
@@ -1173,7 +1170,7 @@ unsigned long ucs4_cs_get (CHARSET *cs,unsigned char **s,unsigned long *i)
     }
     else ret = c;		/* ASCII character */
     break;
-
+
   case CT_DBYTE:		/* 2 byte ASCII + utf8_eucparam */
     if (c & BIT8) {		/* double-byte character? */
       p1 = (struct utf8_eucparam *) cs->tab;
@@ -1219,7 +1216,7 @@ unsigned long ucs4_cs_get (CHARSET *cs,unsigned char **s,unsigned long *i)
       ret = JISTOUNICODE (c,c1,ku,ten);
     }
     break;
-
+
   case CT_UCS2:			/* 2 byte 16-bit Unicode no table */
     ret = c << 8;
     if (j--) c = *t++;		/* get second octet */
@@ -1259,7 +1256,7 @@ unsigned long ucs4_cs_get (CHARSET *cs,unsigned char **s,unsigned long *i)
   *i = j;
   return ret;
 }
-
+
 /* Produce charset validity map for BMP
  * Accepts: list of charsets to map
  * Returns: validity map, indexed by BMP codepoint
@@ -1314,7 +1311,7 @@ unsigned long *utf8_csvalidmap (char *charsets[])
   for (i = 0xfe70; i < 0xfeff; ++i) ret[i] = 0x1;
 	/* U+FF00 - U+FFEF CJK Compatibility Ideographs */
   for (i = 0xfff0; i < 0x10000; ++i) ret[i] = 0x1;
-
+
 				/* for each supplied charset */
   for (csi = 1; ret && charsets && (s = charsets[csi - 1]); ++csi) {
 				/* substitute EUC-JP for ISO-2022-JP */
@@ -1359,7 +1356,7 @@ unsigned long *utf8_csvalidmap (char *charsets[])
 	    if ((u = tab[(ku * param->max_ten) + ten]) != UBOGON)
 	      ret[u] |= csb;
 	break;
-
+
       case CT_DBYTE:		/* 2 byte ASCII + utf8_eucparam */
 	for (param = (struct utf8_eucparam *) cs->tab,
 	       tab = (unsigned short *) param->tab, ku = 0;
@@ -1401,7 +1398,7 @@ unsigned long *utf8_csvalidmap (char *charsets[])
   }
   return ret;
 }
-
+
 /* Infer charset from unlabelled sized text
  * Accepts: sized text
  * Returns: charset if one inferred, or NIL if unknown
@@ -1461,7 +1458,7 @@ long utf8_validate (unsigned char *s,unsigned long i)
   unsigned long j = i;
   return (utf8_get (&s,&i) & U8G_ERROR) ? -1 : j - i;
 }
-
+
 /* Convert ISO 8859-1 to UTF-8
  * Accepts: source sized text
  *	    pointer to return sized text
@@ -1509,7 +1506,7 @@ void utf8_text_1byte (SIZEDTEXT *text,SIZEDTEXT *ret,void *tab,ucs4cn_t cv,
     UTF8_WRITE_BMP (s,c,cv,de)	/* convert UCS-2 to UTF-8 */
   }
 }
-
+
 /* Convert single byte 8bit character set sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to return sized text
@@ -1534,7 +1531,7 @@ void utf8_text_1byte8 (SIZEDTEXT *text,SIZEDTEXT *ret,void *tab,ucs4cn_t cv,
     UTF8_WRITE_BMP (s,c,cv,de)	/* convert UCS-2 to UTF-8 */
   }
 }
-
+
 /* Convert EUC sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to return sized text
@@ -1592,7 +1589,7 @@ void utf8_text_euc (SIZEDTEXT *text,SIZEDTEXT *ret,void *tab,ucs4cn_t cv,
 	    if (i < text->size) i++;
 	  }
 	  break;
-
+
 	default:
 	  if (((ku = (c & BITS7) - p1->base_ku) >= p1->max_ku) ||
 	      ((ten = (c1 & BITS7) - p1->base_ten) >= p1->max_ten)) c = UBOGON;
@@ -1651,7 +1648,7 @@ void utf8_text_dbyte (SIZEDTEXT *text,SIZEDTEXT *ret,void *tab,ucs4cn_t cv,
     UTF8_WRITE_BMP (s,c,cv,de)	/* convert UCS-2 to UTF-8 */
   }
 }
-
+
 /* Convert ASCII + double byte 2 plane sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to return sized text
@@ -1698,7 +1695,7 @@ void utf8_text_dbyte2 (SIZEDTEXT *text,SIZEDTEXT *ret,void *tab,ucs4cn_t cv,
     UTF8_WRITE_BMP (s,c,cv,de)	/* convert UCS-2 to UTF-8 */
   }
 }
-
+
 #ifdef JISTOUNICODE		/* Japanese */
 /* Convert Shift JIS sized text to UTF-8
  * Accepts: source sized text
@@ -1744,7 +1741,7 @@ void utf8_text_sjis (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,
   }
 }
 #endif
-
+
 /* Convert ISO-2022 sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to returned sized text
@@ -1807,7 +1804,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	  state = I2S_CHAR;	/* return to previous state */
 	}
 	break;
-
+
       case I2S_MUL:		/* ESC $ */
 	switch (c) {		/* process multibyte intermediate character */
 	case I2C_G0_94: case I2C_G1_94: case I2C_G2_94:	case I2C_G3_94:
@@ -1827,7 +1824,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	state = I2S_CHAR;	/* return to character state */
 	g[gi] |= c;		/* set character set */
 	break;
-
+
       case I2S_CHAR:		/* character data */
 	switch (c) {
 	case I2C_ESC:		/* ESC character */
@@ -1847,7 +1844,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	case I2C_SS3_ALT_7:
 	  gl |= I2C_SG3;
 	  break;
-
+
 	default:		/* ordinary character */
 	  co = c;		/* note original character */
 	  if (gl & (3 << 2)) {	/* single shifted? */
@@ -1879,7 +1876,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	  case I2CS_JIS_KANA:	/* JIS hankaku katakana */
 	    if ((c >= MIN_KANA_7) && (c < MAX_KANA_7)) c += KANA_7;
 	    break;
-
+
 	  case I2CS_ISO8859_1:	/* Latin-1 (West European) */
 	    c |= BIT8;		/* just turn on high bit */
 	    break;
@@ -1928,7 +1925,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	  case I2CS_ISO8859_16:	/* Latin-10 (Baltic) */
 	    c = iso8859_16tab[c];
 	    break;
-
+
 	  default:		/* all other character sets */
 				/* multibyte character set */
 	    if ((gi & I2CS_MUL) && !(c & BIT8) && isgraph (c)) {
@@ -2013,7 +2010,7 @@ void utf8_text_2022 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
       fatal ("ISO-2022 to UTF-8 botch");
   }
 }
-
+
 /* Convert UTF-7 sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to returned sized text
@@ -2056,7 +2053,7 @@ void utf8_text_utf7 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
 	if (c == '+') state = U7_PLUS;
 	break;
       }
-
+
       switch (state) {		/* store character if in character mode */
       case U7_UNICODE:		/* Unicode */
 	switch (e++) {		/* install based on BASE64 state */
@@ -2132,7 +2129,7 @@ void utf8_text_utf8 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
   if (((unsigned long) (s - ret->data)) != ret->size)
     fatal ("UTF-8 to UTF-8 botch");
 }
-
+
 /* Convert UCS-2 sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to returned sized text
@@ -2183,7 +2180,7 @@ void utf8_text_ucs4 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
   if (((unsigned long) (s - ret->data)) != ret->size)
     fatal ("UCS-4 to UTF-8 botch");
 }
-
+
 /* Convert UTF-16 sized text to UTF-8
  * Accepts: source sized text
  *	    pointer to returned sized text
@@ -2237,7 +2234,7 @@ void utf8_text_utf16 (SIZEDTEXT *text,SIZEDTEXT *ret,ucs4cn_t cv,ucs4de_t de)
   if (((unsigned long) (s - ret->data)) != ret->size)
     fatal ("UTF-16 to UTF-8 botch");
 }
-
+
 /* Size of UCS-4 character, possibly not in BMP, as UTF-8 octets
  * Accepts: character
  * Returns: size (0 means bogon)
@@ -2291,7 +2288,7 @@ unsigned char *utf8_put (unsigned char *s,unsigned long c)
   }
   return s + size;
 }
-
+
 /* Return title case of a fixed-width UCS-4 character
  * Accepts: character
  * Returns: title case of character
@@ -2349,7 +2346,7 @@ long ucs4_width (unsigned long c)
   }
   return ret;
 }
-
+
 /* Return screen width of UTF-8 string
  * Accepts: string
  * Returns: width or negative if not valid UTF-8
@@ -2387,7 +2384,7 @@ long utf8_textwidth (SIZEDTEXT *utf8)
   }
   return ret;
 }
-
+
 /* Decomposition (phew!) */
 
 #define MORESINGLE 1		/* single UCS-4 tail value */
@@ -2438,7 +2435,7 @@ unsigned long ucs4_decompose (unsigned long c,void **more)
     }
     else fatal ("no more block provided to ucs4_decompose!");
   }
-
+
   else {			/* start decomposition */
     *more = NIL;		/* initially set no more */
 				/* BMP low decompositions */
@@ -2492,7 +2489,7 @@ unsigned long ucs4_decompose (unsigned long c,void **more)
       }
       else ret = c;		/* in range but doesn't decompose */
     }
-
+
 				/* BMP half and full width forms */
     else if (c < UCS4_BMPHALFFULLMIN) ret = c;
     else if (c <= UCS4_BMPHALFFULLMAX) {
@@ -2528,7 +2525,7 @@ unsigned long ucs4_decompose (unsigned long c,void **more)
   }
   return ret;
 }
-
+
 /* Return recursive decomposition of a UCS-4 character
  * Accepts: character or U8G_ERROR to return next from "more"
  *	    pointer to returned more

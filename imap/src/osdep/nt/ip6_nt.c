@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,16 +18,6 @@
  *
  * Date:	18 December 2003
  * Last Edited:	30 July 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
  */
 
 
@@ -66,7 +64,7 @@ struct sockaddr *ip_sockaddr (int family,void *adr,size_t adrlen,
 char *ip_sockaddrtoname (struct sockaddr *sadr,char buf[NI_MAXHOST]);
 void *ip_nametoaddr (char *name,size_t *len,int *family,char **canonical,
 		     void **next,void **cleanup);
-
+
 /* Return IP address string from socket address
  * Accepts: socket address
  *	    buffer
@@ -104,7 +102,7 @@ long ip_sockaddrtoport (struct sockaddr *sadr)
   }
   return -1;
 }
-
+
 /* Return IP address from string
  * Accepts: name string
  *	    pointer to returned length
@@ -142,7 +140,7 @@ void *ip_stringtoaddr (char *text,size_t *len,int *family)
   }
   return adr;
 }
-
+
 /* Create a maximum-size socket address
  * Accepts: pointer to return maximum socket address length
  * Returns: new, empty socket address of maximum size
@@ -190,7 +188,7 @@ struct sockaddr *ip_sockaddr (int family,void *adr,size_t adrlen,
   }
   return sadr;
 }
-
+
 /* Return name from socket address
  * Accepts: socket address
  *	    buffer
@@ -211,7 +209,7 @@ char *ip_sockaddrtoname (struct sockaddr *sadr,char buf[NI_MAXHOST])
   }
   return NIL;
 }
-
+
 /* Return address from name
  * Accepts: name or NIL to return next address
  *	    pointer to previous/returned length
@@ -268,7 +266,7 @@ void *ip_nametoaddr (char *name,size_t *len,int *family,char **canonical,
       return VOIDT;		/* return only needs to be non-NIL */
     }
   }
-
+
 				/* return next in series */
   else if (next && (cur = ((struct addrinfo *) *next)->ai_next)) {
     *next = cur;		/* set as last address */

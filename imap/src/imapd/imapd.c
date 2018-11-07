@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	5 November 1990
  * Last Edited:	30 July 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 /* Parameter files */
 
 #include <stdio.h>
@@ -75,7 +72,7 @@ typedef enum {
   OPEN,
   LOGOUT
 } IMAPSTATE;
-
+
 /* Body text fetching */
 
 typedef struct text_args {
@@ -111,7 +108,7 @@ typedef struct msg_data {
   char *date;			/* current date */
   STRING *message;		/* stringstruct of message */
 } MSGDATA;
-
+
 /* Function prototypes */
 
 int main (int argc,char *argv[]);
@@ -151,7 +148,7 @@ long crit_date_work (unsigned short *date,unsigned char **arg);
 long crit_set (SEARCHSET **set,unsigned char **arg,unsigned long maxima);
 long crit_number (unsigned long *number,unsigned char **arg);
 long crit_string (STRINGLIST **string,unsigned char **arg);
-
+
 void fetch (char *t,unsigned long uid);
 typedef void (*fetchfn_t) (unsigned long i,void *args);
 void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[]);
@@ -211,7 +208,7 @@ void appenduid (char *mailbox,unsigned long uidvalidity,SEARCHSET *set);
 char *referral (MAILSTREAM *stream,char *url,long code);
 void mm_list_work (char *what,int delimiter,char *name,long attributes);
 char *lasterror (void);
-
+
 /* Global storage */
 
 char *version = "417";		/* edit number of this server */
@@ -294,7 +291,7 @@ STRINGDRIVER msg_string = {
   msg_string_next,		/* get next byte in string structure */
   msg_string_setpos		/* set position in string structure */
 };
-
+
 /* Main program */
 
 int main (int argc,char *argv[])
@@ -328,7 +325,7 @@ int main (int argc,char *argv[])
   mail_parameters (NIL,SET_COPYUID,(void *) copyuid);
 				/* arm APPENDUID callback */
   mail_parameters (NIL,SET_APPENDUID,(void *) appenduid);
-
+
   if (stat (SHUTDOWNFILE,&sbuf)) {
     char proxy[MAILTMPLEN];
     FILE *nntp = fopen (NNTPFILE,"r");
@@ -390,7 +387,7 @@ int main (int argc,char *argv[])
 	    user,tcp_clienthost ());
     break;
   }
-
+
   if (setjmp (jmpenv)) {	/* die if a signal handler say so */
 				/* in case we get borked now */
     if (setjmp (jmpenv)) _exit (1);
@@ -474,7 +471,7 @@ int main (int argc,char *argv[])
 	  litplus.size = strtoul (arg + i + 1,NIL,10);
 	}
       }
-
+
       if (!blackberry) {	/* do we know if it's a BlackBerry yet? */
 	char *bb[] = {".blackberry.com", ".blackberry.net", NIL};
 	size_t bbs;
@@ -531,7 +528,7 @@ int main (int argc,char *argv[])
 	CRLF;
       }
 #endif
-
+
       else switch (state) {	/* dispatch depending upon state */
       case LOGIN:		/* waiting to get logged in */
 				/* new style authentication */
@@ -569,7 +566,7 @@ int main (int argc,char *argv[])
 	    syslog (LOG_INFO,"Authenticated user=%.80s host=%.80s mech=%.80s",
 		    user,tcp_clienthost (),s);
 	  }
-
+
 	  else {
 	    AUTHENTICATOR *auth = mail_lookup_auth (1);
 	    char *msg = (char *) fs_get (strlen (cmd) + strlen (s) + 2);
@@ -600,7 +597,7 @@ int main (int argc,char *argv[])
 	    }
 	  }
 	}
-
+
 				/* plaintext login with password */
 	else if (!strcmp (cmd,"LOGIN")) {
 	  if (user) fs_give ((void **) &user);
@@ -647,7 +644,7 @@ int main (int argc,char *argv[])
 	  if (--nlibcm <= 0) state = LOGOUT;
 	}
 	break;
-
+
       case OPEN:		/* valid only when mailbox open */
 				/* fetch mailbox attributes */
 	if (!strcmp (cmd,"FETCH") || !strcmp (cmd,"UID FETCH")) {
@@ -696,7 +693,7 @@ int main (int argc,char *argv[])
 		mail_elt (stream,i)->spare2 = (f & ST_SILENT) ? NIL : T;
 	  }
 	}
-
+
 				/* check for new mail */
 	else if (!strcmp (cmd,"CHECK")) {
 				/* no arguments */
@@ -753,7 +750,7 @@ int main (int argc,char *argv[])
 	    if (!lsterr) lsterr = cpystr ("No such destination mailbox");
 	  }
 	}
-
+
 				/* sort mailbox */
 	else if (!strcmp (cmd,"SORT") || !strcmp (cmd,"UID SORT")) {
 				/* must have four arguments */
@@ -810,7 +807,7 @@ int main (int argc,char *argv[])
 	    if (cs) fs_give ((void **) &cs);
 	  }
 	}
-
+
 				/* thread mailbox */
 	else if (!strcmp (cmd,"THREAD") || !strcmp (cmd,"UID THREAD")) {
 	  THREADNODE *thr;
@@ -836,7 +833,7 @@ int main (int argc,char *argv[])
 	  if (spg) mail_free_searchpgm (&spg);
 	  if (cs) fs_give ((void **) &cs);
 	}
-
+
 				/* search mailbox */
         else if (!strcmp (cmd,"SEARCH") || !strcmp (cmd,"UID SEARCH")) {
 	  int retval = NIL;
@@ -892,7 +889,7 @@ int main (int argc,char *argv[])
 				/* default return value is ALL */
 	    if (!(retval &= 0x3fff)) retval = 0x4;
 	  }
-
+
 				/* character set specified? */
 	  if (((arg[0] == 'C') || (arg[0] == 'c')) &&
 	      ((arg[1] == 'H') || (arg[1] == 'h')) &&
@@ -936,7 +933,7 @@ int main (int argc,char *argv[])
 		    pnum (uid ? mail_uid (stream,i) : i);
 		  }
 		}
-
+
 				/* wants ALL */
 		if (retval & 0x4) {
 		  unsigned long j,juid,iuid;
@@ -1017,7 +1014,7 @@ int main (int argc,char *argv[])
 	  else mail_free_searchpgm (&pgm);
 	  if (charset) fs_give ((void **) &charset);
 	}
-
+
 	else			/* fall into select case */
       case SELECT:		/* valid whenever logged in */
 				/* select new mailbox */
@@ -1069,7 +1066,7 @@ int main (int argc,char *argv[])
 	    }
 				/* open stream normally then */
 	    else stream = mail_open (stream,s,f);
-
+
 	    if (stream && (response == win)) {
 	      state = OPEN;	/* note state open */
 	      if (lastsel) fs_give ((void **) &lastsel);
@@ -1093,7 +1090,7 @@ int main (int argc,char *argv[])
 	    }
 	  }
 	}
-
+
 				/* APPEND message to mailbox */
 	else if (!(anonymous || strcmp (cmd,"APPEND"))) {
 				/* parse mailbox name */
@@ -1166,7 +1163,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 				/* find mailboxes */
 	else if (!strcmp (cmd,"FIND")) {
 				/* get subcommand and true argument */
@@ -1194,7 +1191,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 				/* status of mailbox */
 	else if (!strcmp (cmd,"STATUS")) {
 	  if (!((s = snarf (&arg)) && arg && (*arg++ == '(') &&
@@ -1260,7 +1257,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 				/* subscribe to mailbox */
 	else if (!(anonymous || strcmp (cmd,"SUBSCRIBE"))) {
 				/* get <mailbox> or MAILBOX <mailbox> */
@@ -1291,7 +1288,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 	else if (!strcmp (cmd,"NAMESPACE")) {
 	  if (arg) response = badarg;
 	  else {
@@ -1341,7 +1338,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 				/* create mailbox */
 	else if (!(anonymous || strcmp (cmd,"CREATE"))) {
 	  if (!(s = snarf (&arg))) response = misarg;
@@ -1378,7 +1375,7 @@ int main (int argc,char *argv[])
 	  if (stream)		/* allow untagged EXPUNGE */
 	    mail_parameters (stream,SET_ONETIMEEXPUNGEATPING,(void *) stream);
 	}
-
+
 				/* idle mode */
 	else if (!strcmp (cmd,"IDLE")) {
 				/* no arguments */
@@ -1424,7 +1421,7 @@ int main (int argc,char *argv[])
 	      }
 	      PFLUSH ();	/* dump output buffer */
 	    } while ((state != LOGOUT) && !INWAIT (IDLETIMER) && --i);
-
+
 				/* time to exit idle loop */
 	    if (state != LOGOUT) {
 	      if (i) {		/* still have time left? */
@@ -1458,7 +1455,7 @@ int main (int argc,char *argv[])
         response = "%.80s BAD Unknown state for %.80s command\015\012";
 	break;
       }
-
+
       while (litplus.ok) {	/* any unread LITERAL+? */
 	litplus.ok = NIL;	/* yes, cancel it now */
 	clearerr (stdin);	/* clear stdin errors */
@@ -1503,7 +1500,7 @@ int main (int argc,char *argv[])
 	CRLF;
 	fs_give ((void **) &lstwrn);
       }
-
+
       if (response == logwin) {	/* authentication win message */
 	sprintf (tmp,response,lstref ? "*" : tag);
 	PSOUT (tmp);		/* start response */
@@ -1562,7 +1559,7 @@ int main (int argc,char *argv[])
       }
     }
     PFLUSH ();			/* make sure output blatted */
-
+
     if (autologouttime) {	/* have an autologout in effect? */
 				/* cancel if no longer waiting for login */
       if (state != LOGIN) autologouttime = 0;
@@ -1588,7 +1585,7 @@ int main (int argc,char *argv[])
   _exit (ret);			/* all done */
   return ret;			/* stupid compilers */
 }
-
+
 /* Ping mailbox during each cycle.  Also check alerts
  * Accepts: last command was UID flag
  */
@@ -1639,7 +1636,7 @@ void ping_mailbox (unsigned long uid)
       }
       uidvalidity = stream->uid_validity;
     }
-
+
 				/* don't bother if driver changed */
     if (curdriver == stream->dtb) {
 				/* first report any new flags */
@@ -1701,7 +1698,7 @@ void ping_mailbox (unsigned long uid)
       useralerttime = palert (mailboxfile (tmp,USERALERTFILE),useralerttime);
   }
 }
-
+
 /* Print an alert file
  * Accepts: path of alert file
  *	    time of last printed alert file
@@ -1735,7 +1732,7 @@ time_t palert (char *file,time_t oldtime)
   if (lc != '\012') CRLF;	/* final terminating CRLF */
   return sbuf.st_mtime;		/* return updated last alert time */
 }
-
+
 /* Initialize file string structure for file stringstruct
  * Accepts: string structure
  *	    pointer to message data structure
@@ -1802,7 +1799,7 @@ void msg_string_setpos (STRING *s,unsigned long i)
   s->curpos = s->chunk + (i -= s->offset);
   s->cursize = s->chunksize - i;
 }
-
+
 /* Send flags for stream
  * Accepts: MAIL stream
  *	    scratch buffer
@@ -1829,7 +1826,7 @@ void new_flags (MAILSTREAM *stream)
   if (stream->perm_seen) put_flag (&c,"\\Seen");
   PSOUT (")] Permanent flags\015\012");
 }
-
+
 /* Set timeout
  * Accepts: desired interval
  */
@@ -1878,7 +1875,7 @@ void kodint (void)
   if (critical) state = LOGOUT;	/* must defer if in critical code */
   else longjmp (jmpenv,1);	/* die now */
 }
-
+
 /* Hangup interrupt
  * Returns only if critical code in progress
  */
@@ -1910,7 +1907,7 @@ void trmint (void)
   if (critical) state = LOGOUT;	/* must defer if in critical code */
   else longjmp (jmpenv,1);	/* die now */
 }
-
+
 /* The routines on this and the next page eschew the use of non-syscall libc
  * routines (especially stdio) for a reason.  Also, these hideous #if
  * condtionals need to be replaced.
@@ -1981,7 +1978,7 @@ void staint (void)
   }
 #endif
 }
-
+
 /* Write string
  * Accepts: destination string pointer
  *	    string
@@ -2013,7 +2010,7 @@ char *nout (char *s,unsigned long n,unsigned long base)
   while (t > stack) *s++ = *--t;
   return s;
 }
-
+
 /* Slurp a command line
  * Accepts: buffer pointer
  *	    buffer size
@@ -2070,7 +2067,7 @@ void inliteral (char *s,unsigned long n)
     }
   }
 }
-
+
 /* Flush until newline seen
  * Returns: NIL and sets response, always
  */
@@ -2114,7 +2111,7 @@ void ioerror (FILE *f,char *reason)
     else longjmp (jmpenv,1);	/* die now */
   }
 }
-
+
 /* Parse an IMAP astring
  * Accepts: pointer to argument text pointer
  *	    pointer to returned size
@@ -2150,7 +2147,7 @@ unsigned char *parse_astring (unsigned char **arg,unsigned long *size,
     *v = '\0';			/* tie off string */
     *size = v - s;		/* return size */
     break;
-
+
   case '{':			/* literal string */
     s = *arg + 1;		/* get size */
     if (!isdigit (*s)) return NIL;
@@ -2199,7 +2196,7 @@ unsigned char *parse_astring (unsigned char **arg,unsigned long *size,
   else *arg = NIL;		/* no more arguments */
   return s;
 }
-
+
 /* Parse tag 
  * Accepts: command tag
  * Returns: tag if valid, NIL otherwise
@@ -2220,7 +2217,7 @@ unsigned char *parse_tag (unsigned char *cmd,unsigned char **ret)
   *ret = s;			/* set pointer to remainder of command */
   return cmd;			/* return tag */
 }
-
+
 /* Snarf a command argument (simple jacket into parse_astring())
  * Accepts: pointer to argument text pointer
  * Returns: argument
@@ -2275,7 +2272,7 @@ unsigned char *snarf_base64 (unsigned char **arg)
   }
   return ret;			/* return BASE64 string */
 }
-
+
 /* Snarf a list command argument (simple jacket into parse_astring())
  * Accepts: pointer to argument text pointer
  * Returns: argument
@@ -2306,7 +2303,7 @@ unsigned char *snarf_list (unsigned char **arg)
   }
   return ((c == ' ') || !c) ? s : NIL;
 }
-
+
 /* Get a list of header lines
  * Accepts: pointer to string pointer
  *	    pointer to list flag
@@ -2340,7 +2337,7 @@ STRINGLIST *parse_stringlist (unsigned char **s,int *list)
   }
   return ret;
 }
-
+
 /* Get value of UID * for criteria parsing
  * Accepts: stream
  * Returns: maximum UID
@@ -2374,7 +2371,7 @@ long parse_criteria (SEARCHPGM *pgm,unsigned char **arg,unsigned long maxmsg,
   }
   return T;			/* success */
 }
-
+
 /* Parse a search criterion
  * Accepts: search program to write criterion into
  *	    pointer to argument text pointer
@@ -2423,7 +2420,7 @@ long parse_criterion (SEARCHPGM *pgm,unsigned char **arg,unsigned long maxmsg,
       if (!strcmp (s+1,"LL")) ret = T;
       else if (!strcmp (s+1,"NSWERED")) ret = pgm->answered = T;
       break;
-
+
     case 'B':			/* possible BCC, BEFORE, BODY */
       if (!strcmp (s+1,"CC") && c == ' ' && *++tail)
 	ret = crit_string (&pgm->bcc,&tail);
@@ -2472,7 +2469,7 @@ long parse_criterion (SEARCHPGM *pgm,unsigned char **arg,unsigned long maxmsg,
 	ret = parse_criterion ((*not)->pgm,&tail,maxmsg,maxuid,depth+1);
       }
       break;
-
+
     case 'O':			/* possible OLD, ON */
       if (!strcmp (s+1,"LD")) ret = pgm->old = T;
       else if (!strcmp (s+1,"N") && c == ' ' && *++tail)
@@ -2512,7 +2509,7 @@ long parse_criterion (SEARCHPGM *pgm,unsigned char **arg,unsigned long maxmsg,
       else if (!strcmp (s+1,"O") && c == ' ' && *++tail)
 	ret = crit_string (&pgm->to,&tail);
       break;
-
+
     case 'U':			/* possible UID, UN* */
       if (!strcmp (s+1,"ID") && c== ' ' && *++tail) {
 	if (*(set = &pgm->uid)){/* already a sequence? */
@@ -2545,7 +2542,7 @@ long parse_criterion (SEARCHPGM *pgm,unsigned char **arg,unsigned long maxmsg,
   }
   return ret;			/* return more to come */
 }
-
+
 /* Parse a search date criterion
  * Accepts: date to write into
  *	    pointer to argument text pointer
@@ -2562,7 +2559,7 @@ long crit_date (unsigned short *date,unsigned char **arg)
   (*arg)++;			/* skip closing quote */
   return T;
 }
-
+
 /* Worker routine to parse a search date criterion
  * Accepts: date to write into
  *	    pointer to argument text pointer
@@ -2622,7 +2619,7 @@ long crit_date_work (unsigned short *date,unsigned char **arg)
   }
   return NIL;			/* else error */
 }
-
+
 /* Parse a search set criterion
  * Accepts: set to write into
  *	    pointer to argument text pointer
@@ -2665,7 +2662,7 @@ long crit_set (SEARCHSET **set,unsigned char **arg,unsigned long maxima)
   }
   return T;			/* return success */
 }
-
+
 /* Parse a search number criterion
  * Accepts: number to write into
  *	    pointer to argument text pointer
@@ -2709,7 +2706,7 @@ long crit_string (STRINGLIST **string,unsigned char **arg)
   else (*--(*arg) = c);		/* back up pointer, restore delimiter */
   return T;
 }
-
+
 /* Fetch message data
  * Accepts: string of data items to be fetched (must be writeable)
  *	    UID fetch flag
@@ -2750,7 +2747,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
     fa[k] = NIL;		/* no argument */
     f[k++] = fetch_uid;		/* push a UID fetch on the stack */
   }
-
+
 				/* process macros */
   if (!strcmp (ucase (t),"ALL"))
     strcpy (t,"(FLAGS INTERNALDATE RFC822.SIZE ENVELOPE)");
@@ -2792,7 +2789,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
       fa[k] = s[11] ? (void *) FT_PEEK : NIL;
       f[k++] = fetch_rfc822_text;
     }
-
+
     else if (!strncmp (s,"BODY[",5) || !strncmp (s,"BODY.PEEK[",10) ||
 	     !strncmp (s,"BINARY[",7) || !strncmp (s,"BINARY.PEEK[",12) ||
 	     !strncmp (s,"BINARY.SIZE[",12)) {
@@ -2846,7 +2843,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
 	    return;
 	  }
 	}
-
+
 	if (*v != ']') {	/* IMAP4rev1 stuff here? */
 	  if (!strncmp (v,"HEADER",6)) {
 	    *v = '\0';		/* tie off in case top level */
@@ -2888,7 +2885,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
 	response = "%.80s BAD Section specifier not terminated\015\012";
 	return;
       }
-
+
       if ((*v == '<') &&	/* partial specifier? */
 	  ((ta->binary & FTB_SIZE) ||
 	   !(isdigit (v[1]) && ((ta->first = strtoul (v+1,(char **) &v,10)) ||
@@ -2933,7 +2930,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
     response = misarg;		/* missing attribute list */
     return;
   }
-
+
   if (s) {			/* too many attributes? */
     response = "%.80s BAD Excessively complex FETCH attribute list\015\012";
     return;
@@ -2968,7 +2965,7 @@ void fetch_work (char *t,unsigned long uid,fetchfn_t f[],void *fa[])
     }
   }
 }
-
+
 /* Fetch message body structure (extensible)
  * Accepts: message number
  *	    extra argument
@@ -2996,7 +2993,7 @@ void fetch_body (unsigned long i,void *args)
   PSOUT ("BODY ");		/* output attribute */
   pbody (body);			/* output body */
 }
-
+
 /* Fetch body part MIME header
  * Accepts: message number
  *	    extra argument
@@ -3055,7 +3052,7 @@ void fetch_body_part_contents (unsigned long i,void *args)
     fs_give ((void **) &args);
   }
 }
-
+
 /* Fetch body part binary
  * Accepts: message number
  *	    extra argument
@@ -3115,7 +3112,7 @@ void fetch_body_part_binary (unsigned long i,void *args)
       fs_give ((void **) &tmp);
       return;
     }
-
+
 				/* use decoded version if exists */
     if (cst.data) memcpy ((void *) &st,(void *) &cst,sizeof (SIZEDTEXT));
     if (ta->binary & FTB_SIZE) {/* just want size? */
@@ -3158,7 +3155,7 @@ void fetch_body_part_binary (unsigned long i,void *args)
     fs_give ((void **) &args);
   }
 }
-
+
 /* Fetch MESSAGE/RFC822 body part header
  * Accepts: message number
  *	    extra argument
@@ -3196,7 +3193,7 @@ void fetch_body_part_header (unsigned long i,void *args)
     fs_give ((void **) &args);
   }
 }
-
+
 /* Fetch MESSAGE/RFC822 body part text
  * Accepts: message number
  *	    extra argument
@@ -3260,7 +3257,7 @@ void fetch_envelope (unsigned long i,void *args)
   PSOUT ("ENVELOPE ");		/* output attribute */
   penv (env);			/* output envelope */
 }
-
+
 /* Fetch flags
  * Accepts: message number
  *	    extra argument
@@ -3319,7 +3316,7 @@ void changed_flags (unsigned long i,int f)
     fetch_flags (i,NIL);	/* output flags */
   }
 }
-
+
 /* Fetch message internal date
  * Accepts: message number
  *	    extra argument
@@ -3349,7 +3346,7 @@ void fetch_uid (unsigned long i,void *args)
   PSOUT ("UID ");
   pnum (mail_uid (stream,i));
 }
-
+
 /* Fetch complete RFC-822 format message
  * Accepts: message number
  *	    extra argument
@@ -3415,7 +3412,7 @@ void fetch_rfc822_size (unsigned long i,void *args)
   PSOUT ("RFC822.SIZE ");
   pnum (elt->rfc822_size);
 }
-
+
 /* Fetch RFC-822 text only
  * Accepts: message number
  *	    extra argument
@@ -3432,7 +3429,7 @@ void fetch_rfc822_text (unsigned long i,void *args)
     pbodypartstring (i,"RFC822.TEXT",&st,&stream->private.string,NIL);
   }
 }
-
+
 /* Print envelope
  * Accepts: body
  */
@@ -3465,7 +3462,7 @@ void penv (ENVELOPE *env)
   else PSOUT ("NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL");
   PBOUT (')');			/* end of envelope */
 }
-
+
 /* Print body structure (extensible)
  * Accepts: body
  */
@@ -3499,7 +3496,7 @@ void pbodystructure (BODY *body)
       PBOUT (' ');
       pnstring (body->location);
     }
-
+
     else {			/* non-multipart body type */
       pstring ((char *) body_types[body->type]);
       PBOUT (' ');
@@ -3550,7 +3547,7 @@ void pbodystructure (BODY *body)
   else PSOUT ("\"TEXT\" \"PLAIN\" (\"CHARSET\" \"US-ASCII\") NIL NIL \"7BIT\" 0 0 NIL NIL NIL NIL");
   PBOUT (')');			/* end of body */
 }
-
+
 /* Print body (non-extensible)
  * Accepts: body
  */
@@ -3604,7 +3601,7 @@ void pbody (BODY *body)
   else PSOUT ("\"TEXT\" \"PLAIN\" (\"CHARSET\" \"US-ASCII\") NIL NIL \"7BIT\" 0 0");
   PBOUT (')');			/* end of body */
 }
-
+
 /* Print parameter list
  * Accepts: paramter
  */
@@ -3648,7 +3645,7 @@ void paddr (ADDRESS *a)
   }
   else PSOUT ("NIL");		/* empty address */
 }
-
+
 /* Print set
  * Accepts: set
  */
@@ -3720,7 +3717,7 @@ void pastring (char *s)
     else PSOUT (s);		/* else plop down as atomic */
   }
 }
-
+
 /* Print sized text as quoted
  * Accepts: sized text
  */
@@ -3744,7 +3741,7 @@ void psizedliteral (SIZEDTEXT *s,STRING *st)
   PSOUT ("}\015\012");
   ptext (s,st);
 }
-
+
 /* Print sized text as literal or quoted string
  * Accepts: sized text
  *	    alternative stringstruct of text
@@ -3791,7 +3788,7 @@ void psizedastring (SIZEDTEXT *s)
   if (atomp) ptext (s,NIL);	/* print as atom */
   else psizedquoted (s);	/* print as quoted string */
 }
-
+
 /* Print string list
  * Accepts: string list
  */
@@ -3825,7 +3822,7 @@ void pnstringorlist (STRINGLIST *s)
 				/* and single-element list as string */
   else psizedstring (&s->text,NIL);
 }
-
+
 /* Print body part string
  * Accepts: message number
  *	    body part id (note: must have space at end to append stuff)
@@ -3861,7 +3858,7 @@ void pbodypartstring (unsigned long msgno,char *id,SIZEDTEXT *st,STRING *bs,
   psizedstring (st,bs);		/* output string */
   changed_flags (msgno,f);	/* and changed flags */
 }
-
+
 /*  RFC 3501 technically forbids NULs in literals.  Normally, the delivering
  * MTA would take care of MIME converting the message text so that it is
  * NUL-free.  If it doesn't, then we have the choice of either violating
@@ -3882,7 +3879,7 @@ void ptext (SIZEDTEXT *txt,STRING *st)
 				/* failed to complete? */
   if (i) ioerror (stdout,"writing text");
 }
-
+
 /* Print thread
  * Accepts: thread
  */
@@ -3914,7 +3911,7 @@ void pthread (THREADNODE *thr)
     thr = thr->branch;		/* do next branch */
   }
 }
-
+
 /* Print capabilities
  * Accepts: option flag
  */
@@ -3961,7 +3958,7 @@ void pcapability (long flag)
     if (!stat (ANOFILE,&sbuf)) PSOUT (" AUTH=ANONYMOUS");
   }
 }
-
+
 /* Anonymous users may only use these mailboxes in these namespaces */
 
 char *oktab[] = {"#news.", "#ftp/", "#public/", 0};
@@ -4013,7 +4010,7 @@ char *bboardname (char *cmd,char *name)
   }
   return name;
 }
-
+
 /* Test if name is news proxy
  * Accepts: name
  * Returns: T if news proxy, NIL otherwise
@@ -4066,7 +4063,7 @@ long newsproxypattern (char *ref,char *pat,char *pattern,long flag)
   else strcpy (pattern,pat);	/* just have basic name */
   return isnewsproxy (pattern);
 }
-
+
 /* IMAP4rev1 Authentication responder
  * Accepts: challenge
  *	    length of challenge
@@ -4113,7 +4110,7 @@ char *imap_responder (void *challenge,unsigned long clen,unsigned long *rlen)
   return (i % 4) ? NIL :	/* return if valid BASE64 */
     (char *) rfc822_base64 (t,i,rlen ? rlen : &i);
 }
-
+
 /* Proxy copy across mailbox formats
  * Accepts: mail stream
  *	    sequence to copy on this stream
@@ -4163,7 +4160,7 @@ long proxycopy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   }
   return LONGT;
 }
-
+
 /* Proxy append message callback
  * Accepts: MAIL stream
  *	    append data package
@@ -4211,7 +4208,7 @@ long proxy_append (MAILSTREAM *stream,void *data,char **flags,char **date,
     }
   return LONGT;
 }
-
+
 /* Append message callback
  * Accepts: MAIL stream
  *	    append data package
@@ -4289,7 +4286,7 @@ long append_msg (MAILSTREAM *stream,void *data,char **flags,char **date,
   else response = badarg;	/* not a literal */
   return NIL;			/* error */
 }
-
+
 /* Got COPY UID data
  * Accepts: MAIL stream
  *	    mailbox name
@@ -4335,7 +4332,7 @@ char *referral (MAILSTREAM *stream,char *url,long code)
   if (!lsterr) lsterr = cpystr ("Try referral URL");
   return NIL;			/* don't chase referrals for now */
 }
-
+
 /* Co-routines from MAIL library */
 
 
@@ -4398,7 +4395,7 @@ void mm_flags (MAILSTREAM *s,unsigned long number)
 {
   if (s != tstream) mail_elt (s,number)->spare2 = T;
 }
-
+
 /* Mailbox found
  * Accepts: hierarchy delimiter
  *	    mailbox name
@@ -4452,7 +4449,7 @@ void mm_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
     CRLF;
   }
 }
-
+
 /* Worker routine for LIST and LSUB
  * Accepts: name of response
  *	    hierarchy delimiter
@@ -4506,7 +4503,7 @@ void mm_list_work (char *what,int delimiter,char *name,long attributes)
     CRLF;
   }
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -4552,7 +4549,7 @@ void mm_notify (MAILSTREAM *stream,char *string,long errflg)
     PFLUSH ();			/* let client see it immediately */
   }
 }
-
+
 /* Log an event for the user to see
  * Accepts: string to log
  *	    error flag
@@ -4634,7 +4631,7 @@ void mm_dlog (char *string)
 {
   mm_log (string,WARN);		/* shouldn't happen normally */
 }
-
+
 /* Get user name and password for this host
  * Accepts: parse of network user name
  *	    where to return user name
@@ -4674,7 +4671,7 @@ void mm_nocritical (MAILSTREAM *s)
     longjmp (jmpenv,1);		/* die now */
   }
 }
-
+
 /* Disk error found
  * Accepts: stream
  *	    system error code

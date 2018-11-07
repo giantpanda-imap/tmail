@@ -56,7 +56,7 @@ Status of this Memo
 
 
 Gahrns                      Standards Track                     [Page 1]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -112,7 +112,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 2]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -168,7 +168,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 3]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -224,7 +224,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 4]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -280,7 +280,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 5]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -336,7 +336,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 6]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -392,7 +392,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 7]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -448,7 +448,7 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 8]
-
+
 RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
@@ -504,4 +504,4 @@ RFC 2193                IMAP4 Mailbox Referrals           September 1997
 
 
 Gahrns                      Standards Track                     [Page 9]
-
+

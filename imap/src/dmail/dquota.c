@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,19 +14,13 @@
  * Program:	Procmail-Callable Mail Delivery Module Quota Hook
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 September 2007
  * Last Edited:	10 September 2007
  */
 
 #include "c-client.h"
-
+
 /* Site-written routine to validate delivery per quota and policy
  * Accepts: stringstruct of message temporary file
  *	    filesystem path

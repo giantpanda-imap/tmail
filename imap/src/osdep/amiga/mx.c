@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	MX mail routines
  *
  * Author(s):	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	3 May 1996
  * Last Edited:	6 January 2008
@@ -39,7 +32,7 @@ extern int errno;		/* just in case */
 #include "misc.h"
 #include "dummy.h"
 #include "fdstring.h"
-
+
 /* Index file */
 
 #define MXINDEXNAME "/.mxindex"
@@ -105,7 +98,7 @@ long mx_lockindex (MAILSTREAM *stream);
 void mx_unlockindex (MAILSTREAM *stream);
 void mx_setdate (char *file,MESSAGECACHE *elt);
 
-
+
 /* MX mail routines */
 
 
@@ -153,7 +146,7 @@ DRIVER mxdriver = {
 
 				/* prototype stream */
 MAILSTREAM mxproto = {&mxdriver};
-
+
 /* MX mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -204,7 +197,7 @@ int mx_namevalid (char *name)
   }
   return NIL;			/* all numeric or empty node */
 }
-
+
 /* MX manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -242,7 +235,7 @@ long mx_dirfmttest (char *name)
     while (c = *name++) if (!isdigit (c)) return NIL;
   return LONGT;
 }
-
+
 /* MX scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -289,7 +282,7 @@ long mx_scan_contents (char *name,char *contents,unsigned long csiz,
   if (a = (void *) names) fs_give ((void **) &a);
   return ret;
 }
-
+
 /* MX list mailboxes
  * Accepts: mail stream
  *	    reference
@@ -312,7 +305,7 @@ void mx_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* MX mail subscribe to mailbox
  * Accepts: mail stream
  *	    mailbox to add to subscription list
@@ -335,7 +328,7 @@ long mx_unsubscribe (MAILSTREAM *stream,char *mailbox)
 {
   return sm_unsubscribe (mailbox);
 }
-
+
 /* MX mail create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -372,7 +365,7 @@ long mx_create (MAILSTREAM *stream,char *mailbox)
   if (!ret) MM_LOG (tmp,ERROR);	/* some error */
   return ret;
 }
-
+
 /* MX mail delete mailbox
  *	    mailbox name to delete
  * Returns: T on success, NIL on failure
@@ -411,7 +404,7 @@ long mx_delete (MAILSTREAM *stream,char *mailbox)
   MM_LOG (tmp,ERROR);		/* something failed */
   return NIL;
 }
-
+
 /* MX mail rename mailbox
  * Accepts: MX mail stream
  *	    old mailbox name
@@ -449,7 +442,7 @@ long mx_rename (MAILSTREAM *stream,char *old,char *newname)
       }
       if (!rename (tmp,tmp1)) return LONGT;
     }
-
+
 				/* RFC 3501 requires this */
     else if (dummy_create_path (stream,strcat (tmp1,"/"),
 				get_dir_protection (newname))) {
@@ -501,7 +494,7 @@ int mx_rename_work (char *src,size_t srcl,char *dst,size_t dstl,char *name)
   fs_give ((void **) &d);
   return ret;
 }
-
+
 /* MX mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -538,7 +531,7 @@ MAILSTREAM *mx_open (MAILSTREAM *stream)
     NIL : T;			/* can we create new user flags? */
   return stream;		/* return stream to caller */
 }
-
+
 /* MX mail close
  * Accepts: MAIL stream
  *	    close options
@@ -558,7 +551,7 @@ void mx_close (MAILSTREAM *stream,long options)
     stream->silent = silent;	/* reset silent state */
   }
 }
-
+
 /* MX mail fetch fast information
  * Accepts: MAIL stream
  *	    sequence
@@ -602,7 +595,7 @@ char *mx_fast_work (MAILSTREAM *stream,MESSAGECACHE *elt)
   }
   return (char *) LOCAL->buf;	/* return file name */
 }
-
+
 /* MX mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -653,7 +646,7 @@ char *mx_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *length,
   *length = elt->private.msg.header.text.size;
   return (char *) elt->private.msg.header.text.data;
 }
-
+
 /* MX mail fetch message text (body only)
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -684,7 +677,7 @@ long mx_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
 	elt->private.msg.text.text.size);
   return T;
 }
-
+
 /* MX mail modify flags
  * Accepts: MAIL stream
  *	    sequence
@@ -707,7 +700,7 @@ void mx_flagmsg (MAILSTREAM *stream,MESSAGECACHE *elt)
 {
   mx_lockindex (stream);	/* lock index if not already locked */
 }
-
+
 /* MX mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -752,7 +745,7 @@ long mx_ping (MAILSTREAM *stream)
     if (s = (void *) names) fs_give ((void **) &s);
   }
   stream->nmsgs = nmsgs;	/* don't upset mail_uid() */
-
+
 				/* if INBOX, snarf from system INBOX  */
   if (mx_lockindex (stream) && stream->inbox &&
       !strcmp (sysinbox (),stream->mailbox)) {
@@ -819,7 +812,7 @@ long mx_ping (MAILSTREAM *stream)
   mail_recent (stream,recent);
   return T;			/* return that we are alive */
 }
-
+
 /* MX mail check mailbox
  * Accepts: MAIL stream
  */
@@ -884,7 +877,7 @@ long mx_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* MX mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -930,7 +923,7 @@ long mx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     if (!(ret = mx_lockindex (astream)))
       MM_LOG ("Message copy failed: unable to lock index",ERROR);
     else {
-
+
       copyuid_t cu = (copyuid_t) mail_parameters (NIL,GET_COPYUID,NIL);
       SEARCHSET *source = cu ? mail_newsearchset () : NIL;
       SEARCHSET *dest = cu ? mail_newsearchset () : NIL;
@@ -978,7 +971,7 @@ long mx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   }
   return ret;			/* return success */
 }
-
+
 /* MX mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -1017,7 +1010,7 @@ long mx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
     MM_LOG (tmp,ERROR);
     return NIL;
   }
-
+
 				/* get first message */
   if (!MM_APPEND (af) (stream,data,&flags,&date,&message)) return NIL;
   if (!(astream = mail_open (NIL,mailbox,OP_SILENT))) {
@@ -1051,7 +1044,7 @@ long mx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   mail_close (astream);
   return ret;
 }
-
+
 /* MX mail append single message
  * Accepts: MAIL stream
  *	    flags for new message if non-NIL
@@ -1101,7 +1094,7 @@ long mx_append_msg (MAILSTREAM *stream,char *flags,MESSAGECACHE *elt,
   elt->user_flags |= uf;
   return LONGT;
 }
-
+
 /* Internal routines */
 
 
@@ -1149,7 +1142,7 @@ char *mx_file (char *dst,char *name)
   else if ((s = strrchr (dst,'/')) && !s[1]) *s = '\0';
   return dst;
 }
-
+
 /* MX read and lock index
  * Accepts: MAIL stream
  * Returns: T if success, NIL if failure
@@ -1194,7 +1187,7 @@ long mx_lockindex (MAILSTREAM *stream)
 	k++;			/* one more keyword */
       }
       break;
-
+
     case 'M':			/* message status record */
       uid = strtoul (s+1,&s,16);/* get UID for this message */
       if (*s == ';') {		/* get user flags */
@@ -1228,7 +1221,7 @@ long mx_lockindex (MAILSTREAM *stream)
   }
   return (LOCAL->fd >= 0) ? T : NIL;
 }
-
+
 /* MX write and unlock index
  * Accepts: MAIL stream
  */
@@ -1272,7 +1265,7 @@ void mx_unlockindex (MAILSTREAM *stream)
     LOCAL->fd = -1;		/* no index now */
   }
 }
-
+
 /* Set date for message
  * Accepts: file name
  *	    elt containing date

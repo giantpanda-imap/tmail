@@ -1,9 +1,14 @@
-/* 
- * Copyright 2016 Eduardo Chappa
- */
-
 /* ========================================================================
+ * Copyright 2016 Eduardo Chappa
  * Copyright 2009 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * ========================================================================
  */
 
@@ -14,17 +19,6 @@
  *
  * Date:	2 February 1994
  * Last Edited:	14 May 2009
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -35,7 +29,7 @@ extern int errno;		/* just in case */
 #ifdef SYSCONFIG		/* defined in env_unix.h */
 #include <pwd.h>
 #endif
-
+
 /* Globals */
 
 char *version = "17";		/* edit number */
@@ -68,7 +62,7 @@ char *stdsw = "Standard switches valid with any command:\n\t[-d[ebug]] [-v[erbos
 #else
 char *stdsw = "Standard switches valid with any command:\n\t[-d[ebug]] [-v[erbose]]";
 #endif
-
+
 /* Merge modes */
 
 #define mPROMPT 1
@@ -112,7 +106,7 @@ STRINGDRIVER mstring = {
   ms_next,			/* get next byte in string structure */
   ms_setpos			/* set position in string structure */
 };
-
+
 /* Initialize file string structure for file stringstruct
  * Accepts: string structure
  *	    pointer to message data structure
@@ -175,7 +169,7 @@ void ms_setpos (STRING *s,unsigned long i)
   s->curpos = s->chunk + (i -= s->offset);
   s->cursize = s->chunksize - i;
 }
-
+
 /* Main program */
 
 int main (int argc,char *argv[])
@@ -215,7 +209,7 @@ int main (int argc,char *argv[])
 	  exit (retcode);
 	}
       }
-
+
 #ifdef SYSCONFIG
       else if ((!strcmp (s,"-user") || !strcmp (s,"-u")) && (++i < argc)) {
 	struct passwd *pw = getpwnam (s = argv[i]);
@@ -254,7 +248,7 @@ int main (int argc,char *argv[])
     exit (retcode);
   }
   if (!cmd) cmd = "";		/* prevent SEGV */
-
+
   if(!strcmp(cmd, "dedup")){
     if (!src) src = "INBOX";
     if (dst || merge || rwcopyp || kwcopyp || ignorep)
@@ -296,7 +290,7 @@ int main (int argc,char *argv[])
 				     (debugp ? OP_DEBUG : NIL)) : NIL,src,dst))
       retcode = 0;
   }
-
+
   else if ((i = !strcmp (cmd,"move")) || !strcmp (cmd,"copy")) {
     if (!src || !dst || merge) printf (usage3,pgm,cmd,usgcpymov,stdsw);
     else if ((source = mail_open (NIL,src,((i || rwcopyp) ? NIL : OP_READONLY) |
@@ -319,7 +313,7 @@ int main (int argc,char *argv[])
       }
     }
   }
-
+
   else if (!strcmp (cmd,"prune")) {
     if (!src || !dst || merge || rwcopyp || kwcopyp || ignorep ||
 	!(criteria = prune_criteria (dst))) printf (usage2,pgm,usgprn,stdsw);
@@ -360,7 +354,7 @@ int main (int argc,char *argv[])
       source = mail_close (source);
     }
   }
-
+
   else if (!strcmp (cmd,"transfer")) {
     if (!src || !dst) printf (usage2,pgm,usgxfr,stdsw);
     else if ((*src == '{') &&	/* open source mailbox */
@@ -420,7 +414,7 @@ int main (int argc,char *argv[])
       }
     }
   }
-
+
   else {
     printf ("%s version %s.%s\n\n",pgm,CCLIENTVERSION,version);
     printf (usage2,pgm,"command [switches] arguments",stdsw);
@@ -637,7 +631,7 @@ SEARCHPGM *prune_criteria (char *criteria)
       case 'L':			/* possible LARGER */
 	if (!strcmp (criterion+1,"ARGER"))
 	  f = criteria_number (&pgm->larger,&r);
-
+
       case 'N':			/* possible NEW */
 	if (!strcmp (criterion+1,"EW")) f = pgm->recent = pgm->unseen = T;
 	break;
@@ -687,7 +681,7 @@ SEARCHPGM *prune_criteria (char *criteria)
       default:			/* we will barf below */
 	break;
       }
-
+
       if (!f) {			/* if can't identify criterion */
 	sprintf (tmp,"Unknown search criterion: %.30s",criterion);
 	MM_LOG (tmp,ERROR);
@@ -719,7 +713,7 @@ int criteria_number (unsigned long *number,char **r)
   if (s) mail_free_stringlist (&s);
   return ret;
 }
-
+
 /* Copy mailbox
  * Accepts: stream open on source
  *	    halfopen stream for destination or NIL
@@ -764,7 +758,7 @@ int mbxcopy (MAILSTREAM *source,MAILSTREAM *dest,char *dst,int create,int del,
     }
     if (ndst) dst = ndst;	/* if alternative name given, use it */
   }
-
+
   if (kwcopyp) {
     int i;
     size_t len;
@@ -800,7 +794,7 @@ int mbxcopy (MAILSTREAM *source,MAILSTREAM *dest,char *dst,int create,int del,
       fs_give ((void **) &flags);
     }
   }
-
+
   if (source->nmsgs) {		/* non-empty source */
     if (verbosep) printf ("%s [%lu message(s)] => %s\n",
 			      source->mailbox,source->nmsgs,dst);
@@ -834,7 +828,7 @@ int mbxcopy (MAILSTREAM *source,MAILSTREAM *dest,char *dst,int create,int del,
   if (ndst) fs_give ((void **) &ndst);
   return ret;
 }
-
+
 /* Append callback
  * Accepts: mail stream
  *	    append package
@@ -880,7 +874,7 @@ long mm_append (MAILSTREAM *stream,void *data,char **flags,char **date,
   else *message = NIL;		/* all done */
   return LONGT;
 }
-
+
 /* Co-routines from MAIL library */
 
 
@@ -926,7 +920,7 @@ void mm_flags (MAILSTREAM *stream,unsigned long number)
 {
 				/* dummy routine */
 }
-
+
 /* Mailbox found
  * Accepts: MAIL stream
  *	    hierarchy delimiter
@@ -970,7 +964,7 @@ void mm_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
   else fputs ("No new messages,",stdout);
   printf (" %lu total in %s\n",status->messages,mailbox);
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -1027,7 +1021,7 @@ void mm_dlog (char *string)
 {
   fprintf (stderr,"%s\n",string);
 }
-
+
 /* Get user name and password for this host
  * Accepts: parse of network mailbox name
  *	    where to return user name

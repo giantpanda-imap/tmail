@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -123,7 +122,7 @@ subject can be complex; find a wizard if you can't figure it out.
 
      It is also possible to add your own drivers and authenticators.
 This is a topic for wizards, and is beyond the scope of this text.
-
+
 			NT Configuration Notes
 
      This software is not plug-and-play on NT.  If you're not a hacker

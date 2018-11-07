@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	OS/2 environment routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 August 2006
@@ -39,7 +32,7 @@ static short no822tztext = NIL;	/* disable RFC [2]822 timezone text */
 /* Get all authenticators */
 
 #include "auths.c"
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -79,7 +72,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -154,7 +147,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -195,7 +188,7 @@ char *mailboxfile (char *dst,char *name)
   if (ext) sprintf (dst + strlen (dst),".%s",ext);
   return dst;
 }
-
+
 /* Lock file name
  * Accepts: return buffer for file name
  *	    file name
@@ -230,7 +223,7 @@ int lockname (char *lock,char *fname,int op)
     flock (ld,op);		/* apply locking function */
   return ld;			/* return locking file descriptor */
 }
-
+
 /* Build lock directory, check to see if it exists
  * Accepts: return buffer for lock directory
  *	    first part of possible name
@@ -280,7 +273,7 @@ MAILSTREAM *default_proto (long type)
   extern MAILSTREAM DEFAULTPROTO;
   return &DEFAULTPROTO;		/* return default driver's prototype */
 }
-
+
 /* Global data */
 
 static unsigned rndm = 0;	/* initial `random' number */

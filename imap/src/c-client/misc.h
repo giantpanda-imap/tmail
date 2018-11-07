@@ -1,19 +1,7 @@
 /* ========================================================================
  * Copyright 2008 Mark Crispin
- * ========================================================================
- */
-
-/*
- * Program:	Miscellaneous utility routines
- *
- * Author:	Mark Crispin
- *
- * Date:	5 July 1988
- * Last Edited:	19 November 2008
- *
- * Previous versions of this file were
- *
  * Copyright 1988-2006 University of Washington
+ * Copyright 1988 Stanford University  
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +9,18 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * This original version of this file is
- * Copyright 1988 Stanford University
- * and was developed in the Symbolic Systems Resources Group of the Knowledge
- * Systems Laboratory at Stanford University in 1987-88, and was funded by the
- * Biomedical Research Technology Program of the NationalInstitutes of Health
- * under grant number RR-00785.
+ * ========================================================================
  */
-
+ 
+ /*
+ * Program:	Miscellaneous utility routines
+ *
+ * Author:	Mark Crispin
+ *
+ * Date:	5 July 1988
+ * Last Edited:	19 November 2008
+ */
+
 /* Hash table operations */
 
 #define HASHMULT 29		/* hash polynomial multiplier */
@@ -76,7 +68,7 @@ HASHTAB {
 
 #define pmatch(s,pat) \
   pmatch_full (s,pat,NIL)
-
+
 /* Function prototypes */
 
 unsigned char *ucase (unsigned char *string);

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- PTX version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 May 1989
  * Last Edited:	16 August 2007
  */
-
+
 #include "tcp_unix.h"		/* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
@@ -69,7 +62,7 @@ extern char *sys_errlist[];
 #include "scandir.c"
 #include "tz_sv4.c"
 #include "utime.c"
-
+
 /* Jacket around env_init() to work around PTX inetd braindamage */
 
 static char may_need_server_init = T;
@@ -86,7 +79,7 @@ long env_init (char *user,char *home)
   }
   ENV_INIT (user,home);		/* call the real routine */
 }
-
+
 /* Emulator for BSD gethostid() call
  * Returns: unique identifier for this machine
  */

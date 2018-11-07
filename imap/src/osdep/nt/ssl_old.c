@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2009 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	22 September 1998
  * Last Edited:	9 November 2009
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 #define SECURITY_WIN32
 #include <sspi.h>
 #include <wincrypt.h>
@@ -72,7 +69,7 @@ static char *ssl_analyze_status (SECURITY_STATUS err,char *buf);
 static char *ssl_getline_work (SSLSTREAM *stream,unsigned long *size,
 			       long *contd);
 static long ssl_abort (SSLSTREAM *stream);
-
+
 /* Secure Sockets Layer network driver dispatch */
 
 static struct ssl_driver ssldriver = {
@@ -92,7 +89,7 @@ static struct ssl_driver ssldriver = {
 				/* security function table */
 static SecurityFunctionTable *sft = NIL;
 static unsigned long ssltsz = 0;/* SSL maximum token length */
-
+
 /* One-time SSL initialization */
 
 static int sslonceonly = 0;
@@ -123,7 +120,7 @@ void ssl_onceonlyinit (void)
     }
   }
 }
-
+
 /* SSL open
  * Accepts: host name
  *	    contact service name
@@ -149,7 +146,7 @@ SSLSTREAM *ssl_aopen (NETMBX *mb,char *service,char *usrbuf)
 {
   return NIL;			/* don't use this mechanism with SSL */
 }
-
+
 /* Start SSL/TLS negotiations
  * Accepts: open TCP stream of session
  *	    user's host name
@@ -182,7 +179,7 @@ static SSLSTREAM *ssl_start (TCPSTREAM *tstream,char *host,unsigned long flags)
   memset (&tlscred,0,sizeof (SCHANNEL_CRED));
   tlscred.dwVersion = SCHANNEL_CRED_VERSION;
   tlscred.grbitEnabledProtocols = SP_PROT_TLS1;
-
+
 				/* acquire credentials */
   if (sft->AcquireCredentialsHandle
       (NIL,UNISP_NAME,SECPKG_CRED_OUTBOUND,NIL,(flags & NET_TLSCLIENT) ?
@@ -236,7 +233,7 @@ static SSLSTREAM *ssl_start (TCPSTREAM *tstream,char *host,unsigned long flags)
 	stream->tcpstream->ictr = 0;
       }
       break;
-
+
     case SEC_E_OK:		/* success, any data to be regurgitated? */
       if (ibuf[1].BufferType == SECBUFFER_EXTRA) {
 				/* yes, set this as the new data */
@@ -295,7 +292,7 @@ static SSLSTREAM *ssl_start (TCPSTREAM *tstream,char *host,unsigned long flags)
   }
   return stream;
 }
-
+
 /* Generate error text from SSL error code
  * Accepts: SSL status
  *	    scratch buffer
@@ -326,7 +323,7 @@ static char *ssl_analyze_status (SECURITY_STATUS err,char *buf)
   sprintf (buf,"Unexpected SChannel error %lx - report this",err);
   return buf;
 }
-
+
 /* SSL receive line
  * Accepts: SSL stream
  * Returns: text line string or NIL if failure
@@ -359,7 +356,7 @@ char *ssl_getline (SSLSTREAM *stream)
   }
   return ret;
 }
-
+
 /* SSL receive line or partial line
  * Accepts: SSL stream
  *	    pointer to return size
@@ -397,7 +394,7 @@ static char *ssl_getline_work (SSLSTREAM *stream,unsigned long *size,
   else *contd = LONGT;		/* continuation needed */
   return ret;
 }
-
+
 /* SSL receive buffer
  * Accepts: SSL stream
  *	    size in bytes
@@ -421,7 +418,7 @@ long ssl_getbuffer (SSLSTREAM *stream,unsigned long size,char *buffer)
   buffer[0] = '\0';		/* tie off string */
   return T;
 }
-
+
 /* SSL receive data
  * Accepts: TCP/IP stream
  * Returns: T if success, NIL otherwise
@@ -488,7 +485,7 @@ long ssl_getdata (SSLSTREAM *stream)
   }
   return LONGT;
 }
-
+
 /* SSL send string as record
  * Accepts: SSL stream
  *	    string pointer
@@ -543,7 +540,7 @@ long ssl_sout (SSLSTREAM *stream,char *string,unsigned long size)
   }
   return LONGT;
 }
-
+
 /* SSL close
  * Accepts: SSL stream
  */
@@ -572,7 +569,7 @@ static long ssl_abort (SSLSTREAM *stream)
   if (stream->obuf) fs_give ((void **) &stream->obuf);
   return NIL;
 }
-
+
 /* SSL get host name
  * Accepts: SSL stream
  * Returns: host name for this stream

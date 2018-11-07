@@ -56,7 +56,7 @@ Abstract
 
 
 Siemborski                    Experimental                      [Page 1]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -112,7 +112,7 @@ Table of Contents
 
 
 Siemborski                    Experimental                      [Page 2]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -168,7 +168,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                      [Page 3]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -224,7 +224,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                      [Page 4]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -280,7 +280,7 @@ S: * BAD "Need Command"
 
 
 Siemborski                    Experimental                      [Page 5]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -336,7 +336,7 @@ S: U01 MAILBOX "internet.bugtraq" "mail2.example.org" "anyone rls"
 
 
 Siemborski                    Experimental                      [Page 6]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -392,7 +392,7 @@ S: U01 DELETE "user.rjs3.sent-mail-jan-2002"
 
 
 Siemborski                    Experimental                      [Page 7]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -448,7 +448,7 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
 
 
 Siemborski                    Experimental                      [Page 8]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -504,7 +504,7 @@ S: F01 OK "Search Complete"
 
 
 Siemborski                    Experimental                      [Page 9]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -560,7 +560,7 @@ S: L02 OK "List Complete"
 
 
 Siemborski                    Experimental                     [Page 10]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -616,7 +616,7 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
 
 
 Siemborski                    Experimental                     [Page 11]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -672,7 +672,7 @@ S: N01 OK "NOOP Complete"
 
 
 Siemborski                    Experimental                     [Page 12]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -728,7 +728,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 13]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -784,7 +784,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 14]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -840,7 +840,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 15]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -896,7 +896,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 16]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -952,7 +952,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 17]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -1008,7 +1008,7 @@ RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
 Siemborski                    Experimental                     [Page 18]
-
+
 RFC 3656     MUPDATE Distributed Mailbox Database Protocol December 2003
 
 
@@ -1064,4 +1064,4 @@ Acknowledgement
 
 
 Siemborski                    Experimental                     [Page 19]
-
+

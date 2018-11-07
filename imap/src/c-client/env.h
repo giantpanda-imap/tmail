@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,15 +14,11 @@
  * Program:	Environment routines
  *
  * Author:	Mark Crispin
- *		UW Technology
- *		University of Washington
- *		Seattle, WA  98195
- *		Internet: MRC@Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	13 February 2008
  */
-
+
 /* Function prototypes */
 
 long pmatch_full (unsigned char *s,unsigned char *pat,unsigned char delim);

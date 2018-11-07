@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	MTX mail routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	22 May 1990
  * Last Edited:	15 June 2007
@@ -47,7 +40,7 @@ extern int errno;		/* just in case */
 #include "misc.h"
 #include "dummy.h"
 #include "fdstring.h"
-
+
 /* MTX I/O stream local data */
 	
 typedef struct mtx_local {
@@ -101,7 +94,7 @@ void mtx_update_status (MAILSTREAM *stream,unsigned long msgno,long syncflag);
 unsigned long mtx_hdrpos (MAILSTREAM *stream,unsigned long msgno,
 			  unsigned long *size);
 
-
+
 /* MTX mail routines */
 
 
@@ -149,7 +142,7 @@ DRIVER mtxdriver = {
 
 				/* prototype stream */
 MAILSTREAM mtxproto = {&mtxdriver};
-
+
 /* MTX mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -217,7 +210,7 @@ void *mtx_parameters (long function,void *value)
 {
   return NIL;
 }
-
+
 /* MTX mail scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -253,7 +246,7 @@ void mtx_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* MTX mail create mailbox
  * Accepts: MAIL stream
  *	    mailbox name to create
@@ -280,7 +273,7 @@ long mtx_delete (MAILSTREAM *stream,char *mailbox)
 {
   return mtx_rename (stream,mailbox,NIL);
 }
-
+
 /* MTX mail rename mailbox
  * Accepts: MAIL stream
  *	    old mailbox name
@@ -322,7 +315,7 @@ long mtx_rename (MAILSTREAM *stream,char *old,char *newname)
     unlockfd (ld,lock);		/* release exclusive parse/append permission */
     return NIL;
   }
-
+
   if (newname) {		/* want rename? */
 				/* found superior to destination name? */
     if ((s = strrchr (tmp,'\\')) && (s != tmp) &&
@@ -359,7 +352,7 @@ long mtx_rename (MAILSTREAM *stream,char *old,char *newname)
   unlockfd (ld,lock);		/* release exclusive parse/append permission */
   return ret;			/* return success */
 }
-
+
 /* MTX mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -420,7 +413,7 @@ MAILSTREAM *mtx_open (MAILSTREAM *stream)
   stream->perm_user_flags = stream->rdonly ? NIL : 0xffffffff;
   return stream;		/* return stream to caller */
 }
-
+
 /* MTX mail close
  * Accepts: MAIL stream
  *	    close options
@@ -460,7 +453,7 @@ void mtx_flags (MAILSTREAM *stream,char *sequence,long flags)
     for (i = 1; i <= stream->nmsgs; i++) 
       if (mail_elt (stream,i)->sequence) mtx_elt (stream,i);
 }
-
+
 /* MTX mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -486,7 +479,7 @@ char *mtx_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *length,
   read (LOCAL->fd,LOCAL->buf,*length);
   return LOCAL->buf;
 }
-
+
 /* MTX mail fetch message text (body only)
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -519,7 +512,7 @@ long mtx_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,fd_string,&d,elt->rfc822_size - j);
   return T;			/* success */
 }
-
+
 /* MTX mail modify flags
  * Accepts: MAIL stream
  *	    sequence
@@ -558,7 +551,7 @@ void mtx_flagmsg (MAILSTREAM *stream,MESSAGECACHE *elt)
 				/* recalculate status */
   mtx_update_status (stream,elt->msgno,NIL);
 }
-
+
 /* MTX mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream still alive, NIL if not
@@ -605,7 +598,7 @@ void mtx_check (MAILSTREAM *stream)
   if (LOCAL) LOCAL->mustcheck = T;
   if (mtx_ping (stream)) mm_log ("Check completed",(long) NIL);
 }
-
+
 /* MTX mail expunge mailbox
  *	    sequence to expunge if non-NIL
  *	    expunge options
@@ -647,7 +640,7 @@ long mtx_expunge (MAILSTREAM *stream,char *sequence,long options)
 	      ERROR);
       unlockfd (ld,lock);	/* release exclusive parse/append permission */
     }
-
+
     else {
       mm_critical (stream);	/* go critical */
       recent = stream->recent;	/* get recent now that pinged and locked */
@@ -718,7 +711,7 @@ long mtx_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* MTX mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -777,7 +770,7 @@ long mtx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   }
   fstat (fd,&sbuf);		/* get current file size */
   lseek (fd,sbuf.st_size,L_SET);/* move to end of file */
-
+
 				/* for each requested message */
   for (i = 1; ret && (i <= stream->nmsgs); i++) 
     if ((elt = mail_elt (stream,i))->sequence) {
@@ -826,7 +819,7 @@ long mtx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     mm_log ("Can not return meaningful COPYUID with this mailbox format",WARN);
   return ret;
 }
-
+
 /* MTX mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -875,7 +868,7 @@ long mtx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   }
 				/* get first message */
   if (!(*af) (stream,data,&flags,&date,&message)) return NIL;
-
+
 				/* open destination mailbox */
   if (((fd = open (file,O_BINARY|O_WRONLY|O_APPEND|O_CREAT,S_IREAD|S_IWRITE))
        < 0) || !(df = fdopen (fd,"ab"))) {
@@ -945,7 +938,7 @@ long mtx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	    WARN);
   return ret;
 }
-
+
 /* Internal routines */
 
 
@@ -1004,7 +997,7 @@ long mtx_parse (MAILSTREAM *stream)
       return NIL;
     }
     *s++ = '\0'; *t++ = '\0';	/* tie off fields */
-
+
     added = T;			/* note that a new message was added */
 				/* swell the cache */
     mail_exists (stream,++nmsgs);
@@ -1077,7 +1070,7 @@ long mtx_parse (MAILSTREAM *stream)
   mail_recent (stream,recent);	/* and of change in recent messages */
   return LONGT;			/* return the winnage */
 }
-
+
 /* MTX get cache element with status updating from file
  * Accepts: MAIL stream
  *	    message number
@@ -1105,7 +1098,7 @@ MESSAGECACHE *mtx_elt (MAILSTREAM *stream,unsigned long msgno)
     mm_flags (stream,msgno);	/* let top level know */
   return elt;
 }
-
+
 /* MTX read flags from file
  * Accepts: MAIL stream
  * Returns: cache element
@@ -1136,7 +1129,7 @@ void mtx_read_flags (MAILSTREAM *stream,MESSAGECACHE *elt)
 		stream->user_flags[i]) elt->user_flags |= 1 << i;
   elt->valid = T;		/* have valid flags now */
 }
-
+
 /* MTX update status string
  * Accepts: MAIL stream
  *	    message number
@@ -1177,7 +1170,7 @@ void mtx_update_status (MAILSTREAM *stream,unsigned long msgno,long syncflag)
     }
   }
 }
-
+
 /* MTX locate header for a message
  * Accepts: MAIL stream
  *	    message number

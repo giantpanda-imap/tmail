@@ -56,7 +56,7 @@ Copyright Notice
 
 
 Gahrns & Newman             Standards Track                     [Page 1]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -112,7 +112,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 2]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -168,7 +168,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 3]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -224,7 +224,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 4]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -280,7 +280,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 5]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -336,7 +336,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 6]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -392,7 +392,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 7]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -448,7 +448,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 8]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -504,7 +504,7 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                     [Page 9]
-
+
 RFC 2342                    IMAP4 Namespace                     May 1998
 
 
@@ -560,4 +560,4 @@ RFC 2342                    IMAP4 Namespace                     May 1998
 
 
 Gahrns & Newman             Standards Track                    [Page 10]
-
+

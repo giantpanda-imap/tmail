@@ -56,7 +56,7 @@ Abstract
 
 
 Gulbrandsen                 Standards Track                     [Page 1]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -112,7 +112,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 2]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -168,7 +168,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 3]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -224,7 +224,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 4]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -280,7 +280,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 5]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -336,7 +336,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 6]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -392,7 +392,7 @@ RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
 Gulbrandsen                 Standards Track                     [Page 7]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -448,7 +448,7 @@ Author's Address
 
 
 Gulbrandsen                 Standards Track                     [Page 8]
-
+
 RFC 4978              The IMAP COMPRESS Extension            August 2007
 
 
@@ -504,4 +504,4 @@ Intellectual Property
 
 
 Gulbrandsen                 Standards Track                     [Page 9]
-
+

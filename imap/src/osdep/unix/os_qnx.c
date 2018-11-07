@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- QNX version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1993
  * Last Edited:	20 December 2006
  */
-
+
 #include "tcp_unix.h"		/* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
@@ -57,7 +50,7 @@ extern char *crypt (const char *pw, const char *salt);
 #include "tz_sv4.c"
 #include "gethstid.c"
 #include "scandir.c"
-
+
 /* QNX local readdir()
  * Accepts: directory structure
  * Returns: direct struct or NIL if failed

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	File routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	25 August 1993
  * Last Edited:	9 May 2006
@@ -40,7 +33,7 @@ extern int errno;		/* just in case */
 #include "rfc822.h"
 #include "misc.h"
 #include "dummy.h"
-
+
 /* Types returned from phile_type() */
 
 #define PTYPEBINARY 0		/* binary data */
@@ -91,7 +84,7 @@ void phile_check (MAILSTREAM *stream);
 long phile_expunge (MAILSTREAM *stream,char *sequence,long options);
 long phile_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options);
 long phile_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data);
-
+
 /* File routines */
 
 
@@ -139,7 +132,7 @@ DRIVER philedriver = {
 
 				/* prototype stream */
 MAILSTREAM phileproto = {&philedriver};
-
+
 /* File validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -171,7 +164,7 @@ int phile_isvalid (char *name,char *tmp)
 	    ((name[2] == 't') || (name[2] == 'T')) &&
 	    ((name[3] == 'p') || (name[3] == 'P')) && (name[4] == '/'))));
 }
-
+
 /* File manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -182,7 +175,7 @@ void *phile_parameters (long function,void *value)
 {
   return NIL;
 }
-
+
 /* File mail scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -244,7 +237,7 @@ long phile_status (MAILSTREAM *stream,char *mbx,long flags)
   }
   return ret;
 }
-
+
 /* File open
  * Accepts: Stream to open
  * Returns: Stream on success, NIL on failure
@@ -282,7 +275,7 @@ MAILSTREAM *phile_open (MAILSTREAM *stream)
 				/* instantiate a new envelope and body */
   LOCAL->env = mail_newenvelope ();
   LOCAL->body = mail_newbody ();
-
+
   t = gmtime (&sbuf.st_mtime);	/* get UTC time and Julian day */
   i = t->tm_hour * 60 + t->tm_min;
   k = t->tm_yday;
@@ -303,7 +296,7 @@ MAILSTREAM *phile_open (MAILSTREAM *stream)
 	   elt->zhours,elt->zminutes);
 				/* set up Date field */
   LOCAL->env->date = cpystr (tmp);
-
+
 				/* fill in From field from file owner */
   LOCAL->env->from = mail_newaddr ();
   if (pw = getpwuid (sbuf.st_uid)) strcpy (tmp,pw->pw_name);
@@ -356,7 +349,7 @@ MAILSTREAM *phile_open (MAILSTREAM *stream)
   stream->uid_last = elt->private.uid = 1;
   return stream;		/* return stream alive to caller */
 }
-
+
 /* File determine data type
  * Accepts: data to examine
  *	    size of data
@@ -408,7 +401,7 @@ int phile_type (unsigned char *s,unsigned long i,unsigned long *j)
   }
   return ret;			/* return type of data */
 }
-
+
 /* File close
  * Accepts: MAIL stream
  *	    close options
@@ -423,7 +416,7 @@ void phile_close (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* File fetch structure
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -477,7 +470,7 @@ long phile_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,mail_string,buf->data,buf->size);
   return T;
 }
-
+
 /* File ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -488,7 +481,7 @@ long phile_ping (MAILSTREAM *stream)
 {
   return T;
 }
-
+
 /* File check mailbox
  * Accepts: MAIL stream
  * No-op for readonly files, since read/writer can expunge it from under us!
@@ -498,7 +491,7 @@ void phile_check (MAILSTREAM *stream)
 {
   mm_log ("Check completed",NIL);
 }
-
+
 /* File expunge mailbox
  * Accepts: MAIL stream
  *	    sequence to expunge if non-NIL
@@ -511,7 +504,7 @@ long phile_expunge (MAILSTREAM *stream,char *sequence,long options)
   if (!stream->silent) mm_log ("Expunge ignored on readonly mailbox",NIL);
   return LONGT;
 }
-
+
 /* File copy message(s)
  * Accepts: MAIL stream
  *	    sequence

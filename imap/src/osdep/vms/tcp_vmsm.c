@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * ========================================================================
  */
 
@@ -10,16 +18,6 @@
  *
  * Date:	2 August 1994
  * Last Edited:	3 April 2010
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
  */
 
 			
@@ -29,7 +27,7 @@ static long ttmo_write = 0;
 
 static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
 			       long *contd);
-
+
 /* TCP/IP manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -58,7 +56,7 @@ void *tcp_parameters (long function,void *value)
   }
   return ret;
 }
- 
+ 
 /* TCP/IP open
  * Accepts: host name
  *	    contact service name
@@ -105,7 +103,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
       return NIL;
     }
   }
-
+
   else {			/* lookup host name, note that brain-dead Unix
 				   requires lowercase! */
     strcpy (hostname,host);	/* in case host is in write-protected memory */
@@ -161,7 +159,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
   stream->ictr = 0;		/* init input counter */
   return stream;		/* return success */
 }
-
+
 /* TCP/IP authenticated open
  * Accepts: NETMBX specifier
  *	    service name
@@ -173,7 +171,7 @@ TCPSTREAM *tcp_aopen (NETMBX *mb,char *service,char *usrbuf)
 {
   return NIL;
 }
-
+
 /* TCP receive line
  * Accepts: TCP stream
  * Returns: text line string or NIL if failure
@@ -206,7 +204,7 @@ char *tcp_getline (TCPSTREAM *stream)
   }
   return ret;
 }
-
+
 /* TCP receive line or partial line
  * Accepts: TCP stream
  *	    pointer to return size
@@ -244,7 +242,7 @@ static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
   else *contd = LONGT;		/* continuation needed */
   return ret;
 }
-
+
 /* TCP/IP receive buffer
  * Accepts: TCP/IP stream
  *	    size in bytes
@@ -307,7 +305,7 @@ long tcp_getdata (TCPSTREAM *stream)
   }
   return T;
 }
-
+
 /* TCP/IP send string as record
  * Accepts: TCP/IP stream
  *	    string pointer
@@ -357,7 +355,7 @@ long tcp_sout (TCPSTREAM *stream,char *string,unsigned long size)
   }
   return T;			/* all done */
 }
-
+
 /* TCP/IP close
  * Accepts: TCP/IP stream
  */
@@ -388,7 +386,7 @@ long tcp_abort (TCPSTREAM *stream)
   }
   return NIL;
 }
-
+
 /* TCP/IP get host name
  * Accepts: TCP/IP stream
  * Returns: host name for this stream
@@ -431,7 +429,7 @@ char *tcp_localhost (TCPSTREAM *stream)
 {
   return stream->localhost;	/* return local host name */
 }
-
+
 /* Return my local host name
  * Returns: my local host name
  */

@@ -8,7 +8,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -87,7 +86,7 @@ in the top-level Makefile and rebuild.
      WARNING: The SVR2 (sv2) port is *incomplete*.  SVR2 does not appear to
 have any way to do ftruncate(), which is needed by the mbox, mbx, mmdf, mtx,
 tenex, and unix drivers.
-
+
 			   UNIX INSTALLATION NOTES
 
      Binaries from the build are:
@@ -260,7 +259,7 @@ programs that foolishly trust "Content-Length:" headers with evil values.
 have the -E flag.  A typical entry will lool like:
 
 Mlocal, P=/usr/lib/mail.local, F=flsSDFMmnPE, S=10, R=20, A=mail.local -d $u
-
+
 			      WIN32 BUILD NOTES
 
      Visual C++ 6.0 along with the current Microsoft Platform SDK
@@ -299,7 +298,7 @@ and do:
 The resulting binaries will support SSL and Microsoft Kerberos, using the
 official, documented, Microsoft interfaces.  Note, however, that these
 binaries will not run under Windows 95, Windows 98, or Windows NT4.
-
+
 			   WIN32 INSTALLATION NOTES
 
      The resulting binaries will be:
@@ -330,7 +329,7 @@ It is based on inetlisn, and essentially is a "completed" version of inetlisn.
      Bottom line: this is not plug-and-play.  If you're not a hacker and/or
 are unwilling to invest the time to do some programming, you probably want to
 buy a commercial server product.
-
+
 				 OTHER PORTS
 
      The following ports were developed at one time or another, but are no

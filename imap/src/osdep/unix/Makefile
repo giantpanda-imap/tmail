@@ -1,22 +1,5 @@
 # ========================================================================
 # Copyright 2008-2011 Mark Crispin
-# ========================================================================
-#
-# Program:	C client makefile
-#
-# Author:	Mark Crispin
-#		Networks and Distributed Computing
-#		Computing & Communications
-#		University of Washington
-#		Administration Building, AG-44
-#		Seattle, WA  98195
-#		Internet: MRC@CAC.Washington.EDU
-#
-# Date:		11 May 1989
-# Last Edited:	29 August 2011
-#
-# Previous versions of this file were
-#
 # Copyright 1988-2008 University of Washington
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +7,15 @@
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
+#
+# ========================================================================
+
+# Program:	C client makefile
+#
+# Author:	Mark Crispin
+#
+# Date:		11 May 1989
+# Last Edited:	29 August 2011
 
 
 # Command line build parameters

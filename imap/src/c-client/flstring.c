@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,12 +14,6 @@
  * Program:	File string routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	15 April 1997
  * Last Edited:	6 December 2006
@@ -30,7 +23,7 @@
 #include <stdio.h>
 #include "mail.h"
 #include "flstring.h"
-
+
 /* String driver for stdio file strings */
 
 static void file_string_init (STRING *s,void *data,unsigned long size);

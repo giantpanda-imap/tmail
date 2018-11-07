@@ -7,19 +7,12 @@
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
-# 
 # ========================================================================
 
 
 # Program:	C client makefile for Amiga
 #
 # Author:	Mark Crispin
-#		Networks and Distributed Computing
-#		Computing & Communications
-#		University of Washington
-#		Administration Building, AG-44
-#		Seattle, WA  98195
-#		Internet: MRC@CAC.Washington.EDU
 #
 # Date:		11 May 1989
 # Last Edited:	5 November 2006

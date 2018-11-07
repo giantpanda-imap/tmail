@@ -1,6 +1,15 @@
 /* ========================================================================
  * Copyright 2015 Eduardo Chappa
  * Copyright 2008 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ * Copyright 1988 Stanford University
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,32 +19,14 @@
  * Author:	Mark Crispin
  *
  * Date:	27 July 1988
- * Last Edited:	19 November 2008 (Crispin)
- * Last Edited: 16 January 2015 (Chappa)
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * This original version of this file is
- * Copyright 1988 Stanford University
- * and was developed in the Symbolic Systems Resources Group of the Knowledge
- * Systems Laboratory at Stanford University in 1987-88, and was funded by the
- * Biomedical Research Technology Program of the National Institutes of Health
- * under grant number RR-00785.
+ * Last Edited:	16 January 2015 (Chappa)
  */
 
 
 #include <ctype.h>
 #include <stdio.h>
 #include "c-client.h"
-
+
 /* Constants */
 
 #define SMTPSSLPORT (long) 465	/* former assigned SSL TCP contact port */
@@ -68,7 +59,7 @@ long smtp_ehlo (SENDSTREAM *stream,char *host,NETMBX *mb);
 long smtp_fake (SENDSTREAM *stream,char *text);
 static long smtp_seterror (SENDSTREAM *stream,long code,char *text);
 long smtp_soutr (void *stream,char *s);
-
+
 /* Mailer parameters */
 
 static unsigned long smtp_maxlogintrials = MAXLOGINTRIALS;
@@ -95,7 +86,7 @@ static long smtp_sslport = 0;
  */
 
 #define MAXLOCALPART ((MAILTMPLEN - (SMTPMAXDOMAIN + SMTPMAXPATH + 32)) / 2)
-
+
 /* Mail Transfer Protocol manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -129,7 +120,7 @@ void *smtp_parameters (long function,void *value)
   }
   return value;
 }
-
+
 /* Mail Transfer Protocol open connection
  * Accepts: network driver
  *	    service host list
@@ -181,7 +172,7 @@ SENDSTREAM *smtp_open_full (NETDRIVER *dv,char **hostlist,char *service,
 				/* get name of local host to use */
 	s = compare_cstring ("localhost",mb.host) ?
 	  net_localhost (netstream) : "localhost";
-
+
 	do reply = smtp_reply (stream);
 	while ((reply < 100) || (stream->reply[3] == '-'));
 	if (reply != SMTPGREET){/* get SMTP greeting */
@@ -232,7 +223,7 @@ SENDSTREAM *smtp_open_full (NETDRIVER *dv,char **hostlist,char *service,
 	    mm_log (tmp,ERROR);
 	    stream = smtp_close (stream);
 	  }
-
+
 				/* remote name for authentication */
 	  if (stream && ((mb.secflag || mb.user[0]))) {
 	    if (ESMTP.auth) {	/* use authenticator? */
@@ -270,7 +261,7 @@ SENDSTREAM *smtp_open_full (NETDRIVER *dv,char **hostlist,char *service,
   }
   return stream;
 }
-
+
 /* SMTP authenticate
  * Accepts: stream to login
  *	    parsed network mailbox structure
@@ -332,7 +323,7 @@ long smtp_auth (SENDSTREAM *stream,NETMBX *mb,char *tmp)
   }
   return ret;			/* authentication failed */
 }
-
+
 /* Get challenge to authenticator in binary
  * Accepts: stream
  *	    pointer to returned size
@@ -383,7 +374,7 @@ long smtp_response (void *s,char *response,unsigned long size)
   }
   return LONGT;
 }
-
+
 /* Mail Transfer Protocol close connection
  * Accepts: SEND stream
  * Returns: NIL always
@@ -405,7 +396,7 @@ SENDSTREAM *smtp_close (SENDSTREAM *stream)
   }
   return NIL;
 }
-
+
 /* Mail Transfer Protocol deliver mail
  * Accepts: SEND stream
  *	    delivery option (MAIL, SEND, SAML, SOML)
@@ -450,7 +441,7 @@ long smtp_mail (SENDSTREAM *stream,char *type,ENVELOPE *env,BODY *body)
       if (!smtp_auth (stream,&mb,smtpserver)) return NIL;
       retry = NIL;		/* no retry at this point */
     }
-
+
     strcpy (tmp,"FROM:<");	/* compose "MAIL FROM:<return-path>" */
 #ifdef RFC2821
     if (env->return_path && env->return_path->host &&
@@ -517,7 +508,7 @@ long smtp_mail (SENDSTREAM *stream,char *type,ENVELOPE *env,BODY *body)
   }
   return LONGT;
 }
-
+
 /* Simple Mail Transfer Protocol send VERBose
  * Accepts: SMTP stream
  * Returns: T if successful, else NIL
@@ -534,7 +525,7 @@ long smtp_verbose (SENDSTREAM *stream)
 				/* accept any 2xx reply code */
   return ((smtp_send (stream,"VERB","ON") / (long) 100) == 2) ? LONGT : NIL;
 }
-
+
 /* Internal routines */
 
 
@@ -567,7 +558,7 @@ long smtp_rcpt (SENDSTREAM *stream,ADDRESS *adr,long *error)
 	*error = T;
       }
 #endif
-
+
       else {
 	strcpy (tmp,"TO:<");	/* compose "RCPT TO:<return-path>" */
 #ifdef RFC2821
@@ -612,7 +603,7 @@ long smtp_rcpt (SENDSTREAM *stream,ADDRESS *adr,long *error)
   }
   return NIL;			/* no retry called for */
 }
-
+
 /* Simple Mail Transfer Protocol send command
  * Accepts: SEND stream
  *	    text
@@ -662,7 +653,7 @@ long smtp_reply (SENDSTREAM *stream)
   else reply = smtp_fake (stream,"SMTP connection broken (reply)");
   return reply;
 }
-
+
 /* Simple Mail Transfer Protocol send EHLO
  * Accepts: SMTP stream
  *	    host name to use in EHLO
@@ -740,7 +731,7 @@ long smtp_ehlo (SENDSTREAM *stream,char *host,NETMBX *mb)
     ESMTP.auth &= ~(1 << j);
   return i;			/* return the response code */
 }
-
+
 /* Simple Mail Transfer Protocol set fake error and abort
  * Accepts: SMTP stream
  *	    error text

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- Windows 2000 version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 April 1989
  * Last Edited:	30 August 2006
  */
-
+
 #include "tcp_nt.h"		/* must be before osdep includes tcp.h */
 #undef	ERROR			/* quell conflicting def warning */
 #include "mail.h"

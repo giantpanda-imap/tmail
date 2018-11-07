@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,12 +14,6 @@
  * Program:	Dummy routines for WCE
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	24 May 1993
  * Last Edited:	30 August 2006
@@ -38,7 +31,7 @@
 #include <dos.h>
 #include "dummy.h"
 #include "misc.h"
-
+
 /* Function prototypes */
 
 DRIVER *dummy_valid (char *name);
@@ -50,7 +43,7 @@ void dummy_check (MAILSTREAM *stream);
 long dummy_expunge (MAILSTREAM *stream,char *sequence,long options);
 long dummy_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options);
 long dummy_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data);
-
+
 /* Dummy routines */
 
 
@@ -101,7 +94,7 @@ MAILSTREAM dummyproto = {&dummydriver};
 
 				/* driver parameters */
 static char *file_extension = NIL;
-
+
 /* Dummy validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -128,7 +121,7 @@ void *dummy_parameters (long function,void *value)
 {
   return value;
 }
-
+
 /* Dummy scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -140,7 +133,7 @@ void dummy_scan (MAILSTREAM *stream,char *ref,char *pat,char *contents)
 {
 				/* return silently */
 }
-
+
 /* Dummy list mailboxes
  * Accepts: mail stream
  *	    reference
@@ -162,7 +155,7 @@ void dummy_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
 				/* return silently */
 }
-
+
 /* Dummy create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -198,7 +191,7 @@ long dummy_rename (MAILSTREAM *stream,char *old,char *newname)
 {
   return NIL;			/* always fails */
 }
-
+
 /* Dummy open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -233,7 +226,7 @@ void dummy_close (MAILSTREAM *stream,long options)
 {
 				/* return silently */
 }
-
+
 /* Dummy ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -268,7 +261,7 @@ long dummy_expunge (MAILSTREAM *stream,char *sequence,long options)
 {
   return LONGT;
 }
-
+
 /* Dummy copy message(s)
  * Accepts: MAIL stream
  *	    sequence

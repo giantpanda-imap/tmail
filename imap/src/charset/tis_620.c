@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	TIS 620-2529 conversion table
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	24 October 1997
  * Last Edited:	30 August 2006
  */
-
+
 /* TIS 620-2529 is the "Thai Industrial Standard for Thai Character Code
  * for Computer", published by the Thai Industrial Standards Institute,
  * Ministry of Industry of Thailand.

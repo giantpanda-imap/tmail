@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- OS/2 emx version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	14 March 1996
  * Last Edited:	30 August 2006
  */
-
+
 #include <stdio.h>
 #include <time.h>
 #include <sys/time.h>
@@ -47,7 +40,7 @@ extern int errno;		/* just in case */
 #include "nl_os2.c"
 #include "env_os2.c"
 #include "tcp_os2.c"
-
+
 /* Return my local host name
  * Returns: my local host name
  */

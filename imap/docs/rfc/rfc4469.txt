@@ -56,7 +56,7 @@ Abstract
 
 
 Resnick                     Standards Track                     [Page 1]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -112,7 +112,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 2]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -168,7 +168,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 3]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -224,7 +224,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 4]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -280,7 +280,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 5]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -336,7 +336,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 6]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -392,7 +392,7 @@ Appendix A.  Examples
 
 
 Resnick                     Standards Track                     [Page 7]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -448,7 +448,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 8]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -504,7 +504,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                     [Page 9]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -560,7 +560,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                    [Page 10]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -616,7 +616,7 @@ RFC 4469                IMAP CATENATE Extension               April 2006
 
 
 Resnick                     Standards Track                    [Page 11]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -672,7 +672,7 @@ Author's Address
 
 
 Resnick                     Standards Track                    [Page 12]
-
+
 RFC 4469                IMAP CATENATE Extension               April 2006
 
 
@@ -728,4 +728,4 @@ Acknowledgement
 
 
 Resnick                     Standards Track                    [Page 13]
-
+

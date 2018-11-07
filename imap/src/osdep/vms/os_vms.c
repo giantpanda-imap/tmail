@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- VMS version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	2 August 1994
  * Last Edited:	30 August 2006
  */
- 
+
 #include "tcp_vms.h"		/* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"

@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- QNX version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 September 1993
  * Last Edited:	20 December 2006
  */
-
+
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>

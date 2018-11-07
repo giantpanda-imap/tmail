@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	UTF-8 auxillary routines (c-client and MIME2 support)
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 June 1997
  * Last Edited:	12 October 2007
@@ -30,7 +23,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "c-client.h"
-
+
 /* Convert charset labelled stringlist to UTF-8 in place
  * Accepts: string list
  *	    charset
@@ -94,7 +87,7 @@ void utf8_searchpgm (SEARCHPGM *pgm,char *charset)
     utf8_stringlist (pgm->references,charset);
   }
 }
-
+
 /* Convert MIME-2 sized text to UTF-8
  * Accepts: source sized text
  *	    charset
@@ -146,7 +139,7 @@ long utf8_mime2text (SIZEDTEXT *src,SIZEDTEXT *dst,long flags)
 		  dst->size = s - src->data);
 	}
 	for (i = 0; i < rtxt.size; i++) dst->data[dst->size++] = rtxt.data[i];
-
+
 				/* all done with converted text */
 	if (rtxt.data != txt.data) fs_give ((void **) &rtxt.data);
 	if (ls) *ls = '*';	/* restore language tag delimiter */
@@ -198,7 +191,7 @@ long utf8_mime2text (SIZEDTEXT *src,SIZEDTEXT *dst,long flags)
   }
   return T;			/* success */
 }
-
+
 /* Decode MIME-2 text
  * Accepts: Encoding
  *	    text
@@ -243,7 +236,7 @@ long mime2_decode (unsigned char *e,unsigned char *t,unsigned char *te,
   }
   return T;
 }
-
+
 /* Get MIME-2 token from encoded word
  * Accepts: current text pointer
  *	    text limit pointer
@@ -283,7 +276,7 @@ unsigned char *mime2_text (unsigned char *s,unsigned char *se)
 	  ((se == (s + 2)) || (s[2] == ' ') || (s[2] == '\t') ||
 	   (s[2] == '\015') || (s[2] == '\012'))) ? s : NIL;
 }
-
+
 /* Convert UTF-16 string to Modified Base64
  * Accepts: destination pointer
  *	    source string
@@ -330,7 +323,7 @@ static unsigned char *utf16_poot (unsigned char *s,unsigned long c)
   *s++ = (unsigned char) (c & 0xff);
   return s;
 }
-
+
 /* Convert UTF-8 to Modified UTF-7
  * Accepts: UTF-8 string
  * Returns: Modified UTF-7 string on success, NIL if invalid UTF-8
@@ -365,7 +358,7 @@ unsigned char *utf8_to_mutf7 (unsigned char *src)
   }
   if (nonascii)			/* add pending Modified BASE64 size + shifts */
     i += ((nonascii / 3) * 4) + ((j = nonascii % 3) ? j + 1 : 0) + 2;
-
+
 				/* create return buffer */
   t = ret = (unsigned char *) fs_get (i + 1);
 				/* and scratch buffer */
@@ -398,7 +391,7 @@ unsigned char *utf8_to_mutf7 (unsigned char *src)
   fs_give ((void **) &u16buf);
   return ret;
 }
-
+
 /* Convert Modified UTF-7 to UTF-8
  * Accepts: Modified UTF-7 string
  * Returns: UTF-8 string on success, NIL if invalid Modified UTF-7

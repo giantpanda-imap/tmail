@@ -1,7 +1,14 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2006 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * ========================================================================
- */
 
 /*
  * Program:	VMS environment routines
@@ -10,17 +17,6 @@
  *
  * Date:	2 August 1994
  * Last Edited:	15 November 2010
- * 
- * Previous versions of this file were:
- * 
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 

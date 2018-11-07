@@ -56,7 +56,7 @@ Abstract
 
 
 Crispin                     Standards Track                     [Page 1]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -112,7 +112,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 2]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -168,7 +168,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 3]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -224,7 +224,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 4]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -280,7 +280,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 5]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -336,7 +336,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 6]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -392,7 +392,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                     [Page 7]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -448,7 +448,7 @@ BASE.6.3.RESETKEY.  RESETKEY Command
 
 
 Crispin                     Standards Track                     [Page 8]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -504,7 +504,7 @@ BASE.6.3.GENURLAUTH.  GENURLAUTH Command
 
 
 Crispin                     Standards Track                     [Page 9]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -560,7 +560,7 @@ BASE.6.3.URLFETCH.  URLFETCH Command
 
 
 Crispin                     Standards Track                    [Page 10]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -616,7 +616,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                    [Page 11]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -672,7 +672,7 @@ BASE.7.4.GENURLAUTH.   GENURLAUTH Response
 
 
 Crispin                     Standards Track                    [Page 12]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -728,7 +728,7 @@ genurlauth-data = "*" SP "GENURLAUTH" 1*(SP url-full)
 
 
 Crispin                     Standards Track                    [Page 13]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -784,7 +784,7 @@ mechanism       = "INTERNAL" / 1*(ALPHA / DIGIT / "-" / ".")
 
 
 Crispin                     Standards Track                    [Page 14]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -840,7 +840,7 @@ RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
 Crispin                     Standards Track                    [Page 15]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -896,7 +896,7 @@ http://www.iana.org/assignments/urlauth-authorization-mechanism-registry
 
 
 Crispin                     Standards Track                    [Page 16]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -952,7 +952,7 @@ Author's Address
 
 
 Crispin                     Standards Track                    [Page 17]
-
+
 RFC 4467                IMAP - URLAUTH Extension                May 2006
 
 
@@ -1008,4 +1008,4 @@ Acknowledgement
 
 
 Crispin                     Standards Track                    [Page 18]
-
+

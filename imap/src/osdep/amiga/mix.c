@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2012 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,16 +18,6 @@
  *
  * Date:	1 March 2006
  * Last Edited:	15 February 2012
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
  */
 
 
@@ -35,7 +33,7 @@ extern int errno;		/* just in case */
 #include "misc.h"
 #include "dummy.h"
 #include "fdstring.h"
-
+
 /* MIX definitions */
 
 #define MEGABYTE (1024*1024)
@@ -69,7 +67,7 @@ extern int errno;		/* just in case */
 #define MSGTSZ (sizeof(MSGTOK)-1)
 				/* sortcache file record format */
 #define SCRFMT ":%08lx:%08lx:%08lx:%08lx:%08lx:%c%08lx:%08lx:%08lx:\015\012"
-
+
 /* MIX I/O stream local data */
 	
 typedef struct mix_local {
@@ -106,7 +104,7 @@ MIXBURP {
 /* Convenient access to local data */
 
 #define LOCAL ((MIXLOCAL *) stream->local)
-
+
 /* Function prototypes */
 
 DRIVER *mix_valid (char *name);
@@ -164,7 +162,7 @@ char *mix_dir (char *dst,char *name);
 char *mix_file (char *dst,char *dir,char *name);
 char *mix_file_data (char *dst,char *dir,unsigned long data);
 unsigned long mix_modseq (unsigned long oldseq);
-
+
 /* MIX mail routines */
 
 
@@ -212,7 +210,7 @@ DRIVER mixdriver = {
 
 				/* prototype stream */
 MAILSTREAM mixproto = {&mixdriver};
-
+
 /* MIX mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -246,7 +244,7 @@ long mix_isvalid (char *name,char *meta)
   }
   return NIL;
 }
-
+
 /* MIX manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -287,7 +285,7 @@ long mix_dirfmttest (char *name)
 				/* belongs to MIX if starts with .mix */
   return strncmp (name,MIXNAME,sizeof (MIXNAME) - 1) ? NIL : LONGT;
 }
-
+
 /* MIX mail scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -334,7 +332,7 @@ long mix_scan_contents (char *name,char *contents,unsigned long csiz,
   if (a = (void *) names) fs_give ((void **) &a);
   return ret;
 }
-
+
 /* MIX list mailboxes
  * Accepts: mail stream
  *	    reference
@@ -357,7 +355,7 @@ void mix_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* MIX mail subscribe to mailbox
  * Accepts: mail stream
  *	    mailbox to add to subscription list
@@ -380,7 +378,7 @@ long mix_unsubscribe (MAILSTREAM *stream,char *mailbox)
 {
   return sm_unsubscribe (mailbox);
 }
-
+
 /* MIX mail create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -452,7 +450,7 @@ long mix_create (MAILSTREAM *stream,char *mailbox)
   if (!ret) MM_LOG (tmp,ERROR);	/* some error */
   return ret;
 }
-
+
 /* MIX mail delete mailbox
  *	    mailbox name to delete
  * Returns: T on success, NIL on failure
@@ -496,7 +494,7 @@ long mix_delete (MAILSTREAM *stream,char *mailbox)
   MM_LOG (tmp,ERROR);		/* something failed */
   return NIL;
 }
-
+
 /* MIX mail rename mailbox
  * Accepts: MIX mail stream
  *	    old mailbox name
@@ -540,7 +538,7 @@ long mix_rename (MAILSTREAM *stream,char *old,char *newname)
 	return LONGT;
       }
     }
-
+
 				/* RFC 3501 requires this */
     else if (dummy_create_path (stream,strcat (tmp1,"/"),
 				get_dir_protection (newname))) {
@@ -589,7 +587,7 @@ int mix_rselect (struct direct *name)
 {
   return mix_dirfmttest (name->d_name);
 }
-
+
 /* MIX mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -653,7 +651,7 @@ MAILSTREAM *mix_open (MAILSTREAM *stream)
   }
   return stream;		/* return stream to caller */
 }
-
+
 /* MIX mail close
  * Accepts: MAIL stream
  *	    close options
@@ -693,7 +691,7 @@ void mix_abort (MAILSTREAM *stream)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* MIX mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -758,7 +756,7 @@ char *mix_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *length,
   LOCAL->buf[j] = '\0';		/* tie off buffer at the end */
   return (char *) LOCAL->buf + i;
 }
-
+
 /* MIX mail fetch message text (body only)
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -807,7 +805,7 @@ long mix_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,fd_string,&d,elt->rfc822_size - elt->private.msg.header.text.size);
   return T;
 }
-
+
 /* MIX mail modify flags
  * Accepts: MAIL stream
  *	    sequence
@@ -871,7 +869,7 @@ void mix_flag (MAILSTREAM *stream,char *sequence,char *flag,long flags)
   if (statf) fclose (statf);	/* release status file if still open */
   if (idxf) fclose (idxf);	/* release index file */
 }
-
+
 /* MIX mail sort messages
  * Accepts: mail stream
  *	    character set
@@ -910,7 +908,7 @@ THREADNODE *mix_thread (MAILSTREAM *stream,char *type,char *charset,
   mix_sortcache_update (stream,&sortcache);
   return ret;
 }
-
+
 /* MIX mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -966,7 +964,7 @@ long mix_ping (MAILSTREAM *stream)
 	    mail_flag (sysibx,sequence,"\\Deleted",ST_SET);
 	  }
 	}
-
+
 				/* now expunge all those messages */
       if (snarfok) mail_expunge (sysibx);
       else {
@@ -1008,7 +1006,7 @@ void mix_check (MAILSTREAM *stream)
 				/* do burp-only expunge action */
   if (mix_expunge (stream,"",NIL)) MM_LOG ("Check completed",(long) NIL);
 }
-
+
 /* MIX mail expunge mailbox
  * Accepts: MAIL stream
  *	    sequence to expunge if non-NIL, empty string for burp only
@@ -1044,7 +1042,7 @@ long mix_expunge (MAILSTREAM *stream,char *sequence,long options)
       }
       else ++i;		       /* otherwise advance to next message */
     }
-
+
 				/* burp if can get exclusive access */
     if (!flock (LOCAL->mfd,LOCK_EX|LOCK_NB)) {
       void *a;
@@ -1113,7 +1111,7 @@ long mix_expunge (MAILSTREAM *stream,char *sequence,long options)
 				/* free directory list */
       if (a = (void *) names) fs_give ((void **) &a);
     }
-
+
 				/* either way, re-acquire shared lock */
     if (flock (LOCAL->mfd,LOCK_SH|LOCK_NB))
       fatal ("Unable to re-acquire metadata shared lock!");
@@ -1142,7 +1140,7 @@ long mix_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* MIX test for message file name
  * Accepts: candidate directory name
  * Returns: T if message file name, NIL otherwise
@@ -1201,7 +1199,7 @@ long mix_addset (SEARCHSET **set,unsigned long start,unsigned long size)
   s->last = start + size;	/* end of current range */
   return LONGT;
 }
-
+
 /* MIX burp message file
  * Accepts: MAIL stream
  *	    current burp block for this message
@@ -1258,7 +1256,7 @@ long mix_burp (MAILSTREAM *stream,MIXBURP *burp,unsigned long *reclaimed)
     MM_LOG (LOCAL->buf,ERROR);
     fclose (f);
   }
-
+
 				/* only if sane */
   else if (mix_burp_check (&burp->set,sbuf.st_size,LOCAL->buf)) {
 				/* make sure each range starts with token */
@@ -1302,7 +1300,7 @@ long mix_burp (MAILSTREAM *stream,MIXBURP *burp,unsigned long *reclaimed)
 	rpos += wsize; wpos += wsize;
       }
     }
-
+
     while (fflush (f)) {	/* failure also not an option here... */
       MM_NOTIFY (stream,strerror (errno),WARN);
       MM_DISKERROR (stream,errno,T);
@@ -1344,7 +1342,7 @@ long mix_burp_check (SEARCHSET *set,size_t size,char *file)
   } while (set = set->next);
   return LONGT;
 }
-
+
 /* MIX mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -1397,7 +1395,7 @@ long mix_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     sprintf (local->buf,MSRFMT,MSGTOK,(unsigned long) 0,0,0,0,0,0,0,'+',0,0,
 	     (unsigned long) 0);
     hdrsize = strlen (local->buf);
-
+
     MM_CRITICAL (stream);	/* go critical */
     astream->silent = T;	/* no events here */
 				/* calculate size that will be added */
@@ -1451,7 +1449,7 @@ long mix_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
 	      mail_append_set (source,mail_uid (stream,i));
 	  }
 	}
-
+
 				/* finish write if success */
       if (ret && (ret = !fflush (msgf))) {
 	fclose (msgf);		/* all good, close the msg file now */
@@ -1502,7 +1500,7 @@ long mix_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   if (astream) mail_close (astream);
   return ret;			/* return state */
 }
-
+
 /* MIX mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -1531,7 +1529,7 @@ long mix_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
     MM_LOG (tmp,ERROR);
     break;
   }
-
+
 				/* get first message */
   if (ret && MM_APPEND (af) (stream,data,&flags,&date,&message)) {
     MAILSTREAM *astream;
@@ -1579,7 +1577,7 @@ long mix_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	      MM_APPEND (af) (stream,data,&flags,&date,&message);
 	  }
 	}
-
+
 				/* finish write if success */
 	if (ret && (ret = !fflush (msgf))) {
 	  fclose (msgf);	/* all good, close the msg file now */
@@ -1619,7 +1617,7 @@ long mix_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   }
   return ret;
 }
-
+
 /* MIX mail append single message
  * Accepts: MAIL stream
  *	    flags for new message if non-NIL
@@ -1662,7 +1660,7 @@ long mix_append_msg (MAILSTREAM *stream,FILE *f,char *flags,MESSAGECACHE *delt,
   elt->user_flags |= uf;
 				/* message is in new message file */
   elt->private.spare.data = LOCAL->newmsg;
-
+
 				/* offset to message internal header */
   elt->private.special.offset = ftell (f);
 				/* build header for message */
@@ -1708,7 +1706,7 @@ long mix_append_msg (MAILSTREAM *stream,FILE *f,char *flags,MESSAGECACHE *delt,
   mail_append_set (set,elt->private.uid);
   return LONGT;			/* success */
 }
-
+
 /* MIX mail read metadata, index, and status
  * Accepts: MAIL stream
  *	    returned index file
@@ -1745,7 +1743,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
     flock (fd,LOCK_UN);		/* relinquish lock */
     close (fd);
   }
-
+
 				/* slurp metadata */
   else if (s = mix_meta_slurp (stream,&i)) {
     unsigned long j = 0;	/* non-zero if UIDVALIDITY/UIDLAST changed */
@@ -1812,7 +1810,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 	}
       }
     }
-
+
 				/* get sequence */
     if (!(i = mix_read_sequence (*idxf)) || (i < LOCAL->indexseq)) {
       MM_LOG ("Error in mix index file sequence record",ERROR);
@@ -1874,7 +1872,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 		      stream->uid_last = uid;
 		      metarepairneeded = T;
 		    }
-
+
 				/* ignore expansion values */
 		    if (*s++ == ':') {
 		      MESSAGECACHE *elt;
@@ -1930,7 +1928,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 			  return NIL;
 			}
 		      }
-
+
 				/* time to create a new message? */
 		      if (nmsgs > stream->nmsgs) {
 				/* defer announcing until later */
@@ -1980,7 +1978,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 			  curfile = file;
 			  curfilesize = sbuf.st_size;
 			}
-
+
 				/* position of message in file */
 			curpos = pos + elt->private.msg.header.offset +
 			  elt->rfc822_size;
@@ -2029,7 +2027,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
       if (LOCAL->expok) while (nmsgs < stream->nmsgs)
 	mail_expunged (stream,stream->nmsgs);
     }
-
+
 				/* repair metadata and index if needed */
     if ((metarepairneeded ? mix_meta_update (stream) : T) &&
 	(indexrepairneeded ? mix_index_update (stream,*idxf,NIL) : T)) {
@@ -2063,7 +2061,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 	if (i > LOCAL->statusseq) LOCAL->statusseq = i;
 	if (stream->nmsgs) {
 	  elt = mail_elt (stream,i = 1);
-
+
 				/* read message records */
 	  while ((t = s = mix_read_record (statf,LOCAL->buf,LOCAL->buflen,
 					   "status")) && *s && (*s++ == ':') &&
@@ -2114,7 +2112,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
 	    }
 	    break;		/* error somewhere */
 	  }
-
+
 	  if (t && *t) {	/* non-null means bogus record */
 	    char msg[MAILTMPLEN];
 	    sprintf (msg,"Error in mix status file message record%s: %.80s",
@@ -2141,7 +2139,7 @@ FILE *mix_parse (MAILSTREAM *stream,FILE **idxf,long iflags,long sflags)
   }
   return statf;
 }
-
+
 /* MIX metadata file routines */
 
 /* MIX read metadata
@@ -2175,7 +2173,7 @@ char *mix_meta_slurp (MAILSTREAM *stream,unsigned long *seq)
   else ret = s;
   return ret;
 }
-
+
 /* MIX update metadata
  * Accepts: MAIL stream
  * Returns: T on success, NIL if error
@@ -2224,7 +2222,7 @@ long mix_meta_update (MAILSTREAM *stream)
   }
   return ret;
 }
-
+
 /* MIX index file routines */
 
 
@@ -2275,7 +2273,7 @@ long mix_index_update (MAILSTREAM *stream,FILE *idxf,long flag)
 	fs_give ((void **) &buf);
       }
     }
-
+
     if (ret) {			/* if still good to go */
       rewind (idxf);		/* let's start at the very beginning */
 				/* write modseq first */
@@ -2306,7 +2304,7 @@ long mix_index_update (MAILSTREAM *stream,FILE *idxf,long flag)
   }
   return ret;
 }
-
+
 /* MIX status file routines */
 
 
@@ -2356,7 +2354,7 @@ long mix_status_update (MAILSTREAM *stream,FILE *statf,long flag)
 	fs_give ((void **) &buf);
       }
     }
-
+
     if (ret) {			/* if still good to go */
       rewind (statf);		/* let's start at the very beginning */
 				/* write sequence */
@@ -2388,7 +2386,7 @@ long mix_status_update (MAILSTREAM *stream,FILE *statf,long flag)
   }
   return ret;
 }
-
+
 /* MIX data file routines */
 
 
@@ -2460,7 +2458,7 @@ FILE *mix_data_open (MAILSTREAM *stream,int *fd,long *size,
   }
   return msgf;			/* return results */
 }
-
+
 /* MIX open sortcache
  * Accepts: MAIL stream
  * Returns: open FILE, or NIL if failure or could only get readonly sortcache
@@ -2518,7 +2516,7 @@ FILE *mix_sortcache_open (MAILSTREAM *stream)
 		    reflen = strtoul (s,&s,16);
 				/* ignore expansion values */
 		    if (*s++ == ':') {
-
+
 		      if (i = mail_msgno (stream,uid)) {
 			sc = (SORTCACHE *) (*mc) (stream,i,CH_SORTCACHE);
 			sc->size = (elt = mail_elt (stream,i))->rfc822_size;
@@ -2574,7 +2572,7 @@ FILE *mix_sortcache_open (MAILSTREAM *stream)
 			    break;
 			  }
 			}
-
+
 			if (msgidlen) {
 			  if (sc->message_id)
 			    fseek (srtcf,msgidlen + 2,SEEK_CUR);
@@ -2628,7 +2626,7 @@ FILE *mix_sortcache_open (MAILSTREAM *stream)
 			  }
 			}
 		      }
-
+
 				/* UID not found, ignore this message */
 		      else fseek (srtcf,((fromlen ? fromlen + 2 : 0) +
 					 (tolen ? tolen + 2 : 0) +
@@ -2673,7 +2671,7 @@ FILE *mix_sortcache_open (MAILSTREAM *stream)
   else fchmod (fd,sbuf.st_mode);
   return srtcf;
 }
-
+
 /* MIX update and close sortcache
  * Accepts: MAIL stream
  *	    pointer to open FILE (if FILE is NIL, do nothing)
@@ -2736,7 +2734,7 @@ long mix_sortcache_update (MAILSTREAM *stream,FILE **sortcache)
   }
   return ret;
 }
-
+
 /* MIX generic file routines */
 
 /* MIX read record
@@ -2774,7 +2772,7 @@ char *mix_read_record (FILE *f,char *buf,unsigned long buflen,char *type)
   buf[0] = '\0';		/* return empty buffer on EOF */
   return buf;
 }
-
+
 /* MIX read sequence record
  * Accepts: open FILE
  * Returns: sequence value, or NIL if failure
@@ -2800,7 +2798,7 @@ unsigned long mix_read_sequence (FILE *f)
   }
   return ret;
 }
-
+
 /* MIX internal routines */
 
 
@@ -2851,7 +2849,7 @@ char *mix_file_data (char *dst,char *dir,unsigned long data)
   else tmp[0] = '\0';		/* compatibility with experimental version */
   return mix_file (dst,dir,tmp);
 }
-
+
 /* MIX mail get new modseq
  * Accepts: old modseq
  * Returns: new modseq value

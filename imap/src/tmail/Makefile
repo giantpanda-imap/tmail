@@ -7,19 +7,12 @@
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
-# 
 # ========================================================================
 
 
 # Program:	tmail Makefile
 #
 # Author:	Mark Crispin
-#		Networks and Distributed Computing
-#		Computing & Communications
-#		University of Washington
-#		Administration Building, AG-44
-#		Seattle, WA  98195
-#		Internet: MRC@CAC.Washington.EDU
 #
 # Date:		5 April 1993
 # Last Edited:	10 September 2007

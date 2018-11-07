@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008 Mark Crispin
+ * Copyright 1988-2007 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	5 April 1993
  * Last Edited:	27 November 2008
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 #include <stdio.h>
 #include <pwd.h>
 #include <errno.h>
@@ -75,7 +72,7 @@ STRINGDRIVER file_string = {
 
 #define CHUNKLEN 16384
 char chunk[CHUNKLEN];
-
+
 /* Initialize file string structure for file stringstruct
  * Accepts: string structure
  *	    pointer to string
@@ -122,7 +119,7 @@ void file_string_setpos (STRING *s,unsigned long i)
     fread (s->curpos,sizeof (char),(unsigned int) s->cursize,(FILE *) s->data);
   }
 }
-
+
 /* Main program */
 
 int main (int argc,char *argv[])
@@ -189,7 +186,7 @@ int main (int argc,char *argv[])
       _exit (fail ("unknown switch",EX_USAGE));
     }
   }
-
+
   if (!argc) ret = fail ("no recipients",EX_USAGE);
   else if (!(f = tmpfile ())) ret = fail ("can't make temp file",EX_TEMPFAIL);
   else {			/* build delivery headers */
@@ -242,7 +239,7 @@ int main (int argc,char *argv[])
     }
     msglen = ftell (f);		/* size of message */
     fflush (f);			/* make sure all changes written out */
-
+
     if (ferror (f)) ret = fail ("error writing temp file",EX_TEMPFAIL);
     else if (!msglen) ret = fail ("empty message",EX_TEMPFAIL);
 				/* single delivery */
@@ -263,7 +260,7 @@ int main (int argc,char *argv[])
   _exit (ret);			/* normal exit */
   return 0;			/* stupid gcc */
 }
-
+
 /* Deliver message to recipient list
  * Accepts: file description of message temporary file
  *	    size of message temporary file in bytes
@@ -319,7 +316,7 @@ int deliver (FILE *f,unsigned long msglen,char *user)
     mm_dlog ("retrying delivery to INBOX");
     SETPOS (&st,0);		/* rewind stringstruct just in case */
   }
-
+
 				/* -I specified and not "-I INBOX"? */
   if (inbox && !(((inbox[0] == 'I') || (inbox[0] == 'i')) &&
 		 ((inbox[1] == 'N') || (inbox[1] == 'n')) &&
@@ -374,7 +371,7 @@ int deliver (FILE *f,unsigned long msglen,char *user)
       else return deliver_safely (ds,&st,inbox,path,duid,tmp);
     }
   }
-
+
 				/* no -I, resolve "INBOX" into path */
   if (mailboxfile (path,mailbox = "INBOX") && !path[0]) {
 				/* clear box, get generic INBOX prototype */
@@ -431,7 +428,7 @@ int deliver (FILE *f,unsigned long msglen,char *user)
 				/* deliver the message */
   return deliver_safely (ds,&st,mailbox,path,duid,tmp);
 }
-
+
 /* Resolve INBOX from driver prototype into mailbox name and filesystem path
  * Accepts: driver prototype
  * 	    pointer to mailbox name string pointer
@@ -463,7 +460,7 @@ long ibxpath (MAILSTREAM *ds,char **mailbox,char *path)
   }
   return ret;
 }
-
+
 /* Deliver safely
  * Accepts: prototype stream to force mailbox format
  *	    stringstruct of message temporary file
@@ -523,7 +520,7 @@ int deliver_safely (MAILSTREAM *prt,STRING *st,char *mailbox,char *path,
 				/* make sure nothing evil this way comes */
   return delivery_unsafe (path,uid,&sbuf,tmp);
 }
-
+
 /* Verify that delivery is safe
  * Accepts: path name
  *	    user id
@@ -563,7 +560,7 @@ int delivery_unsafe (char *path,uid_t uid,struct stat *sbuf,char *tmp)
   }
   return fail (tmp,EX_CANTCREAT);
 }
-
+
 /* Report an error
  * Accepts: string to output
  */
@@ -610,7 +607,7 @@ char *getusername (char *s,char **t)
   }
   return s;			/* return user name */
 }
-
+
 /* Co-routines from MAIL library */
 
 
@@ -655,7 +652,7 @@ void mm_expunged (MAILSTREAM *stream,unsigned long number)
 void mm_flags (MAILSTREAM *stream,unsigned long number)
 {
 }
-
+
 /* Mailbox found
  * Accepts: MAIL stream
  *	    delimiter
@@ -692,7 +689,7 @@ void mm_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
 {
   fatal ("mm_status() call");
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -744,7 +741,7 @@ void mm_dlog (char *string)
   if (debug) fprintf (stderr,"%s\n",string);
   syslog (LOG_DEBUG,"%s",string);
 }
-
+
 /* Get user name and password for this host
  * Accepts: parse of network mailbox name
  *	    where to return user name

@@ -1,5 +1,14 @@
 /* ========================================================================
  * Copyright 2008 Mark Crispin
+ * Copyright 1988-2006 University of Washington
+ * Copyright 1988 Stanford University  
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,29 +19,12 @@
  *
  * Date:	5 July 1988
  * Last Edited:	19 November 2008
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * This original version of this file is
- * Copyright 1988 Stanford University
- * and was developed in the Symbolic Systems Resources Group of the Knowledge
- * Systems Laboratory at Stanford University in 1987-88, and was funded by the
- * Biomedical Research Technology Program of the NationalInstitutes of Health
- * under grant number RR-00785.
  */
 
 
 #include <ctype.h>
 #include "c-client.h"
-
+
 /* Convert ASCII string to all uppercase
  * Accepts: string pointer
  * Returns: string pointer
@@ -63,7 +55,7 @@ unsigned char *lcase (unsigned char *s)
   for (t = s; *t; t++) if ((*t >= 'A') && (*t <= 'Z')) *t += ('a' - 'A');
   return s;			/* return string */
 }
-
+
 /* Copy string to free storage
  * Accepts: source string
  * Returns: free storage copy of string
@@ -92,7 +84,7 @@ char *cpytxt (SIZEDTEXT *dst,char *text,unsigned long size)
   dst->data[size] = '\0';	/* tie off text */
   return (char *) dst->data;	/* convenience return */
 }
-
+
 /* Copy sized text to free storage as sized text
  * Accepts: destination sized text
  *	    source sized text
@@ -152,7 +144,7 @@ char *textcpyoffstring (SIZEDTEXT *text,STRING *bs,unsigned long offset,
   text->data[i] = '\0';		/* tie off text */
   return (char *) text->data;	/* convenience return */
 }
-
+
 /* Returns index of rightmost bit in word
  * Accepts: pointer to a 32 bit value
  * Returns: -1 if word is 0, else index of rightmost bit
@@ -198,7 +190,7 @@ long max (long i,long j)
 {
   return ((i > j) ? i : j);
 }
-
+
 /* Search, case-insensitive for ASCII characters
  * Accepts: base string
  *	    length of base string
@@ -248,7 +240,7 @@ long search (unsigned char *base,long basec,unsigned char *pat,long patc)
   }
   return NIL;			/* pattern not found */
 }
-
+
 /* Boyer-Moore string search
  * Accepts: base string
  *	    length of base string
@@ -274,7 +266,7 @@ long ssearch (unsigned char *base,long basec,unsigned char *pat,long patc)
   }
   return NIL;			/* pattern not found */
 }
-
+
 /* Create a hash table
  * Accepts: size of new table (note: should be a prime)
  * Returns: hash table
@@ -317,7 +309,7 @@ void hash_reset (HASHTAB *hashtab)
       fs_give ((void **) &ent);	/* flush this entry */
     }
 }
-
+
 /* Calculate index into hash table
  * Accepts: hash table
  *	    entry name
@@ -346,7 +338,7 @@ void **hash_lookup (HASHTAB *hashtab,char *key)
     if (!strcmp (key,ret->name)) return ret->data;
   return NIL;
 }
-
+
 /* Add entry to hash table
  * Accepts: hash table
  *	    key
@@ -389,7 +381,7 @@ void **hash_lookup_and_add (HASHTAB *hashtab,char *key,void *data,long extra)
   ret->data[0] = data;		/* and first data */
   return (hashtab->table[i] = ret)->data;
 }
-
+
 /* Convert two hex characters into byte
  * Accepts: char for high nybble
  *	    char for low nybble
@@ -433,7 +425,7 @@ int compare_uchar (unsigned char c1,unsigned char c2)
   return compare_ulong (((c1 >= 'a') && (c1 <= 'z')) ? c1 - ('a' - 'A') : c1,
 			((c2 >= 'a') && (c2 <= 'z')) ? c2 - ('a' - 'A') : c2);
 }
-
+
 /* Compare two strings by octet
  * Accepts: first string
  *	    second string

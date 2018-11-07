@@ -1,5 +1,13 @@
 /* ========================================================================
+ * Copyright 1988-2007 University of Washington
  * Copyright 2008-2011 Mark Crispin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	10 February 1992
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -31,7 +28,7 @@
 #include "newsrc.h"
 #include "netmsg.h"
 #include "flstring.h"
-
+
 /* Constants */
 
 #define NNTPSSLPORT (long) 563	/* assigned SSL TCP contact port */
@@ -99,7 +96,7 @@ typedef struct nntp_local {
 /* Convenient access to extensions */
 
 #define EXTENSION LOCAL->nntpstream->protocol.nntp.ext
-
+
 /* Function prototypes */
 
 DRIVER *nntp_valid (char *name);
@@ -157,7 +154,7 @@ long nntp_response (void *s,char *response,unsigned long size);
 long nntp_reply (SENDSTREAM *stream);
 long nntp_fake (SENDSTREAM *stream,char *text);
 long nntp_soutr (void *stream,char *s);
-
+
 /* Driver dispatch used by MAIL */
 
 DRIVER nntpdriver = {
@@ -214,7 +211,7 @@ static long nntp_port = 0;
 static long nntp_sslport = 0;
 static unsigned long nntp_range = 0;
 static long nntp_hidepath = 0;
-
+
 /* NNTP validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -246,7 +243,7 @@ DRIVER *nntp_isvalid (char *name,char *mbx)
   else return NIL;		/* bogus name */
   return &nntpdriver;
 }
-
+
 /* News manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -307,7 +304,7 @@ void *nntp_parameters (long function,void *value)
   }
   return value;
 }
-
+
 /* NNTP mail scan mailboxes for string
  * Accepts: mail stream
  *	    reference
@@ -373,7 +370,7 @@ void nntp_list (MAILSTREAM *stream,char *ref,char *pat)
     if (stream != st) mail_close (stream);
   }
 }
-
+
 /* NNTP list subscribed newsgroups
  * Accepts: mail stream
  *	    reference
@@ -401,7 +398,7 @@ void nntp_lsub (MAILSTREAM *stream,char *ref,char *pat)
 				/* until no more subscriptions */
   while ((s = sm_read (tmp,&sdb)) != NULL);
 }
-
+
 /* NNTP canonicalize newsgroup name
  * Accepts: reference
  *	    pattern
@@ -434,7 +431,7 @@ long nntp_canonicalize (char *ref,char *pat,char *pattern,char *wildmat)
   }
   return ret ? LONGT : NIL;
 }
-
+
 /* NNTP subscribe to mailbox
  * Accepts: mail stream
  *	    mailbox to add to subscription list
@@ -459,7 +456,7 @@ long nntp_unsubscribe (MAILSTREAM *stream,char *mailbox)
   char mbx[MAILTMPLEN];
   return nntp_isvalid (mailbox,mbx) ? newsrc_update (stream,mbx,'!') : NIL;
 }
-
+
 /* NNTP create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -494,7 +491,7 @@ long nntp_rename (MAILSTREAM *stream,char *old,char *newname)
 {
   return NIL;			/* never valid for NNTP */
 }
-
+
 /* NNTP status
  * Accepts: mail stream
  *	    mailbox name
@@ -530,7 +527,7 @@ long nntp_status (MAILSTREAM *stream,char *mbx,long flags)
 	mail_open (NIL,mbx,OP_HALFOPEN|OP_SILENT|
 		   ((flags & SA_MULNEWSRC) ? OP_MULNEWSRC : NIL))))
     return NIL;			/* can't reuse or make a new one */
-
+
   if (nntp_send (LOCAL->nntpstream,"GROUP",name) == NNTPGOK) {
     status.flags = flags;	/* status validity flags */
     k = strtoul (LOCAL->nntpstream->reply + 4,&s,10);
@@ -554,7 +551,7 @@ long nntp_status (MAILSTREAM *stream,char *mbx,long flags)
     if (!status.messages);	/* empty case */
 				/* use server guesstimate in simple case */
     else if (!(flags & (SA_RECENT | SA_UNSEEN))) status.messages = k;
-
+
 				/* have newsrc state? */
     else if ((state = newsrc_state (stream,name)) != NULL) {
 				/* yes, get the UID/sequence map */
@@ -595,7 +592,7 @@ long nntp_status (MAILSTREAM *stream,char *mbx,long flags)
   }
   return ret;			/* success */
 }
-
+
 /* NNTP get map
  * Accepts: stream
  *	    newsgroup name
@@ -637,7 +634,7 @@ long nntp_getmap (MAILSTREAM *stream,char *name,
     return LONGT;
   return NIL;
 }
-
+
 /* NNTP open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -703,7 +700,7 @@ MAILSTREAM *nntp_mopen (MAILSTREAM *stream)
     if (!(nstream = nntp_open (hostlist,NOP_READONLY |
 			       (stream->debug ? NOP_DEBUG : NIL)))) return NIL;
   }
-
+
   if(!nstream->netstream){
     mm_log (nstream->reply,ERROR);
     nntp_close (nstream);	/* punt stream */
@@ -777,7 +774,7 @@ MAILSTREAM *nntp_mopen (MAILSTREAM *stream)
   else sprintf (tmp + strlen (tmp),"}#news.%s",mbx);
   fs_give ((void **) &stream->mailbox);
   stream->mailbox = cpystr (tmp);
-
+
   if (EXTENSION.over &&		/* get overview format if have OVER */
       (nntp_send (LOCAL->nntpstream,"LIST","OVERVIEW.FMT") == NNTPGLIST) &&
       (f = netmsg_slurp (LOCAL->nntpstream->netstream,&k,NIL))) {
@@ -829,7 +826,7 @@ MAILSTREAM *nntp_mopen (MAILSTREAM *stream)
   }
   return stream;		/* return stream to caller */
 }
-
+
 /* NNTP close
  * Accepts: MAIL stream
  *	    option flags
@@ -856,7 +853,7 @@ void nntp_mclose (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* NNTP fetch fast information
  * Accepts: MAIL stream
  *	    sequence
@@ -902,7 +899,7 @@ void nntp_fetchfast (MAILSTREAM *stream,char *sequence,long flags)
       }
     }
 }
-
+
 /* NNTP fetch flags
  * Accepts: MAIL stream
  *	    sequence
@@ -916,7 +913,7 @@ void nntp_flags (MAILSTREAM *stream,char *sequence,long flags)
       mail_uid_sequence (stream,sequence) : mail_sequence (stream,sequence))
     for (i = 1; i <= stream->nmsgs; i++) mail_elt (stream,i)->valid = T;
 }
-
+
 /* NNTP fetch overview
  * Accepts: MAIL stream, sequence bits set
  *	    overview return function
@@ -970,7 +967,7 @@ long nntp_overview (MAILSTREAM *stream,overview_t ofn)
       }
       else i = stream->nmsgs;	/* OVER failed, punt cache load */
     }
-
+
 				/* now scan sequence to return overviews */
   if (ofn) for (i = 1; i <= stream->nmsgs; i++)
     if ((elt = mail_elt (stream,i))->sequence) {
@@ -997,7 +994,7 @@ long nntp_overview (MAILSTREAM *stream,overview_t ofn)
     }
   return T;
 }
-
+
 /* Send OVER to NNTP server
  * Accepts: mail stream
  *	    sequence to send
@@ -1039,7 +1036,7 @@ long nntp_over (MAILSTREAM *stream,char *sequence)
     }
   return NIL;
 }
-
+
 /* Parse OVERVIEW struct from cached NNTP OVER response
  * Accepts: struct to load
  *	    cached OVER response
@@ -1093,7 +1090,7 @@ long nntp_parse_overview (OVERVIEW *ov,char *text,MESSAGECACHE *elt)
   }
   return ov->references ? T : NIL;
 }
-
+
 /* NNTP fetch header as text
  * Accepts: mail stream
  *	    message number
@@ -1142,7 +1139,7 @@ char *nntp_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *size,
   return elt->private.msg.header.text.data ?
     (char *) elt->private.msg.header.text.data : "";
 }
-
+
 /* NNTP fetch body
  * Accepts: mail stream
  *	    message number
@@ -1184,7 +1181,7 @@ long nntp_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,file_string,(void *) LOCAL->txt,LOCAL->txtsize);
   return T;
 }
-
+
 /* NNTP fetch article from message ID (for news: URL support)
  * Accepts: mail stream
  *	    message ID
@@ -1217,7 +1214,7 @@ void nntp_flagmsg (MAILSTREAM *stream,MESSAGECACHE *elt)
     else elt->sequence = elt->deleted;
   }
 }
-
+
 /* NNTP search messages
  * Accepts: mail stream
  *	    character set
@@ -1265,7 +1262,7 @@ long nntp_search (MAILSTREAM *stream,char *charset,SEARCHPGM *pgm,long flags)
   }
   return LONGT;
 }
-
+
 /* NNTP search message
  * Accepts: MAIL stream
  *	    message number
@@ -1304,7 +1301,7 @@ long nntp_search_msg (MAILSTREAM *stream,unsigned long msgno,SEARCHPGM *pgm,
       if (!set) return NIL;	/* not found within sequence */
     }
   }
-
+
   /* Fast data searches */
 				/* message flags */
   if ((pgm->answered && !elt->answered) ||
@@ -1352,7 +1349,7 @@ long nntp_search_msg (MAILSTREAM *stream,unsigned long msgno,SEARCHPGM *pgm,
 	 !mail_search_header_text (ov->references,pgm->references)))
       return NIL;
 
-
+
 				/* envelope searches */
     if (pgm->bcc || pgm->cc || pgm->to || pgm->return_path || pgm->sender ||
 	pgm->reply_to || pgm->in_reply_to || pgm->newsgroups ||
@@ -1377,7 +1374,7 @@ long nntp_search_msg (MAILSTREAM *stream,unsigned long msgno,SEARCHPGM *pgm,
 	   !mail_search_header_text (env->followup_to,pgm->followup_to)))
 	return NIL;
     }
-
+
 				/* search header lines */
     for (hdr = pgm->header; hdr; hdr = hdr->next) {
       char *t,*e,*v;
@@ -1431,7 +1428,7 @@ long nntp_search_msg (MAILSTREAM *stream,unsigned long msgno,SEARCHPGM *pgm,
     if (nntp_search_msg (stream,msgno,not->pgm,ov)) return NIL;
   return T;
 }
-
+
 /* NNTP sort messages
  * Accepts: mail stream
  *	    character set
@@ -1483,7 +1480,7 @@ unsigned long *nntp_sort (MAILSTREAM *stream,char *charset,SEARCHPGM *spg,
   if (sr) (*sr) (stream,ret,pgm->nmsgs);
   return ret;
 }
-
+
 /* Mail load sortcache
  * Accepts: mail stream, already searched
  *	    sort program
@@ -1521,7 +1518,7 @@ SORTCACHE **nntp_sort_loadcache (MAILSTREAM *stream,SORTPGM *pgm,
   default:
     fatal ("Unknown sort function");
   }
-
+
   if (start) {			/* messages need to be loaded in sortcache? */
 				/* yes, build range */
     if (start != last) sprintf (tmp,"%lu-%lu",start,last);
@@ -1558,7 +1555,7 @@ SORTCACHE **nntp_sort_loadcache (MAILSTREAM *stream,SORTPGM *pgm,
     }
     if (s) fs_give ((void **) &s);
   }
-
+
 				/* calculate size of sortcache index */
   i = pgm->nmsgs * sizeof (SORTCACHE *);
 				/* instantiate the index */
@@ -1596,7 +1593,7 @@ THREADNODE *nntp_thread (MAILSTREAM *stream,char *type,char *charset,
 {
   return mail_thread_msgs (stream,type,charset,spg,flags,nntp_sort);
 }
-
+
 /* NNTP ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -1632,7 +1629,7 @@ long nntp_expunge (MAILSTREAM *stream,char *sequence,long options)
   if (!stream->silent) mm_log ("Expunge ignored on readonly mailbox",NIL);
   return LONGT;
 }
-
+
 /* NNTP copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -1664,7 +1661,7 @@ long nntp_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   mm_log ("Append not valid for NNTP",ERROR);
   return NIL;
 }
-
+
 /* NNTP open connection
  * Accepts: network driver
  *	    service host list
@@ -1725,7 +1722,7 @@ SENDSTREAM *nntp_open_full (NETDRIVER *dv,char **hostlist,char *service,
       }
     }
   } while (!stream && *++hostlist);
-
+
 				/* get extensions */
   if (stream && extok)
     extok = nntp_extensions (stream,(mb.secflag ? AU_SECURE : NIL) |
@@ -1772,7 +1769,7 @@ SENDSTREAM *nntp_open_full (NETDRIVER *dv,char **hostlist,char *service,
     else if (!(NNTP.post || (options & NOP_READONLY) ||
 	       nntp_send_auth (stream,NIL))) stream = nntp_close (stream);
   }
-
+
 				/* in case server demands MODE READER */
   if (stream) switch ((int) nntp_send_work (stream,"MODE","READER")) {
   case NNTPGREET:
@@ -1808,7 +1805,7 @@ SENDSTREAM *nntp_open_full (NETDRIVER *dv,char **hostlist,char *service,
   }
   return stream;
 }
-
+
 /* NNTP extensions
  * Accepts: stream
  *	    authenticator flags
@@ -1841,7 +1838,7 @@ long nntp_extensions (SENDSTREAM *stream,long flags)
     else if (!compare_cstring (t,"PAT")) NNTP.ext.pat = T;
     else if (!compare_cstring (t,"STARTTLS")) NNTP.ext.starttls = T;
     else if (!compare_cstring (t,"MULTIDOMAIN")) NNTP.ext.multidomain = T;
-
+
     else if (!compare_cstring (t,"AUTHINFO") && args) {
       char *sasl = NIL;
       for (args = strtok_r (args," ",&r); args; args = strtok_r (NIL," ",&r)) {
@@ -1872,7 +1869,7 @@ long nntp_extensions (SENDSTREAM *stream,long flags)
   }
   return LONGT;
 }
-
+
 /* NNTP close connection
  * Accepts: SEND stream
  * Returns: NIL always
@@ -1890,7 +1887,7 @@ SENDSTREAM *nntp_close (SENDSTREAM *stream)
   }
   return NIL;
 }
-
+
 /* NNTP deliver news
  * Accepts: SEND stream
  *	    message envelope
@@ -1952,7 +1949,7 @@ long nntp_mail (SENDSTREAM *stream,ENVELOPE *env,BODY *body)
   }
   return NIL;
 }
-
+
 /* NNTP send command
  * Accepts: SEND stream
  *	    text
@@ -2004,7 +2001,7 @@ long nntp_send_work (SENDSTREAM *stream,char *command,char *args)
   fs_give ((void **) &s);
   return ret;
 }
-
+
 /* NNTP send authentication if needed
  * Accepts: SEND stream
  *	    flags (non-NIL to get new extensions)
@@ -2027,7 +2024,7 @@ long nntp_send_auth (SENDSTREAM *stream,long flags)
   mail_valid_net_parse (tmp,&mb);
   return nntp_send_auth_work (stream,&mb,tmp,flags);
 }
-
+
 /* NNTP send authentication worker routine
  * Accepts: SEND stream
  *	    NETMBX structure
@@ -2078,7 +2075,7 @@ long nntp_send_auth_work (SENDSTREAM *stream,NETMBX *mb,char *pwd,long flags)
     } while (!ret && stream->netstream && trial &&
 	     (trial < nntp_maxlogintrials));
   }
-
+
   if (lsterr) {			/* SAIL failed? */
     if (!stream->saslcancel) {	/* don't do this if a cancel */
       sprintf (tmp,"Can not authenticate to NNTP server: %.80s",lsterr);
@@ -2128,7 +2125,7 @@ long nntp_send_auth_work (SENDSTREAM *stream,NETMBX *mb,char *pwd,long flags)
 				     (mb->authuser[0] ? AU_AUTHUSER : NIL));
   return ret;
 }
-
+
 /* Get challenge to authenticator in binary
  * Accepts: stream
  *	    pointer to returned size
@@ -2178,7 +2175,7 @@ long nntp_response (void *s,char *response,unsigned long size)
   }
   return LONGT;
 }
-
+
 /* NNTP get reply
  * Accepts: SEND stream
  * Returns: reply code
@@ -2218,7 +2215,7 @@ long nntp_fake (SENDSTREAM *stream,char *text)
   sprintf (stream->reply,"%ld %s",NNTPSOFTFATAL,text);
   return NNTPSOFTFATAL;		/* return error code */
 }
-
+
 /* NNTP filter mail
  * Accepts: stream
  *	    string

@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	1 August 1988
  * Last Edited:	29 August 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 #include "ip_unix.c"
 
 #undef write			/* don't use redefined write() */
@@ -62,7 +59,7 @@ static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
 long tcp_abort (TCPSTREAM *stream);
 char *tcp_name (struct sockaddr *sadr,long flag);
 char *tcp_name_valid (char *s);
-
+
 /* TCP/IP manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -103,7 +100,7 @@ void *tcp_parameters (long function,void *value)
   case GET_TCPDEBUG:
     ret = (void *) tcpdebug;
     break;
-
+
   case SET_RSHTIMEOUT:
     rshtimeout = (long) value;
   case GET_RSHTIMEOUT:
@@ -141,7 +138,7 @@ void *tcp_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* TCP/IP open
  * Accepts: host name
  *	    contact service name
@@ -186,7 +183,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
     }
     else sprintf (tmp,"Bad format domain-literal: %.80s",host);
   }
-
+
   else {			/* lookup host name */
     if (tcpdebug) {
       sprintf (tmp,"DNS resolution %.80s",host);
@@ -229,7 +226,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
   }
   return stream;		/* return success */
 }
-
+
 /* Open a TCP socket
  * Accepts: protocol family
  *	    address to connect to
@@ -269,7 +266,7 @@ int tcp_socket_open (int family,void *adr,size_t adrlen,unsigned short port,
     sock = -1;
     errno = EMFILE;
   }
-
+
   else {			/* get current socket flags */
     flgs = fcntl (sock,F_GETFL,0);
 				/* set non-blocking if want open timeout */
@@ -327,7 +324,7 @@ int tcp_socket_open (int family,void *adr,size_t adrlen,unsigned short port,
   fs_give ((void **) &sadr);
   return sock;			/* return the socket */
 }
-  
+  
 /* TCP/IP authenticated open
  * Accepts: host name
  *	    service name
@@ -382,7 +379,7 @@ TCPSTREAM *tcp_aopen (NETMBX *mb,char *service,char *usrbuf)
     strcpy (host,r = tcp_canonical (mb->host));
     fs_give((void **) &r);
   }
-
+
   if (*service == '*')		/* build ssh command */
     sprintf (tmp,sshcommand,sshpath,host,
 	     mb->user[0] ? mb->user : myusername (),service + 1);
@@ -430,7 +427,7 @@ TCPSTREAM *tcp_aopen (NETMBX *mb,char *service,char *usrbuf)
   grim_pid_reap (i,NIL);	/* reap child; grandchild now owned by init */
   close (pipei[1]);		/* close child's side of the pipes */
   close (pipeo[0]);
-
+
 				/* create TCP/IP stream */
   stream = (TCPSTREAM *) memset (fs_get (sizeof (TCPSTREAM)),0,
 				 sizeof (TCPSTREAM));
@@ -465,7 +462,7 @@ TCPSTREAM *tcp_aopen (NETMBX *mb,char *service,char *usrbuf)
   strcpy (usrbuf,mb->user[0] ? mb->user : myusername ());
   return stream;		/* return success */
 }
-
+
 /* TCP receive line
  * Accepts: TCP stream
  * Returns: text line string or NIL if failure
@@ -498,7 +495,7 @@ char *tcp_getline (TCPSTREAM *stream)
   }
   return ret;
 }
-
+
 /* TCP receive line or partial line
  * Accepts: TCP stream
  *	    pointer to return size
@@ -536,7 +533,7 @@ static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
   else *contd = LONGT;		/* continuation needed */
   return ret;
 }
-
+
 /* TCP/IP receive buffer
  * Accepts: TCP/IP stream
  *	    size in bytes
@@ -610,7 +607,7 @@ long tcp_getbuffer (TCPSTREAM *stream,unsigned long size,char *s)
   *s = '\0';			/* tie off string */
   return LONGT;
 }
-
+
 /* TCP/IP receive data
  * Accepts: TCP/IP stream
  * Returns: T if success, NIL otherwise
@@ -668,7 +665,7 @@ long tcp_getdata (TCPSTREAM *stream)
   (*bn) (BLOCK_NONE,NIL);
   return T;
 }
-
+
 /* TCP/IP send string as record
  * Accepts: TCP/IP stream
  *	    string pointer
@@ -739,7 +736,7 @@ long tcp_sout (TCPSTREAM *stream,char *string,unsigned long size)
   (*bn) (BLOCK_NONE,NIL);
   return T;			/* all done */
 }
-
+
 /* TCP/IP close
  * Accepts: TCP/IP stream
  */
@@ -772,7 +769,7 @@ long tcp_abort (TCPSTREAM *stream)
   (*bn) (BLOCK_NONE,NIL);
   return NIL;
 }
-
+
 /* TCP/IP get host name
  * Accepts: TCP/IP stream
  * Returns: host name for this stream
@@ -833,7 +830,7 @@ char *tcp_localhost (TCPSTREAM *stream)
   }
   return stream->localhost;	/* return local host name */
 }
-
+
 /* TCP/IP get client host address (server calls only)
  * Returns: client host address
  */
@@ -897,7 +894,7 @@ long tcp_clientport ()
   if (!myClientHost && !myClientAddr) tcp_clientaddr ();
   return myClientPort;
 }
-
+
 /* TCP/IP get server host address (server calls only)
  * Returns: server host address
  */
@@ -953,7 +950,7 @@ long tcp_serverport ()
   if (!myServerHost && !myServerAddr) tcp_serveraddr ();
   return myServerPort;
 }
-
+
 /* TCP/IP return canonical form of host name
  * Accepts: host name
  * Returns: canonical form of host name
@@ -979,7 +976,7 @@ char *tcp_canonical (char *name)
   if (tcpdebug) mm_log ("DNS canonicalization done",TCPDEBUG);
   return ret;
 }
-
+
 /* TCP/IP return name from socket
  * Accepts: socket
  *	    verbose flag
@@ -1032,7 +1029,7 @@ char *tcp_name_valid (char *s)
   }
   return ret;
 }
-
+
 /* TCP/IP check if client is given host name
  * Accepts: candidate host name
  * Returns: T if match, NIL otherwise

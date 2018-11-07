@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Network message (SMTP/NNTP/POP2/POP3) routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	8 June 1995
  * Last Edited:	6 December 2006
@@ -33,7 +26,7 @@ extern int errno;		/* just in case */
 #include "c-client.h"
 #include "netmsg.h"
 #include "flstring.h"
-
+
 /* Network message read
  * Accepts: file
  *	    number of bytes to read
@@ -46,7 +39,7 @@ long netmsg_read (void *stream,unsigned long count,char *buffer)
   return (fread (buffer,(size_t) 1,(size_t) count,(FILE *) stream) == count) ?
     T : NIL;
 }
-
+
 /* Slurp dot-terminated text from NET
  * Accepts: NET stream
  *	    place to return size

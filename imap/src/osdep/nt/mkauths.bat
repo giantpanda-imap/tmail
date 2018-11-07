@@ -8,18 +8,11 @@ REM You may obtain a copy of the License at
 REM
 REM     http://www.apache.org/licenses/LICENSE-2.0
 REM
-REM 
 REM ========================================================================
 
 REM Program:	Authenticator Linkage Generator for DOS and Windows
 REM
 REM Author:	Mark Crispin
-REM		Networks and Distributed Computing
-REM		Computing & Communications
-REM		University of Washington
-REM		Administration Building, AG-44
-REM		Seattle, WA  98195
-REM		Internet: MRC@CAC.Washington.EDU
 REM
 REM Date:	6 December 1995
 REM Last Edited:30 August 2006

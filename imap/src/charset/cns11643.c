@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	CSN 11643 conversion table
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	3 July 1997
  * Last Edited:	30 August 2006
  */
-
+
 /* CNS 11643 is the national standard of the Republic of China (Taiwan).
  * Thanks to Emily Hsu of the ROC's Institute for Information Industry for
  * this data.
@@ -116,7 +109,7 @@
    cns11643_15tab[ku][ten] : UBOGON)
 #endif
 #endif
-
+
 /* CNS 11643 plane 1 conversion table */
 
 static const unsigned short
@@ -1238,7 +1231,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 /* CNS 11643 plane 2 conversion table */
 
 static const unsigned short
@@ -2228,7 +2221,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 #if CNS_EXTENDED
 /* CNS 11643 plane 3 conversion table */
 
@@ -3087,7 +3080,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 /* CNS 11643 plane 4 conversion table */
 
 static const unsigned short
@@ -4029,7 +4022,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 /* CNS 11643 plane 5 conversion table */
 
 static const unsigned short
@@ -5139,7 +5132,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 /* CNS 11643 plane 6 conversion table */
 
 static const unsigned short
@@ -5961,7 +5954,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 /* CNS 11643 plane 7 conversion table */
 
 static const unsigned short
@@ -6795,7 +6788,7 @@ static const unsigned short
     UBOGON,UBOGON,UBOGON,UBOGON
   }
 };
-
+
 #if CNS_OBSOLETE
 /* CNS 11643 plane 14 conversion table */
 
@@ -7655,7 +7648,7 @@ static const unsigned short
   }
 };
 #endif
-
+
 #if CNS_EXTENSION
 /* CNS 11643 plane 15 conversion table */
 

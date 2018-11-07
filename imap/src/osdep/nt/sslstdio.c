@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	22 September 1998
  * Last Edited:	19 November 2008
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 /* Get character
  * Returns: character or EOF
  */
@@ -105,7 +102,7 @@ long INWAIT (long seconds)
 {
   return (sslstdio ? ssl_server_input_wait : server_input_wait) (seconds);
 }
-
+
 /* Put character
  * Accepts: character
  * Returns: character written or EOF
@@ -137,7 +134,7 @@ int PSOUT (char *s)
   }
   return 0;			/* success */
 }
-
+
 /* Put record
  * Accepts: source sized text
  * Returns: 0 or EOF if error

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Pluggable Authentication Modules login services
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	31 August 2006
@@ -37,7 +30,7 @@ struct checkpw_cred {
   char *uname;			/* user name */
   char *pass;			/* password */
 };
-
+
 /* PAM conversation function
  * Accepts: number of messages
  *	    vector of messages
@@ -87,7 +80,7 @@ static void checkpw_cleanup (pam_handle_t *hdl)
   pam_setcred (hdl,PAM_DELETE_CRED);
   pam_end (hdl,PAM_SUCCESS);
 }
-
+
 /* Server log in
  * Accepts: user name string
  *	    password string

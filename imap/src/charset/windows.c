@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Windows conversion tables
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	16 October 2000
  * Last Edited:	30 August 2006
  */
-
+
 				/* Windows Thai */
 static const unsigned short windows_874tab[128] = {
   0x20ac,UBOGON,UBOGON,UBOGON,UBOGON,0x2026,UBOGON,UBOGON,

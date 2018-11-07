@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,19 +18,6 @@
  *
  * Date:	18 December 2003
  * Last Edited:	23 May 2011
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * 
- * ========================================================================
  */
 
 
@@ -46,7 +41,7 @@ struct sockaddr *ip_sockaddr (int family,void *adr,size_t adrlen,
 char *ip_sockaddrtoname (struct sockaddr *sadr,char *buf);
 void *ip_nametoaddr (char *name,size_t *len,int *family,char **canonical,
 		     void **next,void **cleanup);
-
+
 /* Return IP address string from socket address
  * Accepts: socket address
  *	    buffer
@@ -91,7 +86,7 @@ void *ip_stringtoaddr (char *text,size_t *len,int *family)
   }
   return (void *) ret;
 }
-
+
 /* Create a maximum-size socket address
  * Accepts: pointer to return maximum socket address length
  * Returns: new, empty socket address of maximum size
@@ -131,7 +126,7 @@ struct sockaddr *ip_sockaddr (int family,void *adr,size_t adrlen,
   }
   return sadr;
 }
-
+
 /* Return name from socket address
  * Accepts: socket address
  *	    buffer

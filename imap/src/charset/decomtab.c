@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Unicode decomposition tables (current as of Unicode 5.0)
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	13 April 2006
  * Last Edited:	6 December 2006
  */
-
+
 /* BMP decompositions */
 
 #define UCS4_BMPLOMIN 0x00a0
@@ -2673,7 +2666,7 @@ static const unsigned short ucs4_bmphalffulldecomptab[240] = {
   0x00a2,0x00a3,0x00ac,0x00af,0x00a6,0x00a5,0x20a9,0x0000,
   0x2502,0x2190,0x2191,0x2192,0x2193,0x25a0,0x25cb,0x0000
 };
-
+
 /* SMP decompositions */
 
 	/* Musical */
@@ -2830,7 +2823,7 @@ static const unsigned short ucs4_smpmathdecomptab[1024] = {
   0x0034,0x0035,0x0036,0x0037,0x0038,0x0039,0x0030,0x0031,
   0x0032,0x0033,0x0034,0x0035,0x0036,0x0037,0x0038,0x0039
 };
-
+
 /* SIP decompositions */
 
 #define UCS4_SIPMIN 0x2f800

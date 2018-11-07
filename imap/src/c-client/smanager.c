@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2006 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	3 December 1992
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
  */
 
 
@@ -28,7 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "c-client.h"
-
+
 /* Subscribe to mailbox
  * Accepts: mailbox name
  * Returns: T on success, NIL on failure
@@ -60,7 +57,7 @@ long sm_subscribe (char *mailbox)
   fprintf (f,"%s\n",mailbox);
   return (fclose (f) == EOF) ? NIL : T;
 }
-
+
 /* Unsubscribe from mailbox
  * Accepts: mailbox name
  * Returns: T on success, NIL on failure
@@ -99,7 +96,7 @@ long sm_unsubscribe (char *mailbox)
   }
   return NIL;
 }
-
+
 /* Read subscription database
  * Accepts: pointer to destination buffer of size MAILTMPLEN
  *	    pointer to subscription database handle (handle NIL if first time)

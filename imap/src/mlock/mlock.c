@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Standalone Mailbox Lock program
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	8 February 1999
  * Last Edited:	3 March 2008
@@ -49,7 +42,7 @@
 #ifndef MAXHOSTNAMELEN		/* Solaris still sucks */
 #define MAXHOSTNAMELEN 256
 #endif
-
+
 /* Fatal error
  * Accepts: Message string
  *	    exit code
@@ -110,7 +103,7 @@ int main (int argc,char *argv[])
   sprintf (lock,"%s.lock",file);
   if (!lstat (lock,&sb) && ((sb.st_mode & S_IFMT) != S_IFREG))
     return die ("existing lock not regular file",EX_NOPERM);
-
+
   do {				/* until OK or out of tries */
     if (!stat (lock,&sb) && (time (0) > (sb.st_ctime + LOCKTIMEOUT * 60)))
       unlink (lock);		/* time out lock if enough time has passed */

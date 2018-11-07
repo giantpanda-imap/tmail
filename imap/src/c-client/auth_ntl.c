@@ -1,13 +1,12 @@
 /* ========================================================================
- * Copyright 1988-2008 University of Washington
  * Copyright 2015      Imagination Technologies
+ * Copyright 1988-2008 University of Washington
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  *
  * ========================================================================
  */
@@ -20,7 +19,7 @@
  * Date:	25 January 2015
  * Last Edited:	25 January 2015
  */
-
+
 #include <ntlm.h>
 
 long auth_ntlm_client (authchallenge_t challenger,authrespond_t responder,
@@ -35,7 +34,7 @@ AUTHENTICATOR auth_ntl = {	/* secure, has full auth, hidden */
   NIL,				/* no server method */
   NIL				/* next authenticator */
 };
-
+
 /* Client authenticator
  * Accepts: challenger function
  *	    responder function

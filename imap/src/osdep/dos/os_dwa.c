@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- DOS (Waterloo) version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 April 1989
  * Last Edited:	30 August 2006
  */
-
+
 #include <tcp.h>		/* must be before TCPSTREAM definition */
 #include "tcp_dwa.h"		/* must be before osdep include our tcp.h */
 #include "mail.h"
@@ -40,7 +33,7 @@
 /* Undo compatibility definition */
 
 #undef tcp_open
-
+
 #include "fs_dos.c"
 #include "ftl_dos.c"
 #include "nl_dos.c"

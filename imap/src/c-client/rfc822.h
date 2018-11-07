@@ -1,5 +1,6 @@
 /* ========================================================================
  * Copyright 1988-2006 University of Washington
+ * Copyright 1988 Stanford University
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -7,7 +8,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,24 +15,11 @@
  * Program:	RFC 2822 and MIME routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	27 July 1988
  * Last Edited:	30 August 2006
- *
- * This original version of this file is
- * Copyright 1988 Stanford University
- * and was developed in the Symbolic Systems Resources Group of the Knowledge
- * Systems Laboratory at Stanford University in 1987-88, and was funded by the
- * Biomedical Research Technology Program of the NationalInstitutes of Health
- * under grant number RR-00785.
  */
-
+
 #define MAXGROUPDEPTH 50	/* RFC [2]822 doesn't allow any group nesting */
 #define MAXMIMEDEPTH 50		/* more than any sane MIMEgram */
 
@@ -52,7 +39,7 @@ typedef struct rfc822buffer {
 
 typedef long (*rfc822outfull_t) (RFC822BUFFER *buf,ENVELOPE *env,BODY *body,
 				 long ok8bit);
-
+
 /* Function prototypes */
 
 char *rfc822_default_subtype (unsigned short type);
@@ -105,7 +92,7 @@ unsigned char *rfc822_qprint (unsigned char *src,unsigned long srcl,
 			      unsigned long *len);
 unsigned char *rfc822_8bit (unsigned char *src,unsigned long srcl,
 			    unsigned long *len);
-
+
 /* Legacy routines for compatibility with the past */
 
 void rfc822_header (char *header,ENVELOPE *env,BODY *body);

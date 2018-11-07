@@ -53,7 +53,7 @@ Abstract
 
 
 Daboo                        Standards Track                    [Page 1]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 Daboo                        Standards Track                    [Page 2]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -165,7 +165,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 3]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -221,7 +221,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 4]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -277,7 +277,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 5]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -333,7 +333,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 6]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -389,7 +389,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 7]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -445,7 +445,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 8]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -501,7 +501,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                    [Page 9]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -557,7 +557,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 10]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -613,7 +613,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 11]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -669,7 +669,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 12]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -725,7 +725,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 13]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -781,7 +781,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 14]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -837,7 +837,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 15]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -893,7 +893,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 16]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -949,7 +949,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 17]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -1005,7 +1005,7 @@ RFC 5464               The IMAP METADATA Extension         February 2009
 
 
 Daboo                        Standards Track                   [Page 18]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -1061,7 +1061,7 @@ Appendix A.  Acknowledgments
 
 
 Daboo                        Standards Track                   [Page 19]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -1117,7 +1117,7 @@ Author's Address
 
 
 Daboo                        Standards Track                   [Page 20]
-
+
 RFC 5464               The IMAP METADATA Extension         February 2009
 
 
@@ -1173,5 +1173,5 @@ Intellectual Property
 
 
 Daboo                        Standards Track                   [Page 21]
-
+
 

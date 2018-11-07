@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	News routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	4 September 1991
  * Last Edited:	30 January 2007
@@ -44,7 +37,7 @@ extern int errno;		/* just in case */
 
 #define NLM_HEADER 0x1		/* load message text */
 #define NLM_TEXT 0x2		/* load message text */
-
+
 /* NEWS I/O stream local data */
 	
 typedef struct news_local {
@@ -91,7 +84,7 @@ void news_check (MAILSTREAM *stream);
 long news_expunge (MAILSTREAM *stream,char *sequence,long options);
 long news_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options);
 long news_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data);
-
+
 /* News routines */
 
 
@@ -139,7 +132,7 @@ DRIVER newsdriver = {
 
 				/* prototype stream */
 MAILSTREAM newsproto = {&newsdriver};
-
+
 /* News validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -173,7 +166,7 @@ DRIVER *news_valid (char *name)
   }
   return NIL;			/* return status */
 }
-
+
 /* News manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -199,7 +192,7 @@ void news_scan (MAILSTREAM *stream,char *ref,char *pat,char *contents)
   if (news_canonicalize (ref,pat,tmp))
     mm_log ("Scan not valid for news mailboxes",ERROR);
 }
-
+
 /* News find list of newsgroups
  * Accepts: mail stream
  *	    reference
@@ -244,7 +237,7 @@ void news_list (MAILSTREAM *stream,char *ref,char *pat)
     fs_give ((void **) &s);
   }
 }
-
+
 /* News find list of subscribed newsgroups
  * Accepts: mail stream
  *	    reference
@@ -290,7 +283,7 @@ long news_canonicalize (char *ref,char *pat,char *pattern)
   }
   return NIL;
 }
-
+
 /* News subscribe to mailbox
  * Accepts: mail stream
  *	    mailbox to add to subscription list
@@ -313,7 +306,7 @@ long news_unsubscribe (MAILSTREAM *stream,char *mailbox)
 {
   return news_valid (mailbox) ? newsrc_update (stream,mailbox+6,'!') : NIL;
 }
-
+
 /* News create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -348,7 +341,7 @@ long news_rename (MAILSTREAM *stream,char *old,char *newname)
 {
   return NIL;			/* never valid for News */
 }
-
+
 /* News open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -396,7 +389,7 @@ MAILSTREAM *news_open (MAILSTREAM *stream)
   else mm_log ("Unable to scan newsgroup spool directory",ERROR);
   return LOCAL ? stream : NIL;	/* if stream is alive, return to caller */
 }
-
+
 /* News file name selection test
  * Accepts: candidate directory entry
  * Returns: T to use file name, NIL to skip it
@@ -440,7 +433,7 @@ void news_close (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* News fetch fast information
  * Accepts: MAIL stream
  *	    sequence
@@ -474,7 +467,7 @@ void news_flags (MAILSTREAM *stream,char *sequence,long flags)
       mail_uid_sequence (stream,sequence) : mail_sequence (stream,sequence))
     for (i = 1; i <= stream->nmsgs; i++) mail_elt (stream,i)->valid = T;
 }
-
+
 /* News load message into cache
  * Accepts: MAIL stream
  *	    message #
@@ -512,7 +505,7 @@ void news_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
       elt->seconds = tm->tm_sec;
       elt->zhours = 0; elt->zminutes = 0;
     }
-
+
     if (!elt->rfc822_size) {	/* know message size yet? */
       for (i = 0, j = SIZE (&bs), nlseen = 0; j--; ) switch (SNX (&bs)) {
       case '\015':		/* unlikely carriage return */
@@ -547,7 +540,7 @@ void news_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
       elt->private.msg.text.text.size =
 	elt->rfc822_size - elt->private.msg.header.text.size;
     }
-
+
 				/* need to load cache with message data? */
     if (((flags & NLM_HEADER) && !elt->private.msg.header.text.data) ||
 	((flags & NLM_TEXT) && !elt->private.msg.text.text.data)) {
@@ -600,7 +593,7 @@ void news_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
     close (fd);			/* flush message file */
   }
 }
-
+
 /* News fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -650,7 +643,7 @@ long news_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
 	elt->private.msg.text.text.size);
   return T;
 }
-
+
 /* News per-message modify flag
  * Accepts: MAIL stream
  *	    message cache element
@@ -704,7 +697,7 @@ long news_expunge (MAILSTREAM *stream,char *sequence,long options)
   if (!stream->silent) mm_log ("Expunge ignored on readonly mailbox",NIL);
   return LONGT;
 }
-
+
 /* News copy message(s)
  * Accepts: MAIL stream
  *	    sequence

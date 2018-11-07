@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Mac environment routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	26 January 1992
  * Last Edited:	30 August 2006
@@ -32,7 +25,7 @@ static char *myLocalHost = NIL;	/* local host name */
 static char *myNewsrc = NIL;	/* newsrc file name */
 
 #include "pmatch.c"		/* include wildcard pattern matcher */
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -70,7 +63,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    format of date and time
@@ -119,7 +112,7 @@ void internal_date (char *date)
 {
   do_date (date,"%2d-%b-%Y %H:%M:%S ");
 }
-
+
 /* Return my local host name
  * Returns: my local host name
  */
@@ -150,7 +143,7 @@ MAILSTREAM *default_proto (long type)
   extern MAILSTREAM dummyproto;
   return &dummyproto;		/* return default driver's prototype */
 }
-
+
 /* Block until event satisfied
  * Called as: while (wait_condition && wait ());
  * Returns T if OK, NIL if user wants to abort
@@ -204,7 +197,7 @@ long wait ()
   }
   return T;			/* try wait test again */
 }
-
+
 /* Return random number
  */
 

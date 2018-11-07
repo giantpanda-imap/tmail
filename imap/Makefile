@@ -1,17 +1,6 @@
 # ========================================================================
+# Copyright      2013 Jonathan Abbey <jonabbey@arlut.utexas.edu>
 # Copyright 2008-2011 Mark Crispin
-# ========================================================================
-#
-
-# Program:	IMAP Toolkit Makefile
-#
-# Author:	Mark Crispin
-#
-# Date:		7 December 1989
-# Last Edited:	15 April 2013 (jonabbey@arlut.utexas.edu)
-#
-# Previous versions of this file were
-#
 # Copyright 1988-2008 University of Washington
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +8,16 @@
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
+#
+# ========================================================================
+
+
+# Program:	IMAP Toolkit Makefile
+#
+# Author:	Mark Crispin
+#
+# Date:		7 December 1989
+# Last Edited:	15 April 2013 (jonabbey)
 
 
 # Normal command to build IMAP toolkit:

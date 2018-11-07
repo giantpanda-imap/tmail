@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	Plain authenticator
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	22 September 1998
  * Last Edited:	30 August 2006
  */
-
+
 long auth_plain_client (authchallenge_t challenger,authrespond_t responder,
 			char *service,NETMBX *mb,void *stream,
 			unsigned long *trial,char *user);
@@ -39,7 +32,7 @@ AUTHENTICATOR auth_pla = {
   auth_plain_server,		/* server method */
   NIL				/* next authenticator */
 };
-
+
 /* Client authenticator
  * Accepts: challenger function
  *	    responder function
@@ -106,7 +99,7 @@ long auth_plain_client (authchallenge_t challenger,authrespond_t responder,
   if (!ret) *trial = 65535;	/* don't retry if bad protocol */
   return ret;
 }
-
+
 /* Server authenticator
  * Accepts: responder function
  *	    argument count

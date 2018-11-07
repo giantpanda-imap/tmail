@@ -56,7 +56,7 @@ IMAP4 client interoperability with IMAP2bis servers
 
 
 Crispin                      Informational                      [Page 1]
-
+
 RFC 2061                  IMAP4 Compatibility              December 1996
 
 
@@ -112,7 +112,7 @@ RFC 2061                  IMAP4 Compatibility              December 1996
 
 
 Crispin                      Informational                      [Page 2]
-
+
 RFC 2061                  IMAP4 Compatibility              December 1996
 
 
@@ -168,4 +168,4 @@ Author's Address
 
 
 Crispin                      Informational                      [Page 3]
-
+

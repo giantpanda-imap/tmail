@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	24 May 1993
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -33,7 +30,7 @@
 #include <dos.h>
 #include "dummy.h"
 #include "misc.h"
-
+
 /* Function prototypes */
 
 DRIVER *dummy_valid (char *name);
@@ -51,7 +48,7 @@ long dummy_expunge (MAILSTREAM *stream,char *sequence,long options);
 long dummy_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options);
 long dummy_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data);
 long dummy_badname (char *tmp,char *s);
-
+
 /* Dummy routines */
 
 
@@ -102,7 +99,7 @@ MAILSTREAM dummyproto = {&dummydriver};
 
 				/* driver parameters */
 static char *file_extension = NIL;
-
+
 /* Dummy validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -137,7 +134,7 @@ void *dummy_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Dummy scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -181,7 +178,7 @@ void dummy_scan (MAILSTREAM *stream,char *ref,char *pat,char *contents)
       dummy_listed (stream,NIL,"INBOX",LATT_NOINFERIORS,contents);
   }
 }
-
+
 /* Dummy list mailboxes
  * Accepts: mail stream
  *	    reference
@@ -238,7 +235,7 @@ long dummy_subscribe (MAILSTREAM *stream,char *mailbox)
   mm_log (tmp,ERROR);
   return NIL;
 }
-
+
 /* Dummy list mailboxes worker routine
  * Accepts: mail stream
  *	    directory name to search
@@ -304,7 +301,7 @@ void dummy_list_work (MAILSTREAM *stream,char *dir,char *pat,char *contents,
     while (!_dos_findnext (&f));
   }
 }
-
+
 /* Mailbox found
  * Accepts: hierarchy delimiter
  *	    mailbox name
@@ -345,7 +342,7 @@ long dummy_listed (MAILSTREAM *stream,char delimiter,char *name,
   mm_list (stream,delimiter,name,attributes);
   return T;
 }
-
+
 /* Dummy create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -401,7 +398,7 @@ long dummy_create_path (MAILSTREAM *stream,char *path,long dirmode)
   }
   return ret;			/* return status */
 }
-
+
 /* Dummy delete mailbox
  * Accepts: mail stream
  *	    mailbox name to delete
@@ -457,7 +454,7 @@ long dummy_rename (MAILSTREAM *stream,char *old,char *newname)
   }
   return LONGT;			/* return success */
 }
-
+
 /* Dummy open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -507,7 +504,7 @@ void dummy_close (MAILSTREAM *stream,long options)
 {
 				/* return silently */
 }
-
+
 /* Dummy ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -567,7 +564,7 @@ long dummy_expunge (MAILSTREAM *stream,char *sequence,long options)
 {
   return LONGT;
 }
-
+
 /* Dummy copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -618,7 +615,7 @@ long dummy_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   mm_log (tmp,ERROR);
   return NIL;
 }
-
+
 /* Return bad file name error message
  * Accepts: temporary buffer
  *	    file name

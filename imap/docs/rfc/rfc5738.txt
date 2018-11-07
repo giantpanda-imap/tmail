@@ -56,7 +56,7 @@ Copyright Notice
 
 
 Resnick & Newman              Experimental                      [Page 1]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -112,7 +112,7 @@ Table of Contents
 
 
 Resnick & Newman              Experimental                      [Page 2]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -168,7 +168,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 3]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -224,7 +224,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 4]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -280,7 +280,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 5]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -336,7 +336,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 6]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -392,7 +392,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 7]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -448,7 +448,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 8]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -504,7 +504,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                      [Page 9]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -560,7 +560,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                     [Page 10]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -616,7 +616,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                     [Page 11]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -672,7 +672,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                     [Page 12]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -728,7 +728,7 @@ RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
 Resnick & Newman              Experimental                     [Page 13]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -784,7 +784,7 @@ Appendix A.  Design Rationale
 
 
 Resnick & Newman              Experimental                     [Page 14]
-
+
 RFC 5738                 IMAP Support for UTF-8               March 2010
 
 
@@ -840,4 +840,4 @@ Authors' Addresses
 
 
 Resnick & Newman              Experimental                     [Page 15]
-
+

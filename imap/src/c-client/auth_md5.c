@@ -1,9 +1,14 @@
-/*
- * Copyright 2016 - Eduardo Chappa
- * Last Modified: August 11, 2016
- */
 /* ========================================================================
+ * Copyright 2016 - Eduardo Chappa
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2007 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -13,20 +18,9 @@
  * Author:	Mark Crispin
  *
  * Date:	21 October 1998
- * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Last Edited:	August 11, 2016
  */
-
+
 /* MD5 context */
 
 #define MD5BLKLEN 64		/* MD5 block length */
@@ -70,7 +64,7 @@ AUTHENTICATOR auth_md5 = {
   auth_md5_server,		/* server method */
   NIL				/* next authenticator */
 };
-
+
 /* Check if CRAM-MD5 valid on this system
  * Returns: T, always
  */
@@ -132,7 +126,7 @@ long auth_md5_client (authchallenge_t challenger,authrespond_t responder,
   if (!ret) *trial = 65535;	/* don't retry if bad protocol */
   return ret;
 }
-
+
 /* Server authenticator
  * Accepts: responder function
  *	    argument count
@@ -177,7 +171,7 @@ char *auth_md5_server (authresponse_t responder,int argc,char *argv[])
   if (!ret) sleep (3);		/* slow down possible cracker */
   return ret;
 }
-
+
 /* Return MD5 password for user
  * Accepts: user name
  * Returns: plaintext password if success, else NIL
@@ -220,7 +214,7 @@ char *auth_md5_pwd (char *user)
   }
   return ret;			/* return password */
 }
-
+
 /* APOP server login
  * Accepts: challenge
  *	    desired user name
@@ -266,7 +260,7 @@ char *apop_login (char *chal,char *user,char *md5,int argc,char *argv[])
   if (!ret) sleep (3);		/* slow down possible cracker */
   return ret;
 }
-
+
 /*
  * RFC 2104 HMAC hashing
  * Accepts: destination buffer of size 2*MD5DIGLEN + 1
@@ -316,7 +310,7 @@ char *hmac_md5 (char *hshbuf, char *text,unsigned long tl,char *key,
   *s = '\0';			/* tie off hash text */
   return hshbuf;
 }
-
+
 /* Everything after this point is derived from the RSA Data Security, Inc.
  * MD5 Message-Digest Algorithm
  */
@@ -345,7 +339,7 @@ char *hmac_md5 (char *hshbuf, char *text,unsigned long tl,char *key,
  a += (c ^ (b | ~d)) + x + (unsigned long) ac; \
  a &= 0xffffffff; \
  a = b + ((a << s) | (a >> (32 - s)));
-
+
 /* Initialize MD5 context
  * Accepts: context to initialize
  */
@@ -379,7 +373,7 @@ void md5_update (MD5CONTEXT *ctx,unsigned char *data,unsigned long len)
   memcpy (ctx->ptr,data,len);	/* copy final bit of data in buffer */
   ctx->ptr += len;		/* update buffer pointer */
 }
-
+
 /* MD5 Finalization
  * Accepts: destination digest
  *	    context
@@ -409,7 +403,7 @@ void md5_final (unsigned char *digest,MD5CONTEXT *ctx)
 				/* erase context */
   memset (ctx,0,sizeof (MD5CONTEXT));
 }
-
+
 /* MD5 basic transformation
  * Accepts: state vector
  *	    current 64-byte block
@@ -459,7 +453,7 @@ static void md5_transform (unsigned long *state,unsigned char *block)
   state[0] += a; state[1] += b; state[2] += c; state[3] += d;
   memset (x,0,sizeof (x));	/* erase sensitive data */
 }
-
+
 /* You may wonder why these strange "& 0xff" maskings are here.  This is to
  * ensure correct results on machines with a char size of larger than 8 bits.
  * For example, the KCC compiler on the PDP-10 uses 9-bit chars.

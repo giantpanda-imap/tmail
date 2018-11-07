@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	MIT Kerberos routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	4 March 2003
  * Last Edited:	30 August 2006
@@ -34,7 +27,7 @@
 long kerberos_server_valid (void);
 long kerberos_try_kinit (OM_uint32 error);
 char *kerberos_login (char *user,char *authuser,int argc,char *argv[]);
-
+
 /* Kerberos server valid check
  * Returns: T if have keytab, NIL otherwise
  *
@@ -77,7 +70,7 @@ long kerberos_try_kinit (OM_uint32 error)
   }
   return NIL;
 }
-
+
 /* Kerberos server log in
  * Accepts: authorization ID as user name
  *	    authentication ID as Kerberos principal

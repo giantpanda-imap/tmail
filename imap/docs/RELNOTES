@@ -1,5 +1,12 @@
 /* ========================================================================
  * Copyright 2012 Mark Crispin
+  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -137,7 +144,7 @@ Fix threading problem creating TCP socket.
 Fix loop caused by syntax errors from GMail IMAP server.
 
 Fix over-quota problem.
-
+
 /*
  * Previous versions of this file were
  *

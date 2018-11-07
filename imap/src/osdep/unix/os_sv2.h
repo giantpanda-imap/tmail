@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- SVR2 version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 April 1992
  * Last Edited:	20 December 2006
  */
-
+
 #include <unistd.h>
 #include <string.h>
 #define char void
@@ -84,7 +77,7 @@ typedef struct _dirdesc {
   long dd_size;
   char *dd_buf;
 } DIR;
-
+
 struct passwd *getpwent (void);
 struct passwd *getpwuid (int uid);
 struct passwd *getpwnam (char *name);

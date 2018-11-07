@@ -1,11 +1,14 @@
-/*
- * Copyright 2016 Eduardo Chappa
- *
- * Last Edited: February 6, 2015 Eduardo Chappa <chappa@gmx.com>
- *
- */
 /* ========================================================================
+ * Copyright 2016 Eduardo Chappa
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -15,20 +18,9 @@
  * Author:	Mark Crispin
  *
  * Date:	22 November 1989
- * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Last Edited: February 6, 2015 Eduardo Chappa <chappa@gmx.com>
  */
-
+
 /* The Version */
 
 #define CCLIENTVERSION "2010"
@@ -73,7 +65,7 @@
 #define T 1			/* opposite of NIL */
 #define LONGT (long) 1		/* long T to pacify some compilers */
 #define VOIDT (void *) ""	/* void T ditto */
-
+
 /* Global and Driver Parameters */
 
 	/* 0xx: driver and authenticator flags */
@@ -190,7 +182,7 @@
 #define SET_SSLCAPATH (long) 232
 #define GET_RESTRICTIONS (long) 233
 #define SET_RESTRICTIONS (long) 234
-
+
 	/* 3xx: TCP/IP */
 #define GET_OPENTIMEOUT (long) 300
 #define SET_OPENTIMEOUT (long) 301
@@ -230,7 +222,7 @@
 #define SET_SSLCLIENTKEY (long) 335
 #define GET_KERBEROS_CP_SVR_NAME (long) 336
 #define SET_KERBEROS_CP_SVR_NAME (long) 337
-
+
 	/* 4xx: network drivers */
 #define GET_MAXLOGINTRIALS (long) 400
 #define SET_MAXLOGINTRIALS (long) 401
@@ -288,7 +280,7 @@
 #define SET_IDLETIMEOUT (long) 453
 #define GET_FETCHLOOKAHEADLIMIT (long) 454
 #define SET_FETCHLOOKAHEADLIMIT (long) 455
-
+
 	/* 5xx: local file drivers */
 #define GET_MBXPROTECTION (long) 500
 #define SET_MBXPROTECTION (long) 501
@@ -366,7 +358,7 @@
 #define SET_SCANCONTENTS (long) 573
 #define GET_MHALLOWINBOX (long) 574
 #define SET_MHALLOWINBOX (long) 575
-
+
 /* Driver flags */
 
 #define DR_DISABLE (long) 0x1	/* driver is disabled */
@@ -453,7 +445,7 @@
 #define NET_TRYDTLS1   ((unsigned long) 0x400000)
 				/* try DTLS1_2 mode */
 #define NET_TRYDTLS1_2   ((unsigned long) 0x200000)
-
+
 /* Close options */
 
 #define CL_EXPUNGE (long) 1	/* expunge silently */
@@ -497,7 +489,7 @@
 #define CP_MOVE (long) 0x2	/* delete from source after copying */
 				/* set debug in any created stream */
 #define CP_DEBUG (long) 0x20000000
-
+
 /* Search/sort/thread options */
 
 #define SE_UID (long) 0x1	/* return UID */
@@ -533,7 +525,7 @@
 
 #define MG_UID (long) 0x1	/* message number is a UID */
 #define MG_COPY (long) 0x2	/* must return copy of argument */
-
+
 /* SASL authenticator categories */
 
 #define AU_SECURE (long) 0x1	/* /secure allowed */
@@ -572,7 +564,7 @@
 #define fDRAFT 0x20
 
 #define fEXPUNGED 0x8000	/* internal flag */
-
+
 /* Bits for mm_list() and mm_lsub() */
 
 /* Note that (LATT_NOINFERIORS LATT_HASCHILDREN LATT_HASNOCHILDREN) and
@@ -640,7 +632,7 @@
 
 				/* expunge response deferred */
 #define SC_EXPUNGEDEFERRED (long) 1
-
+
 /* Block notification codes */
 
 #define BLOCK_NONE 0		/* not blocked */
@@ -715,7 +707,7 @@ typedef struct net_mailbox {
 			: (M).dtls1	? NET_TRYDTLS1	\
 			: NET_TLSCLIENT)
 
-
+
 /* Item in an address list */
 
 #define ADDRESS struct mail_address
@@ -757,7 +749,7 @@ typedef struct mail_envelope {
   char *references;		/* USENET references */
   void *sparep;			/* spare pointer reserved for main program */
 } ENVELOPE;
-
+
 /* Primary body types */
 /* If you change any of these you must also change body_types in rfc822.c */
 
@@ -793,7 +785,7 @@ typedef struct mail_envelope {
 #define PARAMETER struct mail_body_parameter
 #define PART struct mail_body_part
 #define PARTTEXT struct mail_body_text
-
+
 /* Message body text */
 
 PARTTEXT {
@@ -859,7 +851,7 @@ MESSAGE {
   PARTTEXT header;		/* header text */
   PARTTEXT text;		/* body text */
 };
-
+
 /* Entry in the message cache array */
 
 typedef struct message_cache {
@@ -913,7 +905,7 @@ typedef struct message_cache {
   void *sparep;			/* spare pointer */
   unsigned long user_flags;	/* user-assignable flags */
 } MESSAGECACHE;
-
+
 /* String structure */
 
 #define STRINGDRIVER struct string_driver
@@ -951,7 +943,7 @@ STRINGDRIVER {
 #define SNX(s) (--(s)->cursize ? *(s)->curpos++ : (*(s)->dtb->next) (s))
 #define GETPOS(s) ((s)->offset + ((s)->curpos - (s)->chunk))
 #define SETPOS(s,i) (*(s)->dtb->setpos) (s,i)
-
+
 /* Search program */
 
 #define SEARCHPGM struct search_program
@@ -986,7 +978,7 @@ SEARCHPGMLIST {
   SEARCHPGM *pgm;		/* search program */
   SEARCHPGMLIST *next;		/* next in list */
 };
-
+
 SEARCHPGM {			/* search program */
   SEARCHSET *msgno;		/* message numbers */
   SEARCHSET *uid;		/* unique identifiers */
@@ -1047,7 +1039,7 @@ typedef struct mbx_status {
   unsigned long uidnext;	/* next UID to be assigned */
   unsigned long uidvalidity;	/* UID validity value */
 } MAILSTATUS;
-
+
 /* Sort program */
 
 typedef void (*postsort_t) (void *sc);
@@ -1091,7 +1083,7 @@ SORTCACHE {
   char *unique;			/* unique string, normally message-id */
   STRINGLIST *references;	/* references string */
 };
-
+
 /* ACL list */
 
 #define ACLLIST struct acl_list
@@ -1199,7 +1191,7 @@ typedef struct mail_stream {
   unsigned int spare7 : 1;	/* seventh spare bit */
   unsigned int spare8 : 1;	/* eighth spare bit */
 } MAILSTREAM;
-
+
 /* Mail I/O stream handle */
 
 typedef struct mail_stream_handle {
@@ -1222,7 +1214,7 @@ typedef struct mail_overview {
     char *xref;			/* cross references */
   } optional;
 } OVERVIEW;
-
+
 /* Network access I/O stream */
 
 
@@ -1272,7 +1264,7 @@ typedef struct getsdata {
 #define INIT_GETS(md,s,m,w,f,l) \
   md.stream = s, md.msgno = m, md.what = w, md.first = f, md.last = l, \
   md.stl = NIL, md.flags = NIL;
-
+
 /* Mail delivery I/O stream */
 
 typedef struct send_stream {
@@ -1356,7 +1348,7 @@ typedef struct send_stream {
     } nntp;
   } protocol;
 } SENDSTREAM;
-
+
 /* Jacket into external interfaces */
 
 typedef long (*readfn_t) (void *stream,unsigned long size,char *buffer);
@@ -1421,14 +1413,14 @@ typedef void (*sslfailure_t) (char *host,char *reason,unsigned long flags);
 typedef void (*logouthook_t) (void *data);
 typedef char *(*sslclientcert_t) (void);
 typedef char *(*sslclientkey_t) (void);
-
+
 /* Globals */
 
 extern char *body_types[];	/* defined body type strings */
 extern char *body_encodings[];	/* defined body encoding strings */
 extern const char *days[];	/* day name strings */
 extern const char *months[];	/* month name strings */
-
+
 /* Threading */
 
 /* Thread node */
@@ -1460,7 +1452,7 @@ THREADER {
 /* Container for references threading */
 
 typedef void ** container_t;
-
+
 /* Namespaces */
 
 #define NAMESPACE struct mail_namespace
@@ -1485,7 +1477,7 @@ AUTHENTICATOR {
   authserver_t server;		/* server function that supports it */
   AUTHENTICATOR *next;		/* next authenticator */
 };
-
+
 /* Mail driver dispatch */
 
 DRIVER {
@@ -1514,7 +1506,7 @@ DRIVER {
   long (*mbxren) (MAILSTREAM *stream,char *old,char *newname);
 				/* status of mailbox */
   long (*status) (MAILSTREAM *stream,char *mbx,long flags);
-
+
 				/* open mailbox */
   MAILSTREAM *(*open) (MAILSTREAM *stream);
 				/* close mailbox */
@@ -1569,7 +1561,7 @@ DRIVER {
 
 
 #include "linkage.h"
-
+
 /* Compatibility support names for old interfaces */
 
 #define GET_TRYALTFIRST GET_TRYSSLFIRST
@@ -1620,7 +1612,7 @@ DRIVER {
   mail_copy_full (stream,sequence,mailbox,CP_MOVE)
 #define mail_append(stream,mailbox,message) \
   mail_append_full (stream,mailbox,NIL,NIL,message)
-
+
 /* Interfaces for SVR4 locking brain-damage workaround */
 
 /* Driver dispatching */
@@ -1649,7 +1641,7 @@ DRIVER {
 #define MM_DISKERROR mm_diskerror
 #define MM_FATAL mm_fatal
 #define MM_APPEND(af) (*af)
-
+
 /* Function prototypes */
 
 void mm_searched (MAILSTREAM *stream,unsigned long number);
@@ -1695,7 +1687,7 @@ MAILSTREAM *mail_close_full (MAILSTREAM *stream,long options);
 MAILHANDLE *mail_makehandle (MAILSTREAM *stream);
 void mail_free_handle (MAILHANDLE **handle);
 MAILSTREAM *mail_stream (MAILHANDLE *handle);
-
+
 void mail_fetch_fast (MAILSTREAM *stream,char *sequence,long flags);
 void mail_fetch_flags (MAILSTREAM *stream,char *sequence,long flags);
 void mail_fetch_overview (MAILSTREAM *stream,char *sequence,overview_t ofn);
@@ -1746,7 +1738,7 @@ long mail_append_multiple (MAILSTREAM *stream,char *mailbox,append_t af,
 void mail_gc (MAILSTREAM *stream,long gcflags);
 void mail_gc_msg (MESSAGE *msg,long gcflags);
 void mail_gc_body (BODY *body);
-
+
 BODY *mail_body_section (BODY *b, unsigned char *section);
 BODY *mail_body (MAILSTREAM *stream,unsigned long msgno,
 		 unsigned char *section);
@@ -1822,7 +1814,7 @@ long mail_sequence (MAILSTREAM *stream,unsigned char *sequence);
 long mail_uid_sequence (MAILSTREAM *stream,unsigned char *sequence);
 long mail_parse_flags (MAILSTREAM *stream,char *flag,unsigned long *uf);
 long mail_usable_network_stream (MAILSTREAM *stream,char *name);
-
+
 MESSAGECACHE *mail_new_cache_elt (unsigned long msgno);
 ENVELOPE *mail_newenvelope (void);
 ADDRESS *mail_newaddr (void);
@@ -1865,7 +1857,7 @@ void auth_link (AUTHENTICATOR *auth);
 char *mail_auth (char *mechanism,authresponse_t resp,int argc,char *argv[]);
 AUTHENTICATOR *mail_lookup_auth (unsigned long i);
 unsigned int mail_lookup_auth_name (char *mechanism,long flags);
-
+
 NETSTREAM *net_open (NETMBX *mb,NETDRIVER *dv,unsigned long port,
 		     NETDRIVER *ssld,char *ssls,unsigned long sslp);
 NETSTREAM *net_open_work (NETDRIVER *dv,char *host,char *service,

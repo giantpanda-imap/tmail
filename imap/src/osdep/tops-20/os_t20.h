@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Operating-system dependent routines -- TOPS-20 version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 January 2007
@@ -33,7 +26,7 @@
  * equaled by more `modern' operating systems.
  * Wasureru mon ka!!!!
  */
-
+
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>

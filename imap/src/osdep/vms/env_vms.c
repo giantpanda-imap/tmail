@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	VMS environment routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	2 August 1994
  * Last Edited:	30 August 2006
@@ -33,7 +26,7 @@ static char *myHomeDir = NIL;	/* home directory name */
 static char *myNewsrc = NIL;	/* newsrc file name */
 
 #include "pmatch.c"		/* include wildcard pattern matcher */
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -73,7 +66,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
- 
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -113,7 +106,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d");
 }
-
+
 /* Return my user name
  * Returns: my user name
  */
@@ -151,7 +144,7 @@ MAILSTREAM *default_proto (long type)
 {
   return NIL;			/* no default prototype */
 }
-
+
 /* Emulator for BSD syslog() routine
  * Accepts: priority
  *	    message

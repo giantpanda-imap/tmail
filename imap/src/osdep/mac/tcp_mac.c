@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,16 +18,6 @@
  *
  * Date:	26 January 1992
  * Last Edited:	3 April 2010
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
  */
 
 
@@ -37,7 +35,7 @@ static long ttmo_close = 0;
 
 static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
 			       long *contd);
-
+
 /* TCP/IP manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -76,7 +74,7 @@ void *tcp_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* TCP/IP open
  * Accepts: host name
  *	    contact service name
@@ -120,7 +118,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
       return NIL;
     }
   }
-
+
   else {			/* look up host name */
     if (!tcp_dns_upp) tcp_dns_upp = NewResultProc (tcp_dns_result);
     if (StrToAddr (host,&hst,tcp_dns_upp,NIL)) {
@@ -171,7 +169,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
       }
     }
   }
-
+
 				/* create local TCP/IP stream */
   stream = (TCPSTREAM *) fs_get (sizeof (TCPSTREAM));
   stream->ictr = 0;		/* initialize input */
@@ -217,7 +215,7 @@ TCPSTREAM *tcp_open (char *host,char *service,unsigned long port)
     fs_give ((void **) &stream);/* and the local stream */
     return NIL;
   }
-
+
 				/* copy host names for later use */
   stream->host = cpystr (hst.cname);
 				/* tie off trailing dot */
@@ -246,7 +244,7 @@ pascal void tcp_dns_result (struct hostInfo *hostInfoPtr,char *userDataPtr)
 {
   /* dummy routine */
 }
-
+
 /* TCP/IP authenticated open
  * Accepts: NETMBX specifier
  *	    service name
@@ -258,7 +256,7 @@ TCPSTREAM *tcp_aopen (NETMBX *mb,char *service,char *usrbuf)
 {
   return NIL;			/* no authenticated opens on Mac */
 }
-
+
 /* TCP receive line
  * Accepts: TCP stream
  * Returns: text line string or NIL if failure
@@ -291,7 +289,7 @@ char *tcp_getline (TCPSTREAM *stream)
   }
   return ret;
 }
-
+
 /* TCP receive line or partial line
  * Accepts: TCP stream
  *	    pointer to return size
@@ -329,7 +327,7 @@ static char *tcp_getline_work (TCPSTREAM *stream,unsigned long *size,
   else *contd = LONGT;		/* continuation needed */
   return ret;
 }
-
+
 /* TCP/IP receive buffer
  * Accepts: TCP/IP stream
  *	    size in bytes
@@ -391,7 +389,7 @@ long tcp_getdata (TCPSTREAM *stream)
   }
   return T;
 }
-
+
 /* TCP/IP send string as record
  * Accepts: TCP/IP stream
  *	    string pointer
@@ -445,7 +443,7 @@ long tcp_sout (TCPSTREAM *stream,char *string,unsigned long size)
   }
   return T;			/* success */
 }
-
+
 /* TCP/IP close
  * Accepts: TCP/IP stream
  */
@@ -471,7 +469,7 @@ void tcp_close (TCPSTREAM *stream)
   fs_give ((void **) &stream->localhost);
   fs_give ((void **) &stream);	/* flush the stream */
 }
-
+
 /* TCP/IP return host for this stream
  * Accepts: TCP/IP stream
  * Returns: host name for this stream
@@ -514,7 +512,7 @@ char *tcp_localhost (TCPSTREAM *stream)
 {
   return stream->localhost;	/* return local host name */
 }
-
+
 /* TCP/IP return canonical form of host name
  * Accepts: host name
  * Returns: canonical form of host name

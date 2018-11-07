@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Unicode width table (current as of Unicode 5.0)
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	20 March 2006
  * Last Edited:	1 March 2007
  */
-
+
 /* Table of 2-bit character widths, indexed by Unicode codepoint and
  * big-endian within bytes:
  *  0	zero-width

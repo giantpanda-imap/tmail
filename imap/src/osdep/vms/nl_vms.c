@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	UNIX/VMS newline routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 August 2006
  */
-
+
 /* Copy string with CRLF newlines
  * Accepts: destination string
  *	    pointer to size of destination string buffer
@@ -64,7 +57,7 @@ unsigned long strcrlfcpy (unsigned char **dst,unsigned long *dstl,
   *d = '\0';			/* tie off destination */
   return d - *dst;		/* return length */
 }
-
+
 /* Length of string after strcrlfcpy applied
  * Accepts: source string
  * Returns: length of string

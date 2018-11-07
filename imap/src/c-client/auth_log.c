@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Login authenticator
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	5 December 1995
  * Last Edited:	30 August 2006
  */
-
+
 long auth_login_client (authchallenge_t challenger,authrespond_t responder,
 			char *service,NETMBX *mb,void *stream,
 			unsigned long *trial,char *user);
@@ -42,7 +35,7 @@ AUTHENTICATOR auth_log = {
 
 #define PWD_USER "User Name"
 #define PWD_PWD "Password"
-
+
 /* Client authenticator
  * Accepts: challenger function
  *	    responder function

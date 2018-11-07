@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,16 +14,11 @@
  * Program:	Operating-system dependent routines -- Convex version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
  *
  * Date:	11 May 1989
  * Last Edited:	16 August 2007
  */
-
+
 #define isodigit(c)    (((unsigned)(c)>=060)&((unsigned)(c)<=067))
 #define toint(c)       ((c)-'0')
 

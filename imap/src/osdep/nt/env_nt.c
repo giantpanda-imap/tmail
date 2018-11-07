@@ -1,5 +1,14 @@
 /* ========================================================================
+ * Copyright      2015 Eduardo Chappa <chappa@gmx.com>
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -9,20 +18,9 @@
  * Author:	Mark Crispin
  *
  * Date:	1 August 1988
- * Last Edited:	November 10, 2015.
- *		Eduardo Chappa <chappa@gmx.com>
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * Last Edited:	November 10, 2015 (Chappa)
  */
-
+
 static char *myUserName = NIL;	/* user name */
 static char *myLocalHost = NIL;	/* local host name */
 static char *myHomeDir = NIL;	/* home directory name */
@@ -59,7 +57,7 @@ static GETINFO getinfo = NIL;
 /* Get all authenticators */
 
 #include "auths.c"
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -130,7 +128,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -205,7 +203,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Return random number
  */
 
@@ -237,7 +235,7 @@ void CALLBACK clock_ticked (UINT IDEvent,UINT uReserved,DWORD dwUser,
 {
   if (alarm_rang && !--alarm_countdown) (*alarm_rang) ();
 }
-
+
 /* Initialize server
  * Accepts: server name for syslog or NIL
  *	    /etc/services service name or NIL
@@ -305,7 +303,7 @@ long server_input_wait (long seconds)
   tmo.tv_sec = seconds; tmo.tv_usec = 0;
   return select (1,&rfd,0,&efd,&tmo) ? LONGT : NIL;
 }
-
+
 /* Server log in
  * Accepts: user name string
  *	    password string
@@ -341,7 +339,7 @@ long server_login (char *user,char *pass,char *authuser,int argc,char *argv[])
 				/* make sure it won */
     if (GetLastError() != ERROR_SUCCESS) return NIL;
   }
-
+
 				/* cretins still haven't given up */
   if ((strlen (user) >= MAILTMPLEN) ||
       (authuser && (strlen (authuser) >= MAILTMPLEN)))
@@ -384,7 +382,7 @@ long server_login (char *user,char *pass,char *authuser,int argc,char *argv[])
   sleep (3);			/* slow down possible cracker */
   return NIL;
 }
-
+
 /* Authenticated server log in
  * Accepts: user name string
  *	    authentication user name string
@@ -427,7 +425,7 @@ long env_init (char *user,char *home)
     myHomeDir = (home && *home) ? cpystr (home) : win_homedir (user);
   return T;
 }
-
+
 /* Check if NT
  * Returns: T if NT, NIL if Win9x
  */
@@ -487,7 +485,7 @@ static char *defaultDrive (void)
   char *s = getenv ("SystemDrive");
   return (s && *s) ? s : "C:";
 }
-
+
 /* Return my user name
  * Accepts: pointer to optional flags
  * Returns: my user name
@@ -526,7 +524,7 @@ char *myusername_full (unsigned long *flags)
   else if (flags) *flags = MU_NOTLOGGEDIN;
   return ret;
 }
-
+
 /* Return my local host name
  * Returns: my local host name
  */
@@ -545,7 +543,7 @@ char *mylocalhost (void)
   }
   return myLocalHost ? myLocalHost : "random-pc";
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -599,7 +597,7 @@ char *mailboxdir (char *dst,char *dir,char *name)
   else strcpy (dst,myhomedir());/* no arguments, wants home directory */
   return dst;			/* return the name */
 }
-
+
 /* Return mailbox file name
  * Accepts: destination buffer
  *	    mailbox name
@@ -653,7 +651,7 @@ char *mailboxfile (char *dst,char *name)
   }
   return dst;			/* return it */
 }
-
+
 /* Lock file name
  * Accepts: return buffer for file name
  *	    file name
@@ -694,7 +692,7 @@ int lockname (char *lock,char *fname,int op)
     flock (ld,op);		/* apply locking function */
   return ld;			/* return locking file descriptor */
 }
-
+
 /* Build lock directory, check to see if it exists
  * Accepts: return buffer for lock directory
  *	    first part of possible name
@@ -747,7 +745,7 @@ MAILSTREAM *default_proto (long type)
   extern MAILSTREAM CREATEPROTO,APPENDPROTO;
   return type ? &APPENDPROTO : &CREATEPROTO;
 }
-
+
 /* Default block notify routine
  * Accepts: reason for calling
  *	    data

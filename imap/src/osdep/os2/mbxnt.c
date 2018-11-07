@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	MBX mail routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	3 October 1995
  * Last Edited:	28 September 2007
@@ -52,7 +45,7 @@ extern int errno;		/* just in case */
 /* Build parameters */
 
 #define HDRSIZE 2048
-
+
 /* MBX I/O stream local data */
 	
 typedef struct mbx_local {
@@ -74,7 +67,7 @@ typedef struct mbx_local {
 /* Convenient access to local data */
 
 #define LOCAL ((MBXLOCAL *) stream->local)
-
+
 /* Function prototypes */
 
 DRIVER *mbx_valid (char *name);
@@ -114,7 +107,7 @@ unsigned long mbx_hdrpos (MAILSTREAM *stream,unsigned long msgno,
 unsigned long mbx_rewrite (MAILSTREAM *stream,unsigned long *reclaimed,
 			   long flags);
 long mbx_flaglock (MAILSTREAM *stream);
-
+
 /* MBX mail routines */
 
 
@@ -162,7 +155,7 @@ DRIVER mbxdriver = {
 
 				/* prototype stream */
 MAILSTREAM mbxproto = {&mbxdriver};
-
+
 /* MBX mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -222,7 +215,7 @@ int mbx_isvalid (MAILSTREAM **stream,char *name,char *file,int *ld,char *lock,
 	isxdigit (hdr[19]) && isxdigit (hdr[20]) && isxdigit (hdr[21]) &&
 	isxdigit (hdr[22]) && (hdr[23] == '\015') && (hdr[24] == '\012')) {
       ret = fd;			/* mbx format */
-
+
       if (stream) {		/* lock if making a mini-stream */
 	if (flock (fd,LOCK_SH) ||
 	    (flags && ((*ld = lockname (lock,file,LOCK_EX)) < 0))) ret = -1;
@@ -276,7 +269,7 @@ int mbx_isvalid (MAILSTREAM **stream,char *name,char *file,int *ld,char *lock,
 		j = k = 0;
 	      }
 	    }
-
+
 	    if (upd) {	    /* need to update hdr with new UIDLAST? */
 	      lseek (fd,15,L_SET);
 	      sprintf (hdr,"%08lx",(*stream)->uid_last);
@@ -306,7 +299,7 @@ int mbx_isvalid (MAILSTREAM **stream,char *name,char *file,int *ld,char *lock,
   errno = error;		/* return as last error */
   return ret;			/* return what we should */
 }
-
+
 /* MBX manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -363,7 +356,7 @@ void mbx_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* MBX mail create mailbox
  * Accepts: MAIL stream
  *	    mailbox name to create
@@ -420,7 +413,7 @@ long mbx_delete (MAILSTREAM *stream,char *mailbox)
 {
   return mbx_rename (stream,mailbox,NIL);
 }
-
+
 /* MBX mail rename mailbox
  * Accepts: MAIL stream
  *	    old mailbox name
@@ -462,7 +455,7 @@ long mbx_rename (MAILSTREAM *stream,char *old,char *newname)
     unlockfd (ld,lock);		/* release exclusive parse/append permission */
     return NIL;
   }
-
+
   if (newname) {		/* want rename? */
 				/* found superior to destination name? */
     if ((s = strrchr (tmp,'\\')) && (s != tmp) &&
@@ -501,7 +494,7 @@ long mbx_rename (MAILSTREAM *stream,char *old,char *newname)
   if (ret && !compare_cstring (old,"INBOX")) mbx_create (NIL,"INBOX");
   return ret;			/* return success */
 }
-
+
 /* MBX mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -531,7 +524,7 @@ MAILSTREAM *mbx_open (MAILSTREAM *stream)
       stream->rdonly = T;
     }
   }
-
+
   stream->local = memset (fs_get (sizeof (MBXLOCAL)),NIL,sizeof (MBXLOCAL));
   LOCAL->fd = fd;		/* bind the file */
   LOCAL->ld = -1;		/* no flaglock */
@@ -569,7 +562,7 @@ MAILSTREAM *mbx_open (MAILSTREAM *stream)
     NIL : T;			/* can we create new user flags? */
   return stream;		/* return stream to caller */
 }
-
+
 /* MBX mail close
  * Accepts: MAIL stream
  *	    close options
@@ -628,7 +621,7 @@ void mbx_flags (MAILSTREAM *stream,char *sequence,long flags)
       if ((elt = mail_elt (stream,i))->sequence && !elt->valid)
 	mbx_elt (stream,i,NIL);
 }
-
+
 /* MBX mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -659,7 +652,7 @@ char *mbx_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *length,
   s[*length] = '\0';		/* tie off string */
   return s;
 }
-
+
 /* MBX mail fetch message text (body only)
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -696,7 +689,7 @@ long mbx_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,fd_string,&d,elt->rfc822_size - j);
   return LONGT;			/* success */
 }
-
+
 /* MBX mail modify flags
  * Accepts: MAIL stream
  *	    sequence
@@ -736,7 +729,7 @@ void mbx_flagmsg (MAILSTREAM *stream,MESSAGECACHE *elt)
 {
   if (mbx_flaglock (stream)) mbx_update_status (stream,elt->msgno,NIL);
 }
-
+
 /* MBX mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream still alive, NIL if not
@@ -798,7 +791,7 @@ long mbx_ping (MAILSTREAM *stream)
   }
   return ret;			/* return result of the parse */
 }
-
+
 /* MBX mail check mailbox (reparses status too)
  * Accepts: MAIL stream
  */
@@ -840,7 +833,7 @@ long mbx_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* MBX mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -898,7 +891,7 @@ long mbx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   mm_critical (stream);		/* go critical */
   fstat (fd,&sbuf);		/* get current file size */
   lseek (fd,sbuf.st_size,L_SET);/* move to end of file */
-
+
 				/* for each requested message */
   for (i = 1; ret && (i <= stream->nmsgs); i++) 
     if ((elt = mail_elt (stream,i))->sequence) {
@@ -927,7 +920,7 @@ long mbx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
 	}
       }
     }
-
+
 				/* make sure all the updates take */
   if (!(ret && (ret = !fsync (fd)))) {
     sprintf (LOCAL->buf,"Unable to write message: %s",strerror (errno));
@@ -968,7 +961,7 @@ long mbx_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   if (dstream != stream) mail_close (dstream);
   return ret;
 }
-
+
 /* MBX mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -1020,7 +1013,7 @@ long mbx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
       mm_log (tmp,ERROR);
       return NIL;
     }
-
+
 				/* get first message */
   if (!(*af) (dstream,data,&flags,&date,&message)) close (fd);
   else if (!(df = fdopen (fd,"r+b"))) {
@@ -1065,7 +1058,7 @@ long mbx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	else if (au) mail_append_set (dst,dstream->uid_last);
       }
     }
-
+
 				/* if error... */
     if (!ret || (fflush (df) == EOF)) {
 				/* revert file */
@@ -1097,7 +1090,7 @@ long mbx_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   if (dstream != stream) mail_close (dstream);
   return ret;
 }
-
+
 /* Internal routines */
 
 
@@ -1151,7 +1144,7 @@ long mbx_parse (MAILSTREAM *stream)
       stream->user_flags[i] = cpystr (s);
   }
   LOCAL->ffuserflag = (int) i;	/* first free user flag */
-
+
   stream->silent = T;		/* don't pass up mm_exists() events yet */
   while (sbuf.st_size - curpos){/* while there is stuff to parse */
 				/* get to that position in the file */
@@ -1201,7 +1194,7 @@ long mbx_parse (MAILSTREAM *stream)
       mbx_abort (stream);
       return NIL;
     }
-
+
     *s++ = '\0'; *t++ = '\0';	/* break up fields */
 				/* get message size */
     if (!(j = strtoul (s,(char **) &x,10)) && (!(x && *x))) {
@@ -1236,7 +1229,7 @@ long mbx_parse (MAILSTREAM *stream)
       dirty = T;		/* mark dirty, set new lastuid */
       stream->uid_last = lastuid;
     }
-
+
     t[12] = '\0';		/* parse system flags */
     if ((k = strtoul (t+8,NIL,16)) & fEXPUNGED) {
       if (m) lastuid = m;	/* expunge message, update last UID seen */
@@ -1287,7 +1280,7 @@ long mbx_parse (MAILSTREAM *stream)
     }
     curpos += i + j;		/* update position */
   }
-
+
   if (dirty && !stream->rdonly){/* update header */
     mbx_update_header (stream);
     fsync (LOCAL->fd);		/* make sure all the UID updates take */
@@ -1307,7 +1300,7 @@ long mbx_parse (MAILSTREAM *stream)
   mail_recent (stream,recent);	/* and of change in recent messages */
   return LONGT;			/* return the winnage */
 }
-
+
 /* MBX get cache element with status updating from file
  * Accepts: MAIL stream
  *	    message number
@@ -1340,7 +1333,7 @@ MESSAGECACHE *mbx_elt (MAILSTREAM *stream,unsigned long msgno,long expok)
     mm_flags (stream,msgno);	/* let top level know */
   return elt;
 }
-
+
 /* MBX read flags from file
  * Accepts: MAIL stream
  *	    cache element
@@ -1388,7 +1381,7 @@ unsigned long mbx_read_flags (MAILSTREAM *stream,MESSAGECACHE *elt)
   elt->valid = T;		/* have valid flags now */
   return i & fEXPUNGED;
 }
-
+
 /* MBX update header
  * Accepts: MAIL stream
  */
@@ -1418,7 +1411,7 @@ void mbx_update_header (MAILSTREAM *stream)
     mm_diskerror (stream,errno,T);
   }
 }
-
+
 /* MBX update status string
  * Accepts: MAIL stream
  *	    message number
@@ -1471,7 +1464,7 @@ void mbx_update_status (MAILSTREAM *stream,unsigned long msgno,long flags)
     }
   }
 }
-
+
 /* MBX locate header for a message
  * Accepts: MAIL stream
  *	    message number
@@ -1533,7 +1526,7 @@ unsigned long mbx_hdrpos (MAILSTREAM *stream,unsigned long msgno,
   if (hdr) *hdr = LOCAL->buf;	/* possibly return header too */
   return ret;
 }
-
+
 /* MBX mail rewrite mailbox
  * Accepts: MAIL stream
  *	    pointer to return reclaimed size
@@ -1570,7 +1563,7 @@ unsigned long mbx_rewrite (MAILSTREAM *stream,unsigned long *reclaimed,
     for (i = 1; i <= stream->nmsgs; ++i) mbx_elt (stream,i,NIL);
     LOCAL->flagcheck = NIL;
   }
-
+
 				/* get exclusive access */
   if (!flock (LOCAL->fd,LOCK_EX|LOCK_NB)) {
     mm_critical (stream);	/* go critical */
@@ -1626,7 +1619,7 @@ unsigned long mbx_rewrite (MAILSTREAM *stream,unsigned long *reclaimed,
     mm_nocritical (stream);	/* release critical */
     flock (LOCAL->fd,LOCK_SH);	/* allow sharers again */
   }
-
+
   else {			/* can't get exclusive */
     flock (LOCAL->fd,LOCK_SH);	/* recover previous shared mailbox lock */
 				/* do hide-expunge when shared */
@@ -1658,7 +1651,7 @@ unsigned long mbx_rewrite (MAILSTREAM *stream,unsigned long *reclaimed,
   mail_recent (stream,recent);
   return n;			/* return number of expunged messages */
 }
-
+
 /* MBX mail lock for flag updating
  * Accepts: stream
  * Returns: T if successful, NIL if failure

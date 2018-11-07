@@ -56,7 +56,7 @@ Abstract
 
 
 Melnikov                    Standards Track                     [Page 1]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -112,7 +112,7 @@ Table of Contents
 
 
 Melnikov                    Standards Track                     [Page 2]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -168,7 +168,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 3]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -224,7 +224,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 4]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -280,7 +280,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 5]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -336,7 +336,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 6]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -392,7 +392,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 7]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -448,7 +448,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 8]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -504,7 +504,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                     [Page 9]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -560,7 +560,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 10]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -616,7 +616,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 11]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -672,7 +672,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 12]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -728,7 +728,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 13]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -784,7 +784,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 14]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -840,7 +840,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 15]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -896,7 +896,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 16]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -952,7 +952,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 17]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1008,7 +1008,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 18]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1064,7 +1064,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 19]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1120,7 +1120,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 20]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1176,7 +1176,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 21]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1232,7 +1232,7 @@ RFC 4314                        IMAP ACL                   December 2005
 
 
 Melnikov                    Standards Track                    [Page 22]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1288,7 +1288,7 @@ Appendix A.  Changes since RFC 2086
 
 
 Melnikov                    Standards Track                    [Page 23]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1344,7 +1344,7 @@ Appendix C.  Known Deficiencies
 
 
 Melnikov                    Standards Track                    [Page 24]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1400,7 +1400,7 @@ Informative References
 
 
 Melnikov                    Standards Track                    [Page 25]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1456,7 +1456,7 @@ Author's Address
 
 
 Melnikov                    Standards Track                    [Page 26]
-
+
 RFC 4314                        IMAP ACL                   December 2005
 
 
@@ -1512,4 +1512,4 @@ Acknowledgement
 
 
 Melnikov                    Standards Track                    [Page 27]
-
+

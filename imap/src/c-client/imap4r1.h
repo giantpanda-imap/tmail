@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Interactive Mail Access Protocol 4rev1 (IMAP4R1) routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	14 October 1988
  * Last Edited:	5 September 2007
@@ -53,7 +46,7 @@
  * server protocol level and capabilities.  This file also contains a few
  * backdoor calls into the IMAP driver.
  */
-
+
 /* Server protocol level and capabilities */
 
 typedef struct imap_cap {
@@ -92,7 +85,7 @@ typedef struct imap_cap {
   unsigned int auth : MAXAUTHENTICATORS;
   THREADER *threader;		/* list of threaders */
 } IMAPCAP;
-
+
 /* IMAP4rev1 level or better */
 
 #define LEVELIMAP4rev1(stream) imap_cap (stream)->imap4rev1
@@ -124,7 +117,8 @@ typedef struct imap_cap {
 /* IMAP2 RFC-1064 or better */
 
 #define LEVEL1064(stream) 1
-
+
+
 /* Has ACL extension */
 
 #define LEVELACL(stream) imap_cap (stream)->acl
@@ -183,7 +177,7 @@ typedef struct imap_cap {
 /* Has LOGINDISABLED extension */
 
 #define LEVELLOGINDISABLED(stream) imap_cap (stream)->logindisabled
-
+
 /* Has ID extension */
 
 #define LEVELID(stream) imap_cap (stream)->id
@@ -252,7 +246,7 @@ typedef struct imap_cap {
 /* Has WITHIN extension */
 
 #define LEVELWITHIN(stream) imap_cap (stream)->within
-
+
 /* Body structure extension levels */
 
 /* These are in BODYSTRUCTURE order.  Note that multipart bodies do not have

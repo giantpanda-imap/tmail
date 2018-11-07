@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,12 +14,6 @@
  * Program:	flock() emulation via fcntl() locking
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 April 2001
  * Last Edited:	20 December 2006
@@ -39,7 +32,7 @@
 #define LOCK_NB 4		/* no blocking */
 #undef LOCK_UN
 #define LOCK_UN 8		/* unlock */
-
+
 /* Safe locking definitions */
 
 extern int lockslavep;		/* non-zero means slave process */
@@ -87,7 +80,7 @@ extern int lockslavep;		/* non-zero means slave process */
 #define MM_FATAL (lockslavep ? slave_fatal : mm_fatal)
 #undef MM_APPEND
 #define MM_APPEND(af) (lockslavep ? slave_append : (*af))
-
+
 /* Function prototypes */
 
 int flocksim (int fd,int operation);

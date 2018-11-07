@@ -56,7 +56,7 @@ Introduction
 
 
 Crispin                                                         [Page 1]
-
+
 RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
@@ -112,7 +112,7 @@ IMAP4 client interoperability with old servers
 
 
 Crispin                                                         [Page 2]
-
+
 RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
@@ -168,7 +168,7 @@ RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
 Crispin                                                         [Page 3]
-
+
 RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
@@ -224,7 +224,7 @@ RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
 Crispin                                                         [Page 4]
-
+
 RFC 1732                 IMAP4 - Compatibility             December 1994
 
 
@@ -280,4 +280,4 @@ Author's Address:
 
 
 Crispin                                                         [Page 5]
-
+

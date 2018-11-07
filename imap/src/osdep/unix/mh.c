@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	23 February 1992
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -53,7 +50,7 @@ extern int errno;		/* just in case */
 
 #define MLM_HEADER 0x1		/* load message text */
 #define MLM_TEXT 0x2		/* load message text */
-
+
 /* MH I/O stream local data */
 	
 typedef struct mh_local {
@@ -105,7 +102,7 @@ int mh_numsort (const void *d1,const void *d2);
 char *mh_file (char *dst,char *name);
 long mh_canonicalize (char *pattern,char *ref,char *pat);
 void mh_setdate (char *file,MESSAGECACHE *elt);
-
+
 /* MH mail routines */
 
 
@@ -159,7 +156,7 @@ static char *mh_profile = NIL;	/* holds MH profile */
 static char *mh_pathname = NIL;	/* holds MH path name */
 static long mh_once = 0;	/* already snarled once */
 static long mh_allow_inbox =NIL;/* allow INBOX as well as MHINBOX */
-
+
 /* MH mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -211,7 +208,7 @@ int mh_isvalid (char *name,char *tmp,long synonly)
   else errno = EINVAL;		/* bogus name */
   return ret;
 }
-
+
 /* MH mail test for valid mailbox
  * Accepts: mailbox name
  * Returns: T if valid, NIL otherwise
@@ -230,7 +227,7 @@ int mh_namevalid (char *name)
     }
   return NIL;			/* all numeric or empty node */
 }
-
+
 /* Return MH path
  * Accepts: temporary buffer
  * Returns: MH path or NIL if MH disabled
@@ -274,7 +271,7 @@ char *mh_path (char *tmp)
   }
   return mh_pathname;
 }
-
+
 /* MH manipulate driver parameters
  * Accepts: function code
  *	    function-dependent value
@@ -328,7 +325,7 @@ long mh_dirfmttest (char *s)
   }
   return LONGT;
 }
-
+
 /* MH scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -375,7 +372,7 @@ void mh_scan (MAILSTREAM *stream,char *ref,char *pat,char *contents)
       mm_list (stream,NIL,MHINBOX,LATT_NOINFERIORS);
   }
 }
-
+
 /* MH list mailboxes
  * Accepts: mail stream
  *	    reference
@@ -404,7 +401,7 @@ void mh_lsub (MAILSTREAM *stream,char *ref,char *pat)
     while ((s = sm_read (tmp,&sdb)) != NULL); /* until no more subscriptions */
   }
 }
-
+
 /* MH list mailboxes worker routine
  * Accepts: mail stream
  *	    directory name to search
@@ -442,7 +439,7 @@ void mh_list_work (MAILSTREAM *stream,char *dir,char *pat,long level)
     closedir (dp);		/* all done, flush directory */
   }
 }
-
+
 /* MH mail subscribe to mailbox
  * Accepts: mail stream
  *	    mailbox to add to subscription list
@@ -465,7 +462,7 @@ long mh_unsubscribe (MAILSTREAM *stream,char *mailbox)
 {
   return sm_unsubscribe (mailbox);
 }
-
+
 /* MH mail create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -490,7 +487,7 @@ long mh_create (MAILSTREAM *stream,char *mailbox)
   mm_log (tmp,ERROR);
   return NIL;
 }
-
+
 /* MH mail delete mailbox
  *	    mailbox name to delete
  * Returns: T on success, NIL on failure
@@ -526,7 +523,7 @@ long mh_delete (MAILSTREAM *stream,char *mailbox)
   }
   return T;			/* return success */
 }
-
+
 /* MH mail rename mailbox
  * Accepts: MH mail stream
  *	    old mailbox name
@@ -566,7 +563,7 @@ long mh_rename (MAILSTREAM *stream,char *old,char *newname)
   mm_log (tmp,ERROR);		/* something failed */
   return NIL;
 }
-
+
 /* MH mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -602,7 +599,7 @@ MAILSTREAM *mh_open (MAILSTREAM *stream)
     mm_log ("Mailbox is empty",(long) NIL);
   return stream;		/* return stream to caller */
 }
-
+
 /* MH mail close
  * Accepts: MAIL stream
  *	    close options
@@ -641,7 +638,7 @@ void mh_fast (MAILSTREAM *stream,char *sequence,long flags)
       if ((elt = mail_elt (stream,i))->sequence &&
 	  !(elt->day && elt->rfc822_size)) mh_load_message (stream,i,NIL);
 }
-
+
 /* MH load message into cache
  * Accepts: MAIL stream
  *	    message #
@@ -679,7 +676,7 @@ void mh_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
       elt->seconds = tm->tm_sec;
       elt->zhours = 0; elt->zminutes = 0;
     }
-
+
     if (!elt->rfc822_size) {	/* know message size yet? */
       for (i = 0, j = SIZE (&bs), nlseen = 0; j--; ) switch (SNX (&bs)) {
       case '\015':		/* unlikely carriage return */
@@ -724,7 +721,7 @@ void mh_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
 	mail_gc (stream,GC_TEXTS);
 	LOCAL->cachedtexts = 0;
       }
-
+
       if ((flags & MLM_HEADER) && !elt->private.msg.header.text.data) {
 	t = elt->private.msg.header.text.data =
 	  (unsigned char *) fs_get (elt->private.msg.header.text.size + 1);
@@ -780,7 +777,7 @@ void mh_load_message (MAILSTREAM *stream,unsigned long msgno,long flags)
     close (fd);			/* flush message file */
   }
 }
-
+
 /* MH mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -830,7 +827,7 @@ long mh_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
 	elt->private.msg.text.text.size);
   return T;
 }
-
+
 /* MH mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -885,7 +882,7 @@ long mh_ping (MAILSTREAM *stream)
 				/* free directory */
     if ((s = (void *) names) != NULL) fs_give ((void **) &s);
   }
-
+
 				/* if INBOX, snarf from system INBOX  */
   if (stream->inbox && strcmp (sysinbox (),stream->mailbox)) {
     old = stream->uid_last;
@@ -927,7 +924,7 @@ long mh_ping (MAILSTREAM *stream)
 	  sprintf (tmp,"%lu",i);/* delete it from the sysinbox */
 	  mail_flag (sysibx,tmp,"\\Deleted",ST_SET);
 	}
-
+
 	else {			/* failed to snarf */
 	  if (fd) {		/* did it ever get opened? */
 	    close (fd);		/* close descriptor */
@@ -951,7 +948,7 @@ long mh_ping (MAILSTREAM *stream)
   mail_recent (stream,recent);
   return T;			/* return that we are alive */
 }
-
+
 /* MH mail check mailbox
  * Accepts: MAIL stream
  */
@@ -1017,7 +1014,7 @@ long mh_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* MH mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -1079,7 +1076,7 @@ long mh_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     mm_log ("Can not return meaningful COPYUID with this mailbox format",WARN);
   return ret;			/* return success */
 }
-
+
 /* MH mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -1133,7 +1130,7 @@ long mh_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   }
   else last = 0;		/* no messages here yet */
   if ((s = (void *) names) != NULL) fs_give ((void **) &s);
-
+
   mm_critical (stream);		/* go critical */
   do {
     if (!SIZE (message)) {	/* guard against zero-length */
@@ -1182,7 +1179,7 @@ long mh_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	    WARN);
   return ret;
 }
-
+
 /* Internal routines */
 
 
@@ -1234,7 +1231,7 @@ char *mh_file (char *dst,char *name)
   if ((s = strrchr (dst,'/')) && !s[1] && (s[-1] == '/')) *s = '\0';
   return dst;
 }
-
+
 /* MH canonicalize name
  * Accepts: buffer to write name
  *	    reference
@@ -1265,7 +1262,7 @@ long mh_canonicalize (char *pattern,char *ref,char *pat)
   }
   return NIL;
 }
-
+
 /* Set date for message
  * Accepts: file name
  *	    elt containing date

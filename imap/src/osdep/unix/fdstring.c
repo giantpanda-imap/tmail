@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	File descriptor string routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	15 April 1997
  * Last Edited:	4 April 2007
@@ -30,7 +23,7 @@
 #include "osdep.h"
 #include "misc.h"
 #include "fdstring.h"
-
+
 /* String driver for fd stringstructs */
 
 static void fd_string_init (STRING *s,void *data,unsigned long size);
@@ -66,7 +59,7 @@ static void fd_string_init (STRING *s,void *data,unsigned long size)
   lseek (d->fd,d->pos,L_SET);
   read (d->fd,s->chunk,(size_t) s->cursize);
 }
-
+
 /* Get next character from fd stringstruct
  * Accepts: string structure
  * Returns: character, string structure chunk refreshed

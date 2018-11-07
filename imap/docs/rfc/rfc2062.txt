@@ -56,7 +56,7 @@ Obsolete Commands and Fetch Data Items
 
 
 Crispin                      Informational                      [Page 1]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -112,7 +112,7 @@ RFC 2062                     IMAP4 Obsolete                December 1996
 
 
 Crispin                      Informational                      [Page 2]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -168,7 +168,7 @@ RFC 2062                     IMAP4 Obsolete                December 1996
 
 
 Crispin                      Informational                      [Page 3]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -224,7 +224,7 @@ RFC 2062                     IMAP4 Obsolete                December 1996
 
 
 Crispin                      Informational                      [Page 4]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -280,7 +280,7 @@ Obsolete Responses
 
 
 Crispin                      Informational                      [Page 5]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -336,7 +336,7 @@ Formal Syntax of Obsolete Commands and Responses
 
 
 Crispin                      Informational                      [Page 6]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -392,7 +392,7 @@ Security Considerations
 
 
 Crispin                      Informational                      [Page 7]
-
+
 RFC 2062                     IMAP4 Obsolete                December 1996
 
 
@@ -448,4 +448,4 @@ Author's Address
 
 
 Crispin                      Informational                      [Page 8]
-
+

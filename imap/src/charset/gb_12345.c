@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	GB 12345 conversion table
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	15 May 1998
  * Last Edited:	30 August 2006
  */
-
+
 /* GB 12345 is the national standard of the People's Republic of China
  * (mainland China) for traditional Chinese characters.
  */

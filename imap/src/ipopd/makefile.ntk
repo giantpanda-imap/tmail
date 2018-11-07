@@ -6,7 +6,6 @@
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
 # 
 # ========================================================================
 
@@ -14,12 +13,6 @@
 # Program:	IPOPD Makefile for Windows 9x and Windows NT + Kerberos
 #
 # Author:	Mark Crispin
-#		Networks and Distributed Computing
-#		Computing & Communications
-#		University of Washington
-#		Administration Building, AG-44
-#		Seattle, WA  98195
-#		Internet: MRC@CAC.Washington.EDU
 #
 # Date:		28 October 1990
 # Last Edited:	30 August 2006

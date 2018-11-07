@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,12 +14,6 @@
  * Program:	unANSIify
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		4545 15th Ave NE
- *		Seattle, WA  98105-4527
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 June 1995
  * Last Edited:	30 August 2006
@@ -32,7 +25,7 @@
  * of the way I write code, and is not a general purpose tool.  I hope that
  * someday someone will provide a general purpose tool...
  */
-
+
 #include <stdio.h>
 
 #define LINELENGTH 1000
@@ -78,7 +71,7 @@ int fndcmt (s)
     if ((*s++ == '*') && (*s == '/')) return -1;
   return 0;
 }
-
+
 /* Output a line
  * Accepts: string
  */
@@ -166,7 +159,7 @@ char *skipfx (s)
   }
   return s;
 }
-
+
 /* UnANSI a line
  * Accepts: string
  */
@@ -223,7 +216,7 @@ void unansi (s)
     poot (s);
   }
 }
-
+
 main ()
 {
   char *s,*t,line[LINELENGTH];

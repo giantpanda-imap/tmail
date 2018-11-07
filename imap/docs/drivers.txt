@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -80,7 +79,7 @@ given if "black box mode" is in effect:
  6) unix format is selected if file ~/INBOX exists and is in unix format.
  7) the dummy driver is selected if ~/INBOX does not exist, or exists
     and is empty.
-
+
 II. Special Name #mhinbox
 
 #mhinbox always refers to the directory "inbox" in the MH path, which
@@ -136,7 +135,7 @@ Anonymous users may only access:
  INBOX (belonging to UNIX user ftp)
  files in or below UNIX user ftp's home directory
  #ftp, #news, and #public namespace
-
+
 VI. Driver Comparison
 
 The following information about the local file drivers is an

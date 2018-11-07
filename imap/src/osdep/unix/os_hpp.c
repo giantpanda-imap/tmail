@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- HP/UX version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 May 1989
  * Last Edited:	16 August 2007
  */
-
+
 #define isodigit(c)    (((unsigned)(c)>=060)&((unsigned)(c)<=067))
 #define toint(c)       ((c)-'0')
 
@@ -63,7 +56,7 @@ extern int sys_nerr;
 #undef setpgrp
 #include "setpgrp.c"
 #include "utime.c"
-
+
 /* Emulator for BSD gethostid() call
  * Returns: a unique identifier for the system.  
  * Even though HP/UX has an undocumented gethostid() system call,

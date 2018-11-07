@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,12 +14,6 @@
  * Program:	WCE environment routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	1 August 1988
  * Last Edited:	30 August 2006
@@ -53,7 +46,7 @@ static unsigned int rndm = 0;	/* initial `random' number */
 #define MD5ENABLE "\\.nosuch.."
 
 #include "pmatch.c"		/* include wildcard pattern matcher */
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -107,7 +100,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -168,7 +161,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Return random number
  */
 
@@ -177,7 +170,7 @@ long random ()
   if (!rndm) srand (rndm = (unsigned) time (0L));
   return (long) rand ();
 }
-
+
 /* Return default drive
  * Returns: default drive
  */
@@ -214,7 +207,7 @@ static char *homePath (char *path)
   sprintf (path,"%s%s",homeDrive (),s);
   return path;
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -226,7 +219,7 @@ char *myhomedir ()
   if (!myHomeDir) myHomeDir = homePath (tmp);
   return myHomeDir ? myHomeDir : homeDrive ();
 }
-
+
 /* Return system standard INBOX
  * Accepts: buffer string
  */
@@ -278,7 +271,7 @@ MAILSTREAM *default_proto (long type)
   extern MAILSTREAM CREATEPROTO,APPENDPROTO;
   return type ? &APPENDPROTO : &CREATEPROTO;
 }
-
+
 /* Emulator for BSD syslog() routine
  * Accepts: priority
  *	    message

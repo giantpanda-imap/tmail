@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,10 +14,6 @@
  * Program:	MMDF mail routines
  *
  * Author:	Mark Crispin
- *		UW Technology
- *		University of Washington
- *		Seattle, WA  98195
- *		Internet: MRC@Washington.EDU
  *
  * Date:	20 December 1989
  * Last Edited:	27 March 2008
@@ -38,7 +33,7 @@ extern int errno;		/* just in case */
 #include "fdstring.h"
 #include "misc.h"
 #include "dummy.h"
-
+
 /* Supposedly, this page has everything the MMDF driver needs to know about
  * the MMDF delimiter.  By changing these macros, the MMDF driver should
  * change with it.  Note that if you change the length of MMDFHDRTXT you
@@ -86,7 +81,7 @@ extern int errno;		/* just in case */
     }									\
   }									\
 }
-
+
 /* Validate line
  * Accepts: pointer to candidate string to validate as a From header
  *	    return pointer to end of date/time field
@@ -150,7 +145,7 @@ extern int errno;		/* just in case */
  * Plus all of the above with `` remote from xxx'' after it. Thank you very
  * much, smail and Solaris, for making my life considerably more complicated.
  */
-
+
 /*
  * What?  You want to understand the VALID macro anyway?  Alright, since you
  * insist.  Actually, it isn't really all that difficult, provided that you
@@ -201,7 +196,7 @@ extern int errno;		/* just in case */
  * see if unquoted spaces were possible.  They are, and I've encountered enough
  * evil mail to be totally unwilling to trust that ``it will never happen''.
  */
-
+
 /* Build parameters */
 
 #define KODRETRY 15		/* kiss-of-death retry in seconds */
@@ -247,7 +242,7 @@ typedef struct mmdf_file {
   size_t buflen;		/* current overflow buffer length */
   char *bufpos;			/* current buffer position */
 } MMDFFILE;
-
+
 /* Function prototypes */
 
 DRIVER *mmdf_valid (char *name);
@@ -291,7 +286,7 @@ long mmdf_rewrite (MAILSTREAM *stream,unsigned long *nexp,DOTLOCK *lock,
 long mmdf_extend (MAILSTREAM *stream,unsigned long size);
 void mmdf_write (MMDFFILE *f,char *s,unsigned long i);
 void mmdf_phys_write (MMDFFILE *f,char *buf,size_t size);
-
+
 /* MMDF mail routines */
 
 
@@ -341,7 +336,7 @@ DRIVER mmdfdriver = {
 MAILSTREAM mmdfproto = {&mmdfdriver};
 
 char *mmdfhdr = MMDFHDRTXT;	/* MMDF header */
-
+
 /* MMDF mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -385,7 +380,7 @@ long mmdf_isvalid (char *name,char *tmp)
   }
   return ret;			/* return what we should */
 }
-
+
 /* MMDF mail test for valid mailbox
  * Accepts: file descriptor
  *	    scratch buffer
@@ -417,7 +412,7 @@ void *mmdf_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* MMDF mail scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -453,7 +448,7 @@ void mmdf_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* MMDF mail create mailbox
  * Accepts: MAIL stream
  *	    mailbox name to create
@@ -505,7 +500,7 @@ long mmdf_create (MAILSTREAM *stream,char *mailbox)
 				/* set proper protections */
   return ret ? set_mbx_protections (mailbox,mbx) : NIL;
 }
-
+
 /* MMDF mail delete mailbox
  * Accepts: MAIL stream
  *	    mailbox name to delete
@@ -545,7 +540,7 @@ long mmdf_rename (MAILSTREAM *stream,char *old,char *newname)
 				/* lock out other c-clients */
   else if ((ld = lockname (lock,file,LOCK_EX|LOCK_NB,&i)) < 0)
     sprintf (tmp,"Mailbox %.80s is in use by another process",old);
-
+
   else {
     if ((fd = mmdf_lock (file,O_RDWR,
 			 (long) mail_parameters (NIL,GET_MBXPROTECTION,NIL),
@@ -585,7 +580,7 @@ long mmdf_rename (MAILSTREAM *stream,char *old,char *newname)
   if (!ret) MM_LOG (tmp,ERROR);	/* log error */
   return ret;			/* return success or failure */
 }
-
+
 /* MMDF mail open
  * Accepts: Stream to open
  * Returns: Stream on success, NIL on failure
@@ -623,7 +618,7 @@ MAILSTREAM *mmdf_open (MAILSTREAM *stream)
   LOCAL->linebuf = (char *) fs_get (CHUNKSIZE);
   LOCAL->linebuflen = CHUNKSIZE - 1;
   stream->sequence++;		/* bump sequence number */
-
+
 				/* make lock for read/write access */
   if (!stream->rdonly) while (retry) {
 				/* try to lock file */
@@ -660,7 +655,7 @@ MAILSTREAM *mmdf_open (MAILSTREAM *stream)
       retry = 0;		/* no more need to try */
     }
   }
-
+
 				/* parse mailbox */
   stream->nmsgs = stream->recent = 0;
 				/* will we be able to get write access? */
@@ -715,7 +710,7 @@ void mmdf_close (MAILSTREAM *stream,long options)
   stream->silent = silent;	/* restore old silence state */
   mmdf_abort (stream);		/* now punt the file and local data */
 }
-
+
 /* MMDF mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -758,7 +753,7 @@ char *mmdf_header (MAILSTREAM *stream,unsigned long msgno,
 				/* go to header position */
   lseek (LOCAL->fd,elt->private.special.offset +
 	 elt->private.msg.header.offset,L_SET);
-
+
   if (flags & FT_INTERNAL) {	/* initial data OK? */
     if (elt->private.msg.header.text.size > LOCAL->buflen) {
       fs_give ((void **) &LOCAL->buf);
@@ -792,7 +787,7 @@ char *mmdf_header (MAILSTREAM *stream,unsigned long msgno,
   *length = mail_filter (LOCAL->buf,*length,mmdf_hlines,FT_NOT);
   return (char *) LOCAL->buf;	/* return processed copy */
 }
-
+
 /* MMDF mail fetch message text
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -819,7 +814,7 @@ long mmdf_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   INIT (bs,mail_string,s,i);	/* set up stringstruct */
   return T;			/* success */
 }
-
+
 /* MMDF mail fetch message text worker routine
  * Accepts: MAIL stream
  *	    message cache element
@@ -853,7 +848,7 @@ char *mmdf_text_work (MAILSTREAM *stream,MESSAGECACHE *elt,
     *length = s - LOCAL->buf;	/* adjust length */
     return (char *) LOCAL->buf;
   }
-
+
 				/* have it cached already? */
   if (elt->private.uid != LOCAL->uid) {
 				/* not cached, cache it now */
@@ -885,7 +880,7 @@ char *mmdf_text_work (MAILSTREAM *stream,MESSAGECACHE *elt,
   *length = LOCAL->textlen;	/* return from cache */
   return (char *) LOCAL->text.data;
 }
-
+
 /* MMDF per-message modify flag
  * Accepts: MAIL stream
  *	    message cache element
@@ -945,7 +940,7 @@ long mmdf_ping (MAILSTREAM *stream)
   }
   return LOCAL ? LONGT : NIL;	/* return if still alive */
 }
-
+
 /* MMDF mail check mailbox
  * Accepts: MAIL stream
  */
@@ -1009,7 +1004,7 @@ long mmdf_expunge (MAILSTREAM *stream,char *sequence,long options)
     MM_LOG ("Expunge ignored on readonly mailbox",WARN);
   return ret;
 }
-
+
 /* MMDF mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -1062,7 +1057,7 @@ long mmdf_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
       MM_LOG (LOCAL->buf,ERROR);
       return NIL;
     }
-
+
 				/* try to open rewrite for UIDPLUS */
   if ((tstream = mail_open_work (&mmdfdriver,NIL,mailbox,
 				 OP_SILENT|OP_NOKOD)) && tstream->rdonly)
@@ -1112,7 +1107,7 @@ long mmdf_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
 	}
       }
     }
-
+
   if (!ret || fsync (fd)) {	/* force out the update */
     sprintf (LOCAL->buf,"Message copy failed: %s",strerror (errno));
     ftruncate (fd,sbuf.st_size);
@@ -1148,7 +1143,7 @@ long mmdf_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   MM_NOCRITICAL (stream);	/* release critical */
   return ret;
 }
-
+
 /* MMDF mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -1213,7 +1208,7 @@ long mmdf_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
     MM_LOG (tmp,ERROR);
     return NIL;
   }
-
+
 				/* get first message */
   if (!MM_APPEND (af) (tstream,data,&flags,&date,&message)) return NIL;
   if (!(sf = tmpfile ())) {	/* must have scratch file */
@@ -1257,7 +1252,7 @@ long mmdf_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   }
   i = ftell (sf);		/* size of scratch file */
   if (tstream != stream) tstream = mail_close (tstream);
-
+
   MM_CRITICAL (stream);		/* go critical */
 				/* try to open readwrite for UIDPLUS */
   if ((tstream = mail_open_work (&mmdfdriver,NIL,mailbox,
@@ -1310,7 +1305,7 @@ long mmdf_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   MM_NOCRITICAL (stream);	/* release critical */
   return ret;
 }
-
+
 /* Collect and write single message to append scratch file
  * Accepts: MAIL stream
  *	    scratch file
@@ -1343,7 +1338,7 @@ int mmdf_collect_msg (MAILSTREAM *stream,FILE *sf,char *flags,char *date,
 				/* write trailing newline and return */
   return (putc ('\n',sf) == EOF) ? NIL : T;
 }
-
+
 /* Append messages from scratch file to mailbox
  * Accepts: MAIL stream
  *	    source file
@@ -1385,7 +1380,7 @@ int mmdf_append_msgs (MAILSTREAM *stream,FILE *sf,FILE *df,SEARCHSET *set)
     if ((putc ('\n',df) == EOF) ||
 	(set && (fprintf (df,"X-UID: %lu\n",++(stream->uid_last)) < 0)))
       return NIL;
-
+
     for (c = '\n'; i && fgets (tmp,MAILTMPLEN,sf); c = tmp[j-1]) {
 				/* get read line length */
       if (i < (j = strlen (tmp))) fatal ("mmdf_append_msgs overrun");
@@ -1454,7 +1449,7 @@ int mmdf_append_msgs (MAILSTREAM *stream,FILE *sf,FILE *df,SEARCHSET *set)
   }
   return T;
 }
-
+
 /* Internal routines */
 
 
@@ -1482,7 +1477,7 @@ void mmdf_abort (MAILSTREAM *stream)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* MMDF open and lock mailbox
  * Accepts: file name to open/lock
  *	    file open mode
@@ -1515,7 +1510,7 @@ int mmdf_lock (char *file,int flags,int mode,DOTLOCK *lock,int op)
   (*bn) (BLOCK_NONE,NIL);
   return fd;
 }
-
+
 /* MMDF unlock and close mailbox
  * Accepts: file descriptor
  *	    (optional) mailbox stream to check atime/mtime
@@ -1556,7 +1551,7 @@ void mmdf_unlock (int fd,MAILSTREAM *stream,DOTLOCK *lock)
   if (!stream) close (fd);	/* close the file if no stream */
   dotlock_unlock (lock);	/* flush the lock file if any */
 }
-
+
 /* MMDF mail parse and lock mailbox
  * Accepts: MAIL stream
  *	    space to write lock file name
@@ -1607,7 +1602,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
     MM_NOCRITICAL (stream);	/* done with critical */
     return NIL;
   }
-
+
 				/* new data? */
   else if (i = sbuf.st_size - LOCAL->filesize) {
     d.fd = LOCAL->fd;		/* yes, set up file descriptor */
@@ -1652,7 +1647,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 				/* note position/size of internal header */
 	elt->private.special.offset = j;
 	elt->private.special.text.size = i;
-
+
 	s = mmdf_mbxline (stream,&bs,&i);
 	ti = 0;			/* assume not a valid date */
 	zn = 0,t = NIL;
@@ -1704,7 +1699,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 	}
 				/* header starts here */
 	elt->private.msg.header.offset = elt->private.special.text.size;
-
+
 	do {			/* look for message body */
 	  j = GETPOS (&bs);	/* note position before line */
 	  if (t) s = t = mmdf_mbxline (stream,&bs,&i);
@@ -1748,7 +1743,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 		}
 		break;
 	      }
-
+
 				/* possible X-IMAP */
 	      else if ((s[2] == 'I') && (s[3] == 'M') && (s[4] == 'A') &&
 		       (s[5] == 'P') && ((m = (s[6] == ':')) ||
@@ -1802,7 +1797,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 		}
 		break;
 	      }
-
+
 				/* possible X-UID */
 	      else if (s[2] == 'U' && s[3] == 'I' && s[4] == 'D' &&
 		       s[5] == ':') {
@@ -1856,7 +1851,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 	      }
 	    }
 				/* otherwise fall into S case */
-
+
 	  case 'S':		/* possible Status: line */
 	    if (s[0] == 'S' && s[1] == 't' && s[2] == 'a' && s[3] == 't' &&
 		s[4] == 'u' && s[5] == 's' && s[6] == ':') {
@@ -1890,7 +1885,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 	      break;		/* all done */
 	    }
 				/* otherwise fall into default case */
-
+
 	  default:		/* ordinary header line */
 	    if ((*s == 'S') || (*s == 's') ||
 		(((*s == 'X') || (*s == 'x')) && (s[1] == '-'))) {
@@ -1946,7 +1941,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
 	  elt->private.dirty = T;
 	}
 	else elt->private.dirty = elt->recent;
-
+
 				/* note size of header, location of text */
 	elt->private.msg.header.text.size =
 	  (elt->private.msg.text.offset =
@@ -2022,7 +2017,7 @@ int mmdf_parse (MAILSTREAM *stream,DOTLOCK *lock,int op)
   LOCAL->filetime = sbuf.st_mtime;
   return T;			/* return the winnage */
 }
-
+
 /* MMDF read line from mailbox
  * Accepts: mail stream
  *	    stringstruct
@@ -2072,7 +2067,7 @@ char *mmdf_mbxline (MAILSTREAM *stream,STRING *bs,unsigned long *size)
 	--s;			/* back up */
 	break;			/* exit loop */
       }
-
+
 				/* final character-at-a-time scan */
       while ((s < t) && (*s != '\n')) ++s;
 				/* huge line? */
@@ -2115,7 +2110,7 @@ char *mmdf_mbxline (MAILSTREAM *stream,STRING *bs,unsigned long *size)
   }
   return ret;
 }
-
+
 /* MMDF make pseudo-header
  * Accepts: MAIL stream
  *	    buffer to write pseudo-header
@@ -2139,7 +2134,7 @@ unsigned long mmdf_pseudo (MAILSTREAM *stream,char *hdr)
   sprintf (s += strlen (s),"\nStatus: RO\n\n%s\n%s",pseudo_msg,mmdfhdr);
   return strlen (hdr);
 }
-
+
 /* MMDF make status string
  * Accepts: MAIL stream
  *	    destination string to write
@@ -2193,7 +2188,7 @@ unsigned long mmdf_xstatus (MAILSTREAM *stream,char *status,MESSAGECACHE *elt,
   if (elt->answered) *s++ = 'A';
   if (elt->draft) *s++ = 'T';
     *s++ = '\n';
-
+
   if (sticky) {			/* only do this if UIDs sticky */
     *s++ = 'X'; *s++ = '-'; *s++ = 'K'; *s++ = 'e'; *s++ = 'y'; *s++ = 'w';
     *s++ = 'o'; *s++ = 'r'; *s++ = 'd'; *s++ = 's'; *s++ = ':';
@@ -2221,7 +2216,7 @@ unsigned long mmdf_xstatus (MAILSTREAM *stream,char *status,MESSAGECACHE *elt,
   *s++ = '\n'; *s = '\0';	/* end of extended message status */
   return s - status;		/* return size of resulting string */
 }
-
+
 /* Rewrite mailbox file
  * Accepts: MAIL stream, must be critical and locked
  *	    return pointer to number of expunged messages if want expunge
@@ -2276,7 +2271,7 @@ long mmdf_rewrite (MAILSTREAM *stream,unsigned long *nexp,DOTLOCK *lock,
     f.protect = stream->nmsgs ?	/* initial protection pointer */
     mail_elt (stream,1)->private.special.offset : 8192;
     f.bufpos = f.buf = (char *) fs_get (f.buflen = OVERFLOWBUFLEN);
-
+
     if (LOCAL->pseudo)		/* update pseudo-header */
       mmdf_write (&f,LOCAL->buf,mmdf_pseudo (stream,LOCAL->buf));
 				/* loop through all messages */
@@ -2334,7 +2329,7 @@ long mmdf_rewrite (MAILSTREAM *stream,unsigned long *nexp,DOTLOCK *lock,
 	  flag = 1;		/* only write X-IMAPbase once */
 				/* new file header size */
 	  elt->private.msg.header.text.size = elt->private.spare.data + j;
-
+
 				/* did text move? */
 	  if (f.curpos != f.protect) {
 				/* get message text */
@@ -2377,7 +2372,7 @@ long mmdf_rewrite (MAILSTREAM *stream,unsigned long *nexp,DOTLOCK *lock,
 	}
       }
     }
-
+
     mmdf_write (&f,NIL,NIL);	/* tie off final message */
     if (size != f.filepos) fatal ("file size inconsistent");
     fs_give ((void **) &f.buf);	/* free buffer */
@@ -2406,7 +2401,7 @@ long mmdf_rewrite (MAILSTREAM *stream,unsigned long *nexp,DOTLOCK *lock,
   }
   return ret;			/* return state from algorithm */
 }
-
+
 /* Extend MMDF mailbox file
  * Accepts: MAIL stream
  *	    new desired size
@@ -2440,7 +2435,7 @@ long mmdf_extend (MAILSTREAM *stream,unsigned long size)
   }
   return LONGT;
 }
-
+
 /* Write data to buffered file
  * Accepts: buffered file pointer
  *	    file data or NIL to indicate "flush buffer"
@@ -2484,7 +2479,7 @@ void mmdf_write (MMDFFILE *f,char *buf,unsigned long size)
 	f->bufpos = f->buf + i;	/* new end of buffer */
       }
     }
-
+
     /* Have flushed the buffer as best as possible.  All done if no more
      * data to write.  Otherwise, if the buffer is empty AND if the unwritten
      * data is larger than a chunk AND the unprotected space is also larger
@@ -2525,7 +2520,7 @@ void mmdf_write (MMDFFILE *f,char *buf,unsigned long size)
     f->curpos = f->protect = f->filepos;
   }
 }
-
+
 /* Physical disk write
  * Accepts: buffered file pointer
  *	    buffer address

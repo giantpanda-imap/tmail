@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Tenex mail routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	22 May 1990
  * Last Edited:	18 June 2007
@@ -51,7 +44,7 @@ extern int errno;		/* just in case */
 #include <sys/utime.h>
 #include "misc.h"
 #include "dummy.h"
-
+
 /* TENEX I/O stream local data */
 	
 typedef struct tenex_local {
@@ -110,7 +103,7 @@ void tenex_update_status (MAILSTREAM *stream,unsigned long msgno,
 unsigned long tenex_hdrpos (MAILSTREAM *stream,unsigned long msgno,
 			    unsigned long *size);
 
-
+
 /* Tenex mail routines */
 
 
@@ -157,7 +150,7 @@ DRIVER tenexdriver = {
 
 				/* prototype stream */
 MAILSTREAM tenexproto = {&tenexdriver};
-
+
 /* Tenex mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -225,7 +218,7 @@ void *tenex_parameters (long function,void *value)
 {
   return NIL;
 }
-
+
 /* Tenex mail scan mailboxes
  * Accepts: mail stream
  *	    reference
@@ -261,7 +254,7 @@ void tenex_lsub (MAILSTREAM *stream,char *ref,char *pat)
 {
   if (stream) dummy_lsub (NIL,ref,pat);
 }
-
+
 /* Tenex mail create mailbox
  * Accepts: MAIL stream
  *	    mailbox name to create
@@ -288,7 +281,7 @@ long tenex_delete (MAILSTREAM *stream,char *mailbox)
 {
   return tenex_rename (stream,mailbox,NIL);
 }
-
+
 /* Tenex mail rename mailbox
  * Accepts: MAIL stream
  *	    old mailbox name
@@ -330,7 +323,7 @@ long tenex_rename (MAILSTREAM *stream,char *old,char *newname)
     unlockfd (ld,lock);		/* release exclusive parse/append permission */
     return NIL;
   }
-
+
   if (newname) {		/* want rename? */
 				/* found superior to destination name? */
     if ((s = strrchr (tmp,'\\')) && (s != tmp) &&
@@ -367,7 +360,7 @@ long tenex_rename (MAILSTREAM *stream,char *old,char *newname)
   unlockfd (ld,lock);		/* release exclusive parse/append permission */
   return ret;			/* return success */
 }
-
+
 /* Tenex mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -430,7 +423,7 @@ MAILSTREAM *tenex_open (MAILSTREAM *stream)
   stream->perm_user_flags = stream->rdonly ? NIL : 0xffffffff;
   return stream;		/* return stream to caller */
 }
-
+
 /* Tenex mail close
  * Accepts: MAIL stream
  *	    close options
@@ -453,7 +446,7 @@ void tenex_close (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* Tenex mail fetch flags
  * Accepts: MAIL stream
  *	    sequence
@@ -492,7 +485,7 @@ void tenex_flags (MAILSTREAM *stream,char *sequence,long flags)
 	tenex_elt (stream,i);	/* get current flags from file */
       }
 }
-
+
 /* TENEX mail fetch message header
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -528,7 +521,7 @@ char *tenex_header (MAILSTREAM *stream,unsigned long msgno,
   }
   return LOCAL->buf;
 }
-
+
 /* TENEX mail fetch message text (body only)
  * Accepts: MAIL stream
  *	    message # to fetch
@@ -589,7 +582,7 @@ long tenex_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   }
   return T;			/* success */
 }
-
+
 /* Tenex mail modify flags
  * Accepts: MAIL stream
  *	    sequence
@@ -628,7 +621,7 @@ void tenex_flagmsg (MAILSTREAM *stream,MESSAGECACHE *elt)
 				/* recalculate status */
   tenex_update_status (stream,elt->msgno,NIL);
 }
-
+
 /* Tenex mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream still alive, NIL if not
@@ -675,7 +668,7 @@ void tenex_check (MAILSTREAM *stream)
   if (LOCAL) LOCAL->mustcheck = T;
   if (tenex_ping (stream)) mm_log ("Check completed",(long) NIL);
 }
-
+
 /* Tenex mail expunge mailbox
  *	    sequence to expunge if non-NIL
  *	    expunge options
@@ -717,7 +710,7 @@ long tenex_expunge (MAILSTREAM *stream,char *sequence,long options)
 	      ERROR);
       unlockfd (ld,lock);	/* release exclusive parse/append permission */
     }
-
+
     else {
       mm_critical (stream);	/* go critical */
       recent = stream->recent;	/* get recent now that pinged and locked */
@@ -759,7 +752,7 @@ long tenex_expunge (MAILSTREAM *stream,char *sequence,long options)
 				/* preserved but no deleted messages */
 	else pos = elt->private.special.offset + k;
       }
-
+
       if (n) {			/* truncate file after last message */
 	if (pos != (LOCAL->filesize -= delta)) {
 	  sprintf (LOCAL->buf,
@@ -789,7 +782,7 @@ long tenex_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* Tenex mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -848,7 +841,7 @@ long tenex_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
   }
   fstat (fd,&sbuf);		/* get current file size */
   lseek (fd,sbuf.st_size,L_SET);/* move to end of file */
-
+
 				/* for each requested message */
   for (i = 1; ret && (i <= stream->nmsgs); i++) 
     if ((elt = mail_elt (stream,i))->sequence) {
@@ -897,7 +890,7 @@ long tenex_copy (MAILSTREAM *stream,char *sequence,char *mailbox,long options)
     mm_log ("Can not return meaningful COPYUID with this mailbox format",WARN);
   return ret;
 }
-
+
 /* Tenex mail append message from stringstruct
  * Accepts: MAIL stream
  *	    destination mailbox
@@ -946,7 +939,7 @@ long tenex_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   }
 				/* get first message */
   if (!(*af) (stream,data,&flags,&date,&message)) return NIL;
-
+
 				/* open destination mailbox */
   if (((fd = open (file,O_BINARY|O_WRONLY|O_APPEND|O_CREAT,S_IREAD|S_IWRITE))
        < 0) || !(df = fdopen (fd,"ab"))) {
@@ -1022,7 +1015,7 @@ long tenex_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
 	    WARN);
   return ret;
 }
-
+
 /* Internal routines */
 
 
@@ -1039,7 +1032,7 @@ unsigned long tenex_size (MAILSTREAM *stream,unsigned long m)
 	  LOCAL->filesize) -
 	    (elt->private.special.offset + elt->private.special.text.size);
 }
-
+
 /* Tenex mail parse mailbox
  * Accepts: MAIL stream
  * Returns: T if parse OK
@@ -1095,7 +1088,7 @@ long tenex_parse (MAILSTREAM *stream)
       return NIL;
     }
     *s++ = '\0'; *t++ = '\0';	/* tie off fields */
-
+
     added = T;			/* note that a new message was added */
 				/* swell the cache */
     mail_exists (stream,++nmsgs);
@@ -1168,7 +1161,7 @@ long tenex_parse (MAILSTREAM *stream)
   mail_recent (stream,recent);	/* and of change in recent messages */
   return LONGT;			/* return the winnage */
 }
-
+
 /* Tenex get cache element with status updating from file
  * Accepts: MAIL stream
  *	    message number
@@ -1228,7 +1221,7 @@ void tenex_read_flags (MAILSTREAM *stream,MESSAGECACHE *elt)
 		stream->user_flags[i]) elt->user_flags |= 1 << i;
   elt->valid = T;		/* have valid flags now */
 }
-
+
 /* Tenex update status string
  * Accepts: MAIL stream
  *	    message number
@@ -1269,7 +1262,7 @@ void tenex_update_status (MAILSTREAM *stream,unsigned long msgno,long syncflag)
     }
   }
 }
-
+
 /* Tenex locate header for a message
  * Accepts: MAIL stream
  *	    message number

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	UTF-8 routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	11 June 1997
  * Last Edited:	17 January 2008
  */
-
+
 /* UTF-8 size and conversion routines from UCS-2 values (thus in the BMP).
  * Don't use these if UTF-16 data (surrogate pairs) are an issue.
  * For UCS-4 values, use the utf8_size() and utf8_put() functions.
@@ -78,7 +71,7 @@
 #define U4W_UNASSGN U4W_ERROR+4	/* unassigned space plane */
 #define U4W_CONTROL U4W_ERROR+5	/* C0/C1 control */
 #define U4W_CTLSRGT U4W_CONTROL	/* in case legacy code references this */
-
+
 /* ISO-2022 engine states */
 
 #define I2S_CHAR 0		/* character */
@@ -136,7 +129,7 @@
 	/* prefixed by ESC */
 #define I2C_SS2 0x4e		/* single shift to G2 (SS2) */
 #define I2C_SS3 0x4f		/* single shift to G3 (SS3) */
-
+
 /* 94 character sets */
 
 				/* 4/0 ISO 646 IRV */
@@ -202,7 +195,7 @@
 				/* 7/b Serbocroatian Cyrillic */
 				/* 7/c Supplementary CCITT T.101 */
 				/* 7/d Macedonian Cyrillic */
-
+
 /* 94 character sets - second intermediate byte */
 
 				/* 4/0 Greek primary CCITT */
@@ -231,7 +224,7 @@
 				/* 4/e DPRK (North Korea) KGCII */
 				/* 4/f JGCII plane 1 */
 				/* 5/0 JGCII plane 2 */
-
+
 /* 96 character sets */
 
 #define I2CS_96_ISO8859_1 0x41	/* 4/1 Latin-1 (Western Europe) */
@@ -277,7 +270,7 @@
 				/* 7/d Supplementary Mosaic for CCITT 101 */
 
 /* 96x96 character sets */
-
+
 /* Types of character sets */
 
 #define I2CS_94 0x000		/* 94 character set */
@@ -331,7 +324,7 @@
 
 #define BITS7 0x7f		/* 7-bit value mask */
 #define BIT8 0x80		/* 8th bit mask */
-
+
 /* The following saves us from having to have yet more charset tables */
 
 /* Unicode codepoints */
@@ -385,7 +378,7 @@
 
 #define UBOGON 0xfff8		/* unmapped from UCS2_BOGON */
 #define NOCHAR UCS2_NOTCHAR
-
+
 /* Codepoints in non-Unicode character sets */
 
 /* Codepoints in ISO 646 character sets */
@@ -421,7 +414,7 @@
 #define MIN_KANA_8 (MIN_KANA_7 | BIT8)
 #define MAX_KANA_8 (MAX_KANA_7 | BIT8)
 #define KANA_8 (UCS2_KATAKANA - MIN_KANA_8)
-
+
 /* Charset scripts */
 
 /*  The term "script" is used here in a very loose sense, enough to make
@@ -465,7 +458,7 @@ typedef struct utf8_scent {
   char *description;		/* script description */
   unsigned long script;		/* script bitmask */
 } SCRIPT;
-
+
 /* Character set table support */
 
 typedef struct utf8_csent {
@@ -521,7 +514,7 @@ struct utf8_eucparam {
 #define U7_PLUS 1		/* plus seen */
 #define U7_UNICODE 2		/* Unicode characters */
 #define U7_MINUS 3		/* absorbed minus seen */
-
+
 /* Function prototypes */
 
 typedef unsigned long (*ucs4cn_t) (unsigned long c);

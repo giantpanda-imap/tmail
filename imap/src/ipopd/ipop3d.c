@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,15 +14,11 @@
  * Program:	IPOP3D - IMAP to POP3 conversion server
  *
  * Author:	Mark Crispin
- *		UW Technology
- *		University of Washington
- *		Seattle, WA  98195
- *		Internet: MRC@Washington.EDU
  *
  * Date:	1 November 1990
  * Last Edited:	19 February 2008
  */
-
+
 /* Parameter files */
 
 #include <stdio.h>
@@ -50,7 +45,7 @@ extern int errno;		/* just in case */
 #define TRANSACTION 1
 #define UPDATE 2
 #define LOGOUT 3
-
+
 /* Eudora food */
 
 #define STATUS "Status: %s%s\015\012"
@@ -100,7 +95,7 @@ char *responder (void *challenge,unsigned long clen,unsigned long *rlen);
 int mbxopen (char *mailbox);
 long blat (char *text,long lines,unsigned long size,STRING *st);
 void rset ();
-
+
 /* Main program */
 
 int main (int argc,char *argv[])
@@ -177,7 +172,7 @@ int main (int argc,char *argv[])
     }
     alarm (0);			/* make sure timeout disabled */
     idletime = 0;		/* no longer idle */
-
+
     if (!strchr (tmp,'\012'))	/* find end of line */
       PSOUT ("-ERR Command line too long\015\012");
     else if (!(s = strtok (tmp," \015\012")))
@@ -209,7 +204,7 @@ int main (int argc,char *argv[])
 	  }
 	PSOUT (s ? ".\015\012" : "\015\012.\015\012");
       }
-
+
       else switch (state) {	/* else dispatch based on state */
       case AUTHORIZATION:	/* waiting to get logged in */
 	if (!strcmp (s,"AUTH")) {
@@ -249,7 +244,7 @@ int main (int argc,char *argv[])
 	    CRLF;
 	  }
 	}
-
+
 	else if (!strcmp (s,"APOP")) {
 	  if (challenge[0]) {	/* can do it if have an MD5 challenge */
 	    if (host) fs_give ((void **) &host);
@@ -304,7 +299,7 @@ int main (int argc,char *argv[])
 	  state = pass_login (t,argc,argv);
 	else PSOUT ("-ERR Unknown AUTHORIZATION state command\015\012");
 	break;
-
+
       case TRANSACTION:		/* logged in */
 	if (!strcmp (s,"STAT")) {
 	  for (i = 1,j = 0,k = 0; i <= nmsgs; i++)
@@ -360,7 +355,7 @@ int main (int argc,char *argv[])
 	    CRLF;
 	  }
 	}
-
+
 	else if (!strcmp (s,"RETR")) {
 	  if (t && *t) {	/* must have an argument */
 	    if ((i = strtoul (t,NIL,10)) && (i <= nmsgs) && msg[i] &&
@@ -406,7 +401,7 @@ int main (int argc,char *argv[])
 	  }
 	  else PSOUT ("-ERR Missing message number argument\015\012");
 	}
-
+
 	else if (!strcmp (s,"DELE")) {
 	  if (t && *t) {	/* must have an argument */
 	    if ((i = strtoul (t,NIL,10)) && (i <= nmsgs) && msg[i] &&
@@ -431,7 +426,7 @@ int main (int argc,char *argv[])
 	  rset ();		/* reset the mailbox */
 	  PSOUT ("+OK Reset state\015\012");
 	}
-
+
 	else if (!strcmp (s,"TOP")) {
 	  if (t && *t && (i =strtoul (t,&s,10)) && (i <= nmsgs) && msg[i] &&
 	      !(flags[i] & DELE)) {
@@ -474,7 +469,7 @@ int main (int argc,char *argv[])
 	  }
 	  else PSOUT ("-ERR Bad message number argument\015\012");
 	}
-
+
 	else if (!strcmp (s,"XTND"))
 	  PSOUT ("-ERR Sorry I can't do that\015\012");
 	else PSOUT ("-ERR Unknown TRANSACTION state command\015\012");
@@ -496,7 +491,7 @@ int main (int argc,char *argv[])
       }
     }
   }
-
+
 				/* open and need to update? */
   if (stream && (state == UPDATE)) {
     if (nseen) {		/* only bother if messages need marking seen */
@@ -558,7 +553,7 @@ void sayonara (int status)
   if (lgoh) (*lgoh) (mail_parameters (NIL,GET_LOGOUTDATA,NIL));
   _exit (status);		/* all done */
 }
-
+
 /* Clock interrupt
  */
 
@@ -643,7 +638,7 @@ void trmint ()
    */
   else sayonara (1);		/* die die die */
 }
-
+
 /* Parse PASS command
  * Accepts: pointer to command argument
  * Returns: new state
@@ -688,7 +683,7 @@ int pass_login (char *t,int argc,char *argv[])
   PSOUT ("-ERR Bad login\015\012");
   return AUTHORIZATION;
 }
-
+
 /* Authentication responder
  * Accepts: challenge
  *	    length of challenge
@@ -758,7 +753,7 @@ char *responder (void *challenge,unsigned long clen,unsigned long *rlen)
   return (resp[0] != '*') ?
     (char *) rfc822_base64 (resp,t-resp,rlen ? rlen : &i) : NIL;
 }
-
+
 /* Select mailbox
  * Accepts: mailbox name
  * Returns: new state
@@ -800,7 +795,7 @@ int mbxopen (char *mailbox)
 	  user,tcp_clienthost ());
   return UPDATE;
 }
-
+
 /* Blat a string with dot checking
  * Accepts: string
  *	    maximum number of lines if greater than zero
@@ -852,7 +847,7 @@ long blat (char *text,long lines,unsigned long size,STRING *st)
   }
   return ret;
 }
-
+
 /* Reset mailbox
  */
 
@@ -863,7 +858,7 @@ void rset ()
   ndele = nseen = 0;		/* no more deleted or seen messages */
   last = il;			/* restore previous LAST value */
 }
-
+
 /* Co-routines from MAIL library */
 
 
@@ -950,7 +945,7 @@ void mm_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
 {
   /* This isn't used */
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -1024,7 +1019,7 @@ void mm_login (NETMBX *mb,char *username,char *password,long trial)
   else memset (password,0,256);	/* no password to send, abort login */
   username[NETMAXUSER] = password[255] = '\0';
 }
-
+
 /* About to enter critical code
  * Accepts: stream
  */

@@ -1,4 +1,5 @@
 /* ========================================================================
+ * Copyright      2015 Eduardo Chappa <chappa@gmx.com>
  * Copyright 1988-2006 University of Washington
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -7,7 +8,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,16 +15,9 @@
  * Program:	Unix compatibility routines
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	14 September 1996
- * Last Edited:	November 7, 2015.
- *		Eduardo Chappa <chappa@gmx.com>
+ * Last Edited:	November 7, 2015 (Chappa)
  */
 
 
@@ -39,7 +32,7 @@
  *
  *  Lift a leg, Yunie.  Luv ya forever!!!!
  */
- 
+ 
 /* Emulator for BSD flock() call
  * Accepts: file descriptor
  *	    operation bitmask
@@ -85,7 +78,7 @@ int flock (int fd,int op)
   }
   return ret;
 }
-
+
 /* Local storage */
 
 static char *loghdr;		/* log file header string */
@@ -141,7 +134,7 @@ void openlog (const char *ident,int logopt,int facility)
   sprintf (tmp,(logopt & LOG_PID) ? "%s[%d]" : "%s",ident,getpid ());
   loghdr = cpystr (tmp);	/* save header for later */
 }
-
+
 /* Copy Unix string with CRLF newlines
  * Accepts: destination string
  *	    pointer to size of destination string buffer
@@ -182,7 +175,7 @@ unsigned long unix_crlfcpy (char **dst,unsigned long *dstl,char *src,
   *d = '\0';			/* tie off destination */
   return d - *dst;		/* return length */
 }
-
+
 /* Length of Unix string after unix_crlfcpy applied
  * Accepts: source string
  * Returns: length of string
@@ -208,7 +201,7 @@ unsigned long unix_crlflen (STRING *s)
   SETPOS (s,pos);		/* restore old position */
   return i;
 }
-
+
 /* Undoubtably, I'm going to regret these two routines in the future.  I
  * regret them now.  Their purpose is to work around two problems in the
  * VC++ 6.0 C library:
@@ -331,7 +324,7 @@ int close_file (FILE *stream)
   }
   return ret;
 }
-
+
 /* Get password from console
  * Accepts: prompt
  * Returns: password

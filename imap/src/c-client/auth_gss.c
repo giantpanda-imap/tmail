@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	GSSAPI authenticator
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	12 January 1998
  * Last Edited:	30 August 2006
@@ -53,7 +46,7 @@ AUTHENTICATOR auth_gss = {
 #define AUTH_GSSAPI_C_MAXSIZE 8192
 
 #define SERVER_LOG(x,y) syslog (LOG_ALERT,x,y)
-
+
 /* Check if GSSAPI valid on this system
  * Returns: T if valid, NIL otherwise
  */
@@ -76,7 +69,7 @@ long auth_gssapi_valid (void)
   gss_release_name (&smn,&name);/* finished with name */
   return LONGT;
 }
-
+
 /* Client authenticator
  * Accepts: challenger function
  *	    responder function
@@ -113,7 +106,7 @@ long auth_gssapi_client (authchallenge_t challenger,authrespond_t responder,
   }
   return ret;
 }
-
+
 /* Client authenticator worker function
  * Accepts: challenger function
  *	    responder function
@@ -157,7 +150,7 @@ long auth_gssapi_client_work (authchallenge_t challenger,gss_buffer_desc chal,
 				GSS_C_REPLAY_FLAG,0,GSS_C_NO_CHANNEL_BINDINGS,
 				GSS_C_NO_BUFFER,NIL,&resp,NIL,NIL);
     (*bn) (BLOCK_NONSENSITIVE,data);
-
+
 				/* while continuation needed */
     while (smj == GSS_S_CONTINUE_NEEDED) {
       if (chal.value) fs_give ((void **) &chal.value);
@@ -189,7 +182,7 @@ long auth_gssapi_client_work (authchallenge_t challenger,gss_buffer_desc chal,
 	break;
       }
     }
-
+
     switch (smj) {		/* done - deal with final condition */
     case GSS_S_COMPLETE:
       if (chal.value) fs_give ((void **) &chal.value);
@@ -240,7 +233,7 @@ long auth_gssapi_client_work (authchallenge_t challenger,gss_buffer_desc chal,
 				/* don't need context any more */
       gss_delete_sec_context (&smn,&ctx,NIL);
       break;
-
+
     case GSS_S_CREDENTIALS_EXPIRED:
       if (chal.value) fs_give ((void **) &chal.value);
 				/* retry if application kinits */
@@ -275,7 +268,7 @@ long auth_gssapi_client_work (authchallenge_t challenger,gss_buffer_desc chal,
 	gss_release_buffer (&dsmn,&resp);
       } while (dsmj == GSS_S_CONTINUE_NEEDED);
       break;
-
+
     default:			/* miscellaneous errors */
       if (chal.value) fs_give ((void **) &chal.value);
       do switch (dsmj = gss_display_status (&dsmn,smj,GSS_C_GSS_CODE,
@@ -305,7 +298,7 @@ long auth_gssapi_client_work (authchallenge_t challenger,gss_buffer_desc chal,
   }
   return ret;			/* return status */
 }
-
+
 /* Server authenticator
  * Accepts: responder function
  *	    argument count
@@ -355,7 +348,7 @@ char *auth_gssapi_server (authresponse_t responder,int argc,char *argv[])
 	  }
 	}
 	while (resp.value && resp.length && (smj == GSS_S_CONTINUE_NEEDED));
-
+
 				/* successful exchange? */
 	if ((smj == GSS_S_COMPLETE) &&
 	    (gss_display_name (&smn,name,&buf,&mech) == GSS_S_COMPLETE)) {
@@ -393,7 +386,7 @@ char *auth_gssapi_server (authresponse_t responder,int argc,char *argv[])
 				/* finished with credentials */
       gss_release_cred (&smn,&crd);
     }
-
+
     else {			/* can't acquire credentials! */
       if (gss_display_name (&dsmn,crname,&buf,&mech) == GSS_S_COMPLETE)
 	SERVER_LOG ("Failed to acquire credentials for %s",buf.value);

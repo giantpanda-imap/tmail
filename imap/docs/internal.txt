@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -173,7 +172,7 @@ Driver Support Functions
 
 	This is primarily of interest for implementors of new c-client
 	drivers.
-				  History
+				  History
 
      The c-client API was originally written by Mark Crispin at Stanford
 University as a set of routines to support IMAP and SMTP from a main
@@ -218,7 +217,7 @@ Mark Crispin who is now on the staff at the University of Washington.
 c-client functions were extended with additional arguments and options.
 The driver interface was also made simpler, with more work done by
 driver-independent code.
-
+
 			       Overview
 
      The most important file for the author of an application using the
@@ -264,7 +263,7 @@ the stream, or to have a higher level lock.
 single-tasking application does not have to worry about this problem,
 except in the callback invoked from MAIL (e.g. mm_exists(), etc.) in which
 case the stream is *always* locked.
-
+
 			  c-client Structures
 
      c-client has a large number of structures which are used for
@@ -598,7 +597,7 @@ embedded NULs) and their lengths:
 char *text;			string text
 unsigned long size;		string length
 STRINGLIST *next;		next string in list
-
+
 			  String Structures
 
      A string structure is analogous to a char*, and is used in some
@@ -714,7 +713,7 @@ void (*setpos) (STRING *s,unsigned long i);
 the pointer is not in the current chunk, then a new chunk is loaded
 and the associated values (chunk, offset, curpos, cursize) are
 adjusted accordingly.
-
+
 		      c-client Support Functions
 
 
@@ -1055,7 +1054,7 @@ long mail_valid_net_parse (char *name,NETMBX *mb);
      This function parses a network mailbox name.  If the name is a
 network mailbox name, it returns non-NIL, with the NETMBX structure
 loaded with the results form the parse.
-
+
 		       Mailbox Access Functions
 
 void mail_list (MAILSTREAM *stream,char *ref,char *pat);
@@ -1216,7 +1215,7 @@ of the following:
 
      This function always returns NIL, so it can be used as:
 	stream = mail_close (stream);
-
+
 			   Handle Functions
 
      Handles are used when an entity that wishes to access the stream
@@ -1249,7 +1248,7 @@ MAILSTREAM *mail_stream (MAILHANDLE *handle);
 only if the stream still represents the same MAIL connection associated
 with the handle.  Otherwise, NIL is returned (meaning that there is no
 active stream associated with this handle).
-
+
 		    Message Data Fetching Functions
 
 [Note!!  There is an important difference between a "sequence" and a
@@ -1499,7 +1498,7 @@ mail_fetchstructure().
 	the c-client author.  If you think you need this function,
 	you are probably mistaken.  In almost all cases, you should
 	use mail_elt() and mail_fetchstructure() instead.
-
+
 		 Message Status Manipulation Functions
 
 void mail_setflag (MAILSTREAM *stream,char *sequence,char *flag);
@@ -1546,7 +1545,7 @@ more of the following:
 			 value of the flags.  This is useful to save
 			 network bandwidth, at the cost of invalidating
 			 the cache.
-
+
 			   Mailbox Searching
 
 void mail_search (MAILSTREAM *stream,char *criteria);
@@ -1688,7 +1687,7 @@ of the following:
 	SE_NOPREFETCH	Don't prefetch searched messages.
 	SO_FREE		Return the sort program to free storage after
 			 finishing
-
+
 	      Miscellaneous Mailbox and Message Functions
 
 long mail_ping (MAILSTREAM *stream);
@@ -1788,7 +1787,7 @@ following:
 	GC_ELT		message cache elements
 	GC_ENV		ENVELOPEs and BODYs
 	GC_TEXTS	cached texts
-
+
 		     Date/Time Handling Functions
 
 
@@ -1835,7 +1834,7 @@ unsigned long mail_longdate (MESSAGECACHE *elt);
 information, and returns the number of days since the base time of the
 imap-4 toolkit.  At present, this is the same as the Unix time() value
 for that date/time, and hence can be used for functions such as utime().
-
+
 			  Utility Functions
 
 void mail_debug (MAILSTREAM *stream);
@@ -1925,7 +1924,7 @@ suitable for use in mail_search_full().
 	WARNING: This function does not accept IMAP4 search criteria.
 	The source string must be writeable (this restriction was also
 	in the old IMAP2 c-client).
-
+
 	   Data Structure Instantiation/Destruction functions
 
      These functions are used to obtain structures from free storage and
@@ -1974,7 +1973,7 @@ contained in the envelope.
 main program has a private pointer to cache elements.  If so, it is
 expected to increment the cache element's lockcount when it makes a
 private pointer, and to call this function when it is finished with it.
-
+
 		       Authentication Functions
 
 char *mail_auth (char *mechanism,authresponse_t resp,int argc,char *argv[]);
@@ -2061,7 +2060,7 @@ typedef char *(*authserver_t) (authresponse_t responder,int argc,char *argv[]);
 reading responses for a particular authenticator (Kerberos, etc.), and
 returns either the authenticated user name or NIL if authentication
 failed.
-
+
 		       Network Access Functions
 
      These functions provide a layer of indirection between the TCP
@@ -2154,7 +2153,7 @@ char *net_localhost (NETSTREAM *stream);
      This routine returns the local host name of the stream.  It calls
 stream->dtb->localhost, which normally points to tcp_localhost() but can
 point to some other function.
-
+
 		  Subscription Management Functions
 
 long sm_subscribe (char *mailbox);
@@ -2178,7 +2177,7 @@ terminated strings.  Each call returns the next element in the list.
 The first call should be with sdb pointing to a NIL pointer; this will
 be filled in for subsequent calls.  At the last call, NIL will be
 returned.
-
+
 		    Miscellaneous Utility Functions
 
 char *ucase (char *string);
@@ -2253,7 +2252,7 @@ long dmatch (char *s,char *pat,char delim);
      This function returns T if the given wildcard pattern matches the
 directory.  If not, then none of the elements in the directory are
 considered for recursive checking with pmatch_full().
-
+
 			     SMTP Functions
 
 SMTPSTREAM *smtp_open (char **hostlist,long debug);
@@ -2309,7 +2308,7 @@ typedef void (*smtpverbose_t) (char *buffer);
 If this function pointer is non-NIL, then if a verbose SMTP response
 (with SMTP code less than 100) is received, this function is called with
 that response text as its argument.
-
+
 			     NNTP Functions
 
 NNTPSTREAM *nntp_open (char **hostlist,long debug);
@@ -2341,7 +2340,7 @@ the specified news message.  This function returns T if success or NIL
 if there is any failure.  The text reason for the failure is in
 stream->reply item; if it is associated with a recipient it is also in
 that address' address->error item.
-
+
 		      RFC 822 Support Functions
 
      Although rfc822.c contains several additional functions besides
@@ -2443,7 +2442,7 @@ char *rfc822_qprint (char *src,unsigned long srcl,unsigned long *len);
      This function decodes a QUOTED-PRINTABLE body part given a source
 string and its length.  The decoded body part as an 8-bit character
 string is returned, and its length is returned in len.
-
+
 	     Operating System-Dependent Public Interface
 
      These functions are in OS-dependent code, and are rewritten each
@@ -2523,7 +2522,7 @@ or similar mechanism which maps standard input to a network socket.
 It returns the host name of the other end (e.g. the client of a
 server) using the given string buffer, or NIL if it can't get this
 information.
-
+
 			Main Program Callbacks
 
      All applications which use the c-client must have the following
@@ -2789,7 +2788,7 @@ program should do something like
  mm_log (string,ERROR);
 and then return.  No newline is included in the string, so this
 function has to output its own.
-
+
 			     Driver interface
 
      When writing a new driver for the c-client, you must provide a
@@ -2932,7 +2931,7 @@ long driver_append (MAILSTREAM *stream,char *mailbox,char *flags,char *date,
 
 void driver_gc (MAILSTREAM *stream,long gcflags);
       This function implements mail_gc() for this driver.
-
+
 			 Driver Support Functions
 
 void mail_searched (MAILSTREAM *stream,unsigned long msgno);

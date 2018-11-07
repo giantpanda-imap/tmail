@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,16 +14,11 @@
  * Program:	Set memory
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
  *
  * Date:	11 May 1989
  * Last Edited:	30 August 2006
  */
-
+
 /* Set a block of memory
  * Accepts: destination pointer
  *	    value to set

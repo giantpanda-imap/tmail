@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Mail Delivery Module Quota Hook
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 September 2007
  * Last Edited:	10 September 2007
  */
-
+
 /* Function prototypes */
 
 long tmail_quota (STRING *msg,char *path,uid_t uid,char *tmp,char *sender,

@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * ========================================================================
  */
 
@@ -10,19 +18,8 @@
  *
  * Date:	24 May 1995
  * Last Edited:	19 November 2008
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
-
+
 #define auth_link a_link
 #define auth_log a_log
 #define auth_login_client al_cli

@@ -6,7 +6,6 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * 
  * ========================================================================
  */
@@ -15,10 +14,6 @@
  * Program:	IPOP2D - IMAP to POP2 conversion server
  *
  * Author:	Mark Crispin
- *		UW Technology
- *		University of Washington
- *		Seattle, WA  98195
- *		Internet: MRC@Washington.EDU
  *
  * Date:	28 October 1990
  * Last Edited:	13 February 2008
@@ -54,7 +49,7 @@ extern int errno;		/* just in case */
 #define ITEM 3
 #define NEXT 4
 #define DONE 5
-
+
 /* Global storage */
 
 char *version = "75";		/* edit number of this server */
@@ -88,7 +83,7 @@ short c_retr (char *t);
 short c_acks (char *t);
 short c_ackd (char *t);
 short c_nack (char *t);
-
+
 /* Main program */
 
 int main (int argc,char *argv[])
@@ -202,7 +197,7 @@ void sayonara (int status)
   if (lgoh) (*lgoh) (mail_parameters (NIL,GET_LOGOUTDATA,NIL));
   _exit (status);		/* all done */
 }
-
+
 /* Clock interrupt
  */
 
@@ -275,7 +270,7 @@ void trmint ()
    */
   else sayonara (1);		/* die die die */
 }
-
+
 /* Parse HELO command
  * Accepts: pointer to command argument
  * Returns: new state
@@ -320,7 +315,7 @@ short c_helo (char *t,int argc,char *argv[])
   fputs ("- Bad login\015\012",stdout);
   return DONE;
 }
-
+
 /* Parse FOLD command
  * Accepts: pointer to command argument
  * Returns: new state
@@ -373,7 +368,7 @@ short c_fold (char *t)
 	  "<none>");
   return MBOX;
 }
-
+
 /* Parse READ command
  * Accepts: pointer to command argument
  * Returns: new state
@@ -441,7 +436,7 @@ short c_retr (char *t)
   else return DONE;		/* otherwise go away */
   return NEXT;
 }
-
+
 /* Parse ACKS command
  * Accepts: pointer to command argument
  * Returns: new state
@@ -494,7 +489,7 @@ short c_nack (char *t)
   }
   return c_read (NIL);		/* end message reading transaction */
 }
-
+
 /* Co-routines from MAIL library */
 
 
@@ -585,7 +580,7 @@ void mm_status (MAILSTREAM *stream,char *mailbox,MAILSTATUS *status)
 {
   /* This isn't used */
 }
-
+
 /* Notification event
  * Accepts: MAIL stream
  *	    string to log
@@ -653,7 +648,7 @@ void mm_login (NETMBX *mb,char *username,char *password,long trial)
   strncpy (password,pass,255);	/* and password */
   username[NETMAXUSER] = password[255] = '\0';
 }
-
+
 /* About to enter critical code
  * Accepts: stream
  */

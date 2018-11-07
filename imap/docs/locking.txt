@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -120,7 +119,7 @@ of these system calls deal with file resources only.
      Most systems only have one or the other form of locking.  AIX
 and newer versions of OSF/1 emulate the BSD form of locking as a jacket
 into the System V form.  Ultrix and Linux implement both forms.
-
+
 BSD
 
      BSD added the flock() system call.  It offers capabilities to
@@ -145,7 +144,7 @@ fact it is a no-op.  There is no way around this.
 
      Leaving aside these two problems, flock() works remarkably well,
 and has shown itself to be robust and trustworthy.
-
+
 SYSTEM V/POSIX
 
      System V added new functions to the fnctl() system call, and a
@@ -234,7 +233,7 @@ statd would suffice to clear the wedge, but I haven't verified this.
 time on the system, although the documentation only mentions it in
 passing.  On some of their systems, UCS has increased lockd's ``size
 of the socket buffer'', whatever that means.
-
+
 C-CLIENT USAGE
 
      c-client uses flock().  On System V systems, flock() is simulated
@@ -311,7 +310,7 @@ attempts to upgrade lock (1) to exclusive.  The purpose of this lock
 is to prevent against data being appended while some other c-client is
 parsing mail in the file (to prevent reading of incomplete messages).
 It also protects against the lock-releasing timing race on lock (1).
-
+
 OBSERVATIONS
 
      In a perfect world, locking works.  You are protected against
@@ -360,7 +359,7 @@ determine that this is happening other than the system being hung.
 much more stress on the System V locking mechanism than has
 traditionally been placed upon it.  If it was stressed too far, all
 hell broke loose.  Fortunately, this is now past history.
-
+
 TRADEOFFS
 
      c-client based applications have a reasonable chance of winning

@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	KSC 5601 conversion table
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	3 July 1997
  * Last Edited:	30 August 2006
  */
-
+
 /* KSC 5601 is the national standard of the Republic of Korea (South Korea).
  * It is believed that it is also the de-facto standard of the Democratic
  * People's Republic of Korea (North Korea), although North Korea has its

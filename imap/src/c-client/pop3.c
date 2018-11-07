@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2011 Mark Crispin   
+ * Copyright 1988-2007 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	6 June 1994
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -30,7 +27,7 @@
 #include "c-client.h"
 #include "flstring.h"
 #include "netmsg.h"
-
+
 /* Parameters */
 
 #define POP3TCPPORT (long) 110	/* assigned TCP contact port */
@@ -72,7 +69,7 @@ typedef struct pop3_local {
 /* Convenient access to local data */
 
 #define LOCAL ((POP3LOCAL *) stream->local)
-
+
 /* Function prototypes */
 
 DRIVER *pop3_valid (char *name);
@@ -107,7 +104,7 @@ long pop3_send_num (MAILSTREAM *stream,char *command,unsigned long n);
 long pop3_send (MAILSTREAM *stream,char *command,char *args);
 long pop3_reply (MAILSTREAM *stream);
 long pop3_fake (MAILSTREAM *stream,char *text);
-
+
 /* POP3 mail routines */
 
 
@@ -163,7 +160,7 @@ MAILSTREAM pop3proto = {&pop3driver};
 static unsigned long pop3_maxlogintrials = MAXLOGINTRIALS;
 static long pop3_port = 0;
 static long pop3_sslport = 0;
-
+
 /* POP3 mail validate mailbox
  * Accepts: mailbox name
  * Returns: our driver if name is valid, NIL otherwise
@@ -214,7 +211,7 @@ void *pop3_parameters (long function,void *value)
   }
   return value;
 }
-
+
 /* POP3 mail scan mailboxes for string
  * Accepts: mail stream
  *	    reference
@@ -252,7 +249,7 @@ void pop3_list (MAILSTREAM *stream,char *ref,char *pat)
     mm_list (stream,NIL,tmp,LATT_NOINFERIORS);
   }
 }
-
+
 /* POP3 mail find list of subscribed mailboxes
  * Accepts: mail stream
  *	    reference
@@ -302,7 +299,7 @@ long pop3_unsubscribe (MAILSTREAM *stream,char *mailbox)
 {
   return sm_unsubscribe (mailbox);
 }
-
+
 /* POP3 mail create mailbox
  * Accepts: mail stream
  *	    mailbox name to create
@@ -337,7 +334,7 @@ long pop3_rename (MAILSTREAM *stream,char *old,char *newname)
 {
   return NIL;			/* never valid for POP3 */
 }
-
+
 /* POP3 status
  * Accepts: mail stream
  *	    mailbox name
@@ -369,7 +366,7 @@ long pop3_status (MAILSTREAM *stream,char *mbx,long flags)
   }
   return ret;			/* success */
 }
-
+
 /* POP3 mail open
  * Accepts: stream to open
  * Returns: stream on success, NIL on failure
@@ -404,7 +401,7 @@ MAILSTREAM *pop3_open (MAILSTREAM *stream)
     (void *) memset (fs_get (sizeof (POP3LOCAL)),0,sizeof (POP3LOCAL));
   stream->sequence++;		/* bump sequence number */
   stream->perm_deleted = T;	/* deleted is only valid flag */
-
+
   if ((LOCAL->netstream =	/* try to open connection */
        net_open (&mb,NIL,pop3_port ? pop3_port : POP3TCPPORT,
 		 (NETDRIVER *) mail_parameters (NIL,GET_SSLDRIVER,NIL),
@@ -443,7 +440,7 @@ MAILSTREAM *pop3_open (MAILSTREAM *stream)
 	elt->valid = elt->recent = T;
 	elt->private.uid = i;
       }
-
+
 				/* trust LIST output if new server */
       if (!LOCAL->loser && LOCAL->cap.capa && pop3_send (stream,"LIST",NIL)) {
 	while ((s = net_getline (LOCAL->netstream)) && (*s != '.')) {
@@ -475,7 +472,7 @@ MAILSTREAM *pop3_open (MAILSTREAM *stream)
   }
   return LOCAL ? stream : NIL;	/* if stream is alive, return to caller */
 }
-
+
 /* POP3 capabilities
  * Accepts: stream
  *	    authenticator flags
@@ -542,7 +539,7 @@ long pop3_capa (MAILSTREAM *stream,long flags)
   }
   return LONGT;
 }
-
+
 /* POP3 authenticate
  * Accepts: stream to login
  *	    parsed network mailbox structure
@@ -601,7 +598,7 @@ long pop3_auth (MAILSTREAM *stream,NETMBX *mb,char *pwd,char *usr)
       (auths & (1 << i)) &&
       (i = mail_lookup_auth_name ("LOGIN",NIL)) && (--i < MAXAUTHENTICATORS))
     auths &= ~(1 << i);
-
+
   if (auths) {			/* got any authenticators? */
     if ((long) mail_parameters (NIL,GET_TRUSTDNS,NIL)) {
 				/* remote name for authentication */
@@ -650,7 +647,7 @@ long pop3_auth (MAILSTREAM *stream,NETMBX *mb,char *pwd,char *usr)
       fs_give ((void **) &t);
     }
   }
-
+
   else if (stream->secure)
     mm_log ("Can't do secure authentication with this server",ERROR);
   else if (mb->authuser[0])
@@ -683,7 +680,7 @@ long pop3_auth (MAILSTREAM *stream,NETMBX *mb,char *pwd,char *usr)
   if (ret && capaok) pop3_capa (stream,flags);
   return ret;
 }
-
+
 /* Get challenge to authenticator in binary
  * Accepts: stream
  *	    pointer to returned size
@@ -738,7 +735,7 @@ long pop3_response (void *s,char *response,unsigned long size)
   pop3_reply (stream);		/* get response */
   return ret;
 }
-
+
 /* POP3 mail close
  * Accepts: MAIL stream
  *	    option flags
@@ -768,7 +765,7 @@ void pop3_close (MAILSTREAM *stream,long options)
     stream->dtb = NIL;		/* log out the DTB */
   }
 }
-
+
 /* POP3 mail fetch fast information
  * Accepts: MAIL stream
  *	    sequence
@@ -813,7 +810,7 @@ void pop3_fetchfast (MAILSTREAM *stream,char *sequence,long flags)
 	mail_free_envelope (&e);
       }
 }
-
+
 /* POP3 fetch header as text
  * Accepts: mail stream
  *	    message number
@@ -861,7 +858,7 @@ char *pop3_header (MAILSTREAM *stream,unsigned long msgno,unsigned long *size,
   return elt->private.msg.header.text.data ?
     (char *) elt->private.msg.header.text.data : "";
 }
-
+
 /* POP3 fetch body
  * Accepts: mail stream
  *	    message number
@@ -886,7 +883,7 @@ long pop3_text (MAILSTREAM *stream,unsigned long msgno,STRING *bs,long flags)
   SETPOS (bs,LOCAL->hdrsize);	/* skip past header */
   return T;
 }
-
+
 /* POP3 cache message
  * Accepts: mail stream
  *	    message number
@@ -910,7 +907,7 @@ unsigned long pop3_cache (MAILSTREAM *stream,MESSAGECACHE *elt)
   }
   return LOCAL->hdrsize;
 }
-
+
 /* POP3 mail ping mailbox
  * Accepts: MAIL stream
  * Returns: T if stream alive, else NIL
@@ -975,7 +972,7 @@ long pop3_expunge (MAILSTREAM *stream,char *sequence,long options)
   }
   return ret;
 }
-
+
 /* POP3 mail copy message(s)
  * Accepts: MAIL stream
  *	    sequence
@@ -1007,7 +1004,7 @@ long pop3_append (MAILSTREAM *stream,char *mailbox,append_t af,void *data)
   mm_log ("Append not valid for POP3",ERROR);
   return NIL;
 }
-
+
 /* Internal routines */
 
 
@@ -1053,7 +1050,7 @@ long pop3_send (MAILSTREAM *stream,char *command,char *args)
   mail_unlock (stream);		/* unlock stream */
   return ret;
 }
-
+
 /* Post Office Protocol 3 get reply
  * Accepts: MAIL stream
  * Returns: T if success reply, NIL if error reply

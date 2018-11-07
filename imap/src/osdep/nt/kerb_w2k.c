@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	GSSAPI Kerberos Shim 5 for Windows 2000/XP IMAP Toolkit
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	6 March 2000
  * Last Edited:	30 August 2006
@@ -37,7 +30,6 @@
  * Kerberos .h files.
  */
 
-
 /* GSSAPI generic definitions */
 
 
@@ -89,7 +81,7 @@ typedef ULONG gss_qop_t;
 #define GSS_S_BAD_NAME 101
 #define GSS_S_BAD_NAMETYPE 102
 #define GSS_S_BAD_STATUS 103
-
+
 /* GSSAPI types as used in GSSAPI */
 
 
@@ -142,7 +134,7 @@ const gss_OID gss_nt_service_name;
 #define GSS_C_NT_HOSTBASED_SERVICE gss_nt_service_name
 const gss_OID gss_mech_krb5;
 const gss_OID_set gss_mech_set_krb5;
-
+
 /* GSSAPI prototypes */
 
 
@@ -194,7 +186,7 @@ OM_uint32 gss_unwrap (OM_uint32 *minor_status,gss_ctx_id_t context_handle,
 		      gss_buffer_t input_message_buffer,
 		      gss_buffer_t output_message_buffer,int *conf_state,
 		      gss_qop_t *qop_state);
-
+
 /* Kerberos definitions */
 
 long kerberos_server_valid (void);
@@ -204,7 +196,7 @@ char *kerberos_login (char *user,char *authuser,int argc,char *argv[]);
 
 #define STRING WINSTRING	/* conflict with mail.h */
 #include <NTSecAPI.h>
-
+
 /* GSSAPI build-in object identifiers */
 
 static gss_OID_desc oids[] = {	/* stupid C language makes this necessary */
@@ -227,7 +219,7 @@ const gss_OID_set gss_mech_set_krb5 = oidsets+0;
 
 				/* substitute for GSS_C_NO_CREDENTIAL */
 static gss_cred_id_t gss_default_cred = NIL;
-
+
 /* GSSAPI import name (convert to full service principal name)
  * Accepts: pointer to return minor status
  *	    buffer containining input name
@@ -269,7 +261,7 @@ OM_uint32 gss_import_name (OM_uint32 *minor_status,
   }
   return major_status;
 }
-
+
 /* GSSAPI Initialize security context
  * Accepts: pointer to return minor status
  *	    claimant credential handle
@@ -311,7 +303,7 @@ OM_uint32 gss_init_sec_context (OM_uint32 *minor_status,
 				/* ditto if any channel bindings */
   if (input_chan_bindings != GSS_C_NO_CHANNEL_BINDINGS)
     return GSS_S_BAD_BINDINGS;
-
+
 				/* apply default credential if necessary */
   if (claimant_cred_handle == GSS_C_NO_CREDENTIAL)
     claimant_cred_handle = gss_default_cred;
@@ -359,7 +351,7 @@ OM_uint32 gss_init_sec_context (OM_uint32 *minor_status,
   if (time_rec) *time_rec = expiry.LowPart;
   return major_status;
 }
-
+
 /* GSSAPI display status text
  * Accepts: pointer to return minor status
  *	    status to display
@@ -416,7 +408,7 @@ OM_uint32 gss_display_status (OM_uint32 *minor_status,OM_uint32 status_value,
   status_string->length = strlen (status_string->value = cpystr (s));
   return GSS_S_COMPLETE;
 }
-
+
 /* GSSAPI delete security context
  * Accepts: pointer to return minor status
  *	    context to delete
@@ -464,7 +456,7 @@ OM_uint32 gss_release_name (OM_uint32 *minor_status,gss_name_t *input_name)
   fs_give (input_name);
   return GSS_S_COMPLETE;
 }
-
+
 /* GSSAPI wrap data
  * Accepts: pointer to return minor status
  *	    context handle
@@ -532,7 +524,7 @@ OM_uint32 gss_wrap (OM_uint32 *minor_status,gss_ctx_id_t context_handle,
   }
   return major_status;		/* return status */
 }
-
+
 /* GSSAPI unwrap data
  * Accepts: pointer to return minor status
  *	    context handle
@@ -581,7 +573,7 @@ OM_uint32 gss_unwrap (OM_uint32 *minor_status,gss_ctx_id_t context_handle,
 	   buf[1].pvBuffer,output_message_buffer->length = buf[1].cbBuffer);
   return major_status;		/* return status */
 }
-
+
 /* From here on are server-only functions, currently unused */
 
 
@@ -619,7 +611,7 @@ OM_uint32 gss_release_cred (OM_uint32 *minor_status,gss_cred_id_t *cred_handle)
   *minor_status = 0;		/* never any minor status */
   return GSS_S_FAILURE;		/* server only */
 }
-
+
 /* GSSAPI Accept security context
  * Accepts: pointer to return minor status
  *	    context
@@ -665,7 +657,7 @@ OM_uint32 gss_display_name (OM_uint32 *minor_status,gss_name_t input_name,
   *minor_status = 0;		/* never any minor status */
   return GSS_S_FAILURE;		/* server only */
 }
-
+
 /* Kerberos server valid check
  * Returns: T if have keytab, NIL otherwise
  */
@@ -684,7 +676,7 @@ long kerberos_try_kinit (OM_uint32 error)
 {
   return NIL;
 }
-
+
 /* Kerberos server log in
  * Accepts: authorization ID as user name
  *	    authentication ID as Kerberos principal

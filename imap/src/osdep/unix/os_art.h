@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,17 +14,11 @@
  * Program:	Operating-system dependent routines -- AIX/RT version
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	10 April 1992
  * Last Edited:	15 September 2006
  */
-
+
 #include <unistd.h>
 #include <string.h>
 #include <memory.h>
@@ -52,7 +45,7 @@
 /* For setitimer() emulation */
 
 #define ITIMER_REAL 0
-
+
 struct passwd *getpwent (void);
 struct passwd *getpwuid (int uid);
 struct passwd *getpwnam (char *name);

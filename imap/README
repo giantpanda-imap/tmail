@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -56,7 +55,7 @@ refer to the docs/BUILD file for more information.
 
 Read the file docs/BUILD and docs/SSLBUILD if you need more detailed
 information and/or you don't understand these quick build instructions.
-
+
 			     MISCELLANEOUS NOTES
 
      mtest has been run under UNIX, DOS, Windows, NT, Macintosh, TOPS-20, and

@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	1 August 1988
  * Last Edited:	15 November 2010
- *
- * Previous versions of this file were:
- *
- * Copyright 1988-2006 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 
@@ -52,7 +49,7 @@ typedef struct dotlock_base {
 #define ANONYMOUSUSER "nobody"	/* anonymous user */
 #define UNLOGGEDUSER "root"	/* unlogged-in user */
 #define ADMINGROUP "mailadm"	/* mail administrator group */
-
+
 /* Function prototypes */
 
 #include "env.h"

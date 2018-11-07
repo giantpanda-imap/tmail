@@ -1,5 +1,13 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2008 University of Washington
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,17 +18,6 @@
  *
  * Date:	1 August 1988
  * Last Edited:	15 November 2010
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2008 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
  */
 
 #include <grp.h>
@@ -57,7 +54,7 @@
 #ifndef S_IXOTH
 #define S_IXOTH (S_IEXEC >> 6)
 #endif
-
+
 /* c-client environment parameters */
 
 static char *myUserName = NIL;	/* user name */
@@ -111,7 +108,7 @@ static long disablePlaintext = NIL;
 static long list_max_level = 20;/* maximum level of list recursion */
 				/* facility for syslog */
 static int syslog_facility = LOG_MAIL;
-
+
 /* Path of the privileged system lock program (mlock).  Normally set by
  * logic test.
  */
@@ -144,7 +141,7 @@ static const int shlock_mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH;
 
 				/* dot-lock mode */
 static long dotlock_mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH;
-
+
 /* File/directory access and protection policies */
 
 /* Unlike shlock_mode, the ????_protection modes are intended to be fully
@@ -185,7 +182,7 @@ static long shared_protection = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP;
 				/* default shared directory protection */
 static long shared_dir_protection =
   S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP;
-
+
 /* OS bug workarounds - should be avoided at all cost */
 
 
@@ -223,7 +220,7 @@ static short netfsstatbug = NIL;/* compensate for broken stat() on network
  */
 				/* disable warning if can't make .lock file */
 static short disableLockWarning = NIL;
-
+
 /* UNIX Namespaces */
 
 				/* personal mh namespace */
@@ -257,7 +254,7 @@ static NAMESPACE nslimited = {"#shared/",'/',NIL,&nspublic};
 /* Get all authenticators */
 
 #include "auths.c"
-
+
 /* Environment manipulate parameters
  * Accepts: function code
  *	    function-dependent value
@@ -307,7 +304,7 @@ void *env_parameters (long function,void *value)
   case GET_NEWSSPOOL:
     ret = (void *) newsSpool;
     break;
-
+
   case SET_ANONYMOUSHOME:
     if (anonymousHome) fs_give ((void **) &anonymousHome);
     anonymousHome = cpystr ((char *) value);
@@ -351,7 +348,7 @@ void *env_parameters (long function,void *value)
   case GET_LISTMAXLEVEL:
     ret = (void *) list_max_level;
     break;
-
+
   case SET_MBXPROTECTION:
     mbx_protection = (long) value;
   case GET_MBXPROTECTION:
@@ -401,7 +398,7 @@ void *env_parameters (long function,void *value)
     restrictBox = (long) value;
   case GET_RESTRICTIONS:
     ret = (void *) restrictBox;
-
+
   case SET_LOCKTIMEOUT:
     locktimeout = (long) value;
   case GET_LOCKTIMEOUT:
@@ -452,7 +449,7 @@ void *env_parameters (long function,void *value)
   case GET_DISABLE822TZTEXT:
     ret = (void *) (no822tztext ? VOIDT : NIL);
     break;
-
+
   case SET_USERHASNOLIFE:
     has_no_life = value ? T : NIL;
   case GET_USERHASNOLIFE:
@@ -490,7 +487,7 @@ void *env_parameters (long function,void *value)
   }
   return ret;
 }
-
+
 /* Write current time
  * Accepts: destination string
  *	    optional format of day-of-week prefix
@@ -526,7 +523,7 @@ static void do_date (char *date,char *prefix,char *fmt,int suffix)
 				/* append timezone suffix if desired */
   if (suffix) rfc822_timezone (date,(void *) t);
 }
-
+
 /* Write current time in RFC 822 format
  * Accepts: destination string
  */
@@ -556,7 +553,7 @@ void internal_date (char *date)
 {
   do_date (date,NIL,"%02d-%s-%d %02d:%02d:%02d %+03d%02d",NIL);
 }
-
+
 /* Initialize server
  * Accepts: server name for syslog or NIL
  *	    /etc/services service name or NIL
@@ -613,7 +610,7 @@ void server_init (char *server,char *service,char *sslservice,
     }
   }
 }
-
+
 /* Wait for stdin input
  * Accepts: timeout in seconds
  * Returns: T if have input on stdin, else NIL
@@ -633,7 +630,7 @@ long server_input_wait (long seconds)
   } while (((err = select (1,&rfd,0,&efd,&tmo)) < 0) && (errno = EINTR));
   return err ? LONGT : NIL;
 }
-
+
 /* Return UNIX password entry for user name
  * Accepts: user name string
  * Returns: password entry
@@ -688,7 +685,7 @@ static struct passwd *valpwd (char *user,char *pwd,int argc,char *argv[])
   }
   return ret;
 }
-
+
 /* Server log in
  * Accepts: user name string
  *	    password string
@@ -720,7 +717,7 @@ long server_login (char *user,char *pwd,char *authuser,int argc,char *argv[])
   sleep (3);			/* slow down possible cracker */
   return NIL;
 }
-
+
 /* Authenticated server log in
  * Accepts: user name string
  *	    authenticating user name string
@@ -748,7 +745,7 @@ long anonymous_login (int argc,char *argv[])
 		   (char *) mail_parameters (NIL,GET_ANONYMOUSHOME,NIL),
 		   argc,argv);
 }
-
+
 /* Finish log in and environment initialization
  * Accepts: passwd struct for loginpw()
  *	    optional authentication user name
@@ -795,7 +792,7 @@ long pw_login (struct passwd *pw,char *auser,char *user,char *home,int argc,
   endpwent ();			/* in case shadow passwords in pw data */
   return ret;			/* return status */
 }
-
+
 /* Initialize environment
  * Accepts: user name (NIL for anonymous)
  *	    home directory name
@@ -868,7 +865,7 @@ long env_init (char *user,char *home)
     }
     myHomeDir = cpystr (home);	/* set home directory */
   }
-
+
   if (allowuserconfig) {	/* allow user config files */
     dorc (strcat (strcpy (tmp,myHomeDir),"/.mminit"),T);
     dorc (strcat (strcpy (tmp,myHomeDir),"/.imaprc"),NIL);
@@ -892,7 +889,7 @@ long env_init (char *user,char *home)
   endpwent ();			/* close pw database */
   return T;
 }
- 
+ 
 /* Return my user name
  * Accepts: pointer to optional flags
  * Returns: my user name
@@ -948,7 +945,7 @@ char *mylocalhost ()
   }
   return myLocalHost ? myLocalHost : "unknown";
 }
-
+
 /* Return my home directory name
  * Returns: my home directory name
  */
@@ -993,7 +990,7 @@ char *sysinbox ()
   }
   return sysInbox;
 }
-
+
 /* Return mailbox directory name
  * Accepts: destination buffer
  *	    directory prefix
@@ -1021,7 +1018,7 @@ char *mailboxdir (char *dst,char *dir,char *name)
   else strcpy (dst,mymailboxdir ());
   return dst;			/* return the name */
 }
-
+
 /* Return mailbox file name
  * Accepts: destination buffer
  *	    mailbox name
@@ -1062,7 +1059,7 @@ char *mailboxfile (char *dst,char *name)
 	       name+8 : "INBOX");
     else dst = NIL;		/* unknown namespace */
     break;
-
+
   case '/':			/* root access */
     if (anonymous) dst = NIL;	/* anonymous forbidden to do this */
     else if (blackBox) {	/* other user access if blackbox */
@@ -1118,7 +1115,7 @@ char *mailboxfile (char *dst,char *name)
       else dst = NIL;		/* no such user */
     }
     break;
-
+
   case 'I': case 'i':		/* possible INBOX */
     if (!compare_cstring (name+1,"NBOX")) {
 				/* if restricted, use INBOX in mailbox dir */
@@ -1134,7 +1131,7 @@ char *mailboxfile (char *dst,char *name)
   }
   return dst;			/* return final name */
 }
-
+
 /* Dot-lock file locker
  * Accepts: file name to lock
  *	    destination buffer for lock file name
@@ -1196,7 +1193,7 @@ long dotlock_lock (char *file,DOTLOCK *base,int fd)
     }
     umask (mask);		/* restore old umask */
   }
-
+
   if (fd >= 0) switch (errno) {
   case EACCES:			/* protection failure? */
     MM_CRITICAL (NIL);		/* go critical */
@@ -1254,7 +1251,7 @@ long dotlock_lock (char *file,DOTLOCK *base,int fd)
       }
       close (pi[0]); close (pi[1]);
     }
-
+
     MM_NOCRITICAL (NIL);	/* no longer critical */
 				/* find directory/file delimiter */
     if ((s = strrchr (base->lock,'/')) != NULL) {
@@ -1279,7 +1276,7 @@ long dotlock_lock (char *file,DOTLOCK *base,int fd)
   base->lock[0] = '\0';		/* don't use lock files */
   return NIL;
 }
-
+
 /* Dot-lock file unlocker
  * Accepts: lock file name
  * Returns: T if success, NIL if failure
@@ -1298,7 +1295,7 @@ long dotlock_unlock (DOTLOCK *base)
   }
   return ret;
 }
-
+
 /* Lock file name
  * Accepts: scratch buffer
  *	    file name
@@ -1327,7 +1324,7 @@ int lockfd (int fd,char *lock,int op)
   struct stat sbuf;
   return fstat (fd,&sbuf) ? -1 : lock_work (lock,&sbuf,op,NIL);
 }
-
+
 /* Lock file name worker
  * Accepts: lock file name
  *	    pointer to stat() buffer
@@ -1378,7 +1375,7 @@ int lock_work (char *lock,void *sb,int op,long *pid)
       umask (mask);		/* restore old mask */
       return -1;		/* fail: can't open lock file */
     }
-
+
 				/* non-blocking form */
     if (op & LOCK_NB) i = flock (fd,op);
     else {			/* blocking form */
@@ -1404,7 +1401,7 @@ int lock_work (char *lock,void *sb,int op,long *pid)
   umask (mask);			/* restore old mask */
   return fd;			/* success */
 }
-
+
 /* Check to make sure not a symlink
  * Accepts: file name
  *	    stat buffer
@@ -1439,7 +1436,7 @@ void unlockfd (int fd,char *lock)
   flock (fd,LOCK_UN);		/* unlock it */
   close (fd);			/* close it */
 }
-
+
 /* Set proper file protection for mailbox
  * Accepts: mailbox name
  *	    actual file path name
@@ -1482,7 +1479,7 @@ long set_mbx_protections (char *mailbox,char *path)
   chmod (path,mode);		/* set the new protection, ignore failure */
   return LONGT;
 }
-
+
 /* Get proper directory protection
  * Accepts: mailbox name
  * Returns: directory mode, always
@@ -1512,7 +1509,7 @@ long get_dir_protection (char *mailbox)
   }
   return dir_protection;
 }
-
+
 /* Determine default prototype stream to user
  * Accepts: type (NIL for create, T for append)
  * Returns: default prototype stream
@@ -1551,7 +1548,7 @@ char *default_user_flag (unsigned long i)
   myusername ();		/* make sure initialized */
   return userFlags[i];
 }
-
+
 /* Process rc file
  * Accepts: file name
  *	    .mminit flag
@@ -1582,7 +1579,7 @@ void dorc (char *file,long flag)
 	}
 	if (flag) break;	/* found "set keywords" in .mminit */
       }
-
+
       else if (!flag) {		/* none of these valid in .mminit */
 	if (myUserName) {	/* only valid if logged in */
 	  if (!compare_cstring (s,"set new-mailbox-format") ||
@@ -1631,7 +1628,7 @@ void dorc (char *file,long flag)
 	    }
 	  }
 	}
-
+
 	if (!compare_cstring (s,"set local-host")) {
 	  fs_give ((void **) &myLocalHost);
 	  myLocalHost = cpystr (k);
@@ -1676,7 +1673,7 @@ void dorc (char *file,long flag)
 	  mail_parameters (NIL,SET_FROMWIDGET,
 			   compare_cstring (k,"header-only") ?
 			   VOIDT : NIL);
-
+
 	else if (!compare_cstring (s,"set rsh-command"))
 	  mail_parameters (NIL,SET_RSHCOMMAND,(void *) k);
 	else if (!compare_cstring (s,"set rsh-path"))
@@ -1711,7 +1708,7 @@ void dorc (char *file,long flag)
 	  mail_parameters (NIL,SET_UIDLOOKAHEAD,(void *) atol (k));
 	else if (!compare_cstring (s,"set try-ssl-first"))
 	  mail_parameters (NIL,SET_TRYSSLFIRST,(void *) atol (k));
-
+
 	else if (!compare_cstring (s,"set mailbox-protection"))
 	  mbx_protection = atol (k);
 	else if (!compare_cstring (s,"set directory-protection"))
@@ -1750,7 +1747,7 @@ void dorc (char *file,long flag)
 	  netfsstatbug = atoi (k);
 	else if (!compare_cstring (s,"set nntp-range"))
 	  mail_parameters (NIL,SET_NNTPRANGE,(void *) atol (k));
-
+
 	else if (!file) {	/* only allowed in system init */
 	  if (!compare_cstring (s,"set black-box-directory") &&
 	      !blackBoxDir) blackBoxDir = cpystr (k);
@@ -1805,7 +1802,7 @@ void dorc (char *file,long flag)
   } while ((s = fgets (tmp,MAILTMPLEN,f)) && (t = strchr (s,'\n')));
   if (f) fclose (f);		/* flush the file */
 }
-
+
 /* INBOX create function for tmail/dmail use only
  * Accepts: mail stream
  *	    path name buffer, preloaded with driver-dependent path
@@ -1832,7 +1829,7 @@ long path_create (MAILSTREAM *stream,char *path)
   restrictBox = rsave;		/* restore restrictions */
   return ret;
 }
-
+
 /* Default block notify routine
  * Accepts: reason for calling
  *	    data

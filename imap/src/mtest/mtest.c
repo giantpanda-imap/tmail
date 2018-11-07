@@ -1,5 +1,14 @@
 /* ========================================================================
  * Copyright 2008-2010 Mark Crispin
+ * Copyright 1988-2007 University of Washington
+ * Copyright 1988 Stanford University
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * ========================================================================
  */
 
@@ -10,25 +19,8 @@
  *
  * Date:	8 July 1988
  * Last Edited:	8 April 2011
- *
- * Previous versions of this file were
- *
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * This original version of this file is
- * Copyright 1988 Stanford University
- * and was developed in the Symbolic Systems Resources Group of the Knowledge
- * Systems Laboratory at Stanford University in 1987-88, and was funded by the
- * Biomedical Research Technology Program of the NationalInstitutes of Health
- * under grant number RR-00785.
  */
-
+
 #include <stdio.h>
 #include <ctype.h>
 #include <signal.h>
@@ -54,7 +46,7 @@
 #  define MACOS 0
 # endif
 #endif
-
+
 char *curhst = NIL;		/* currently connected host */
 char *curusr = NIL;		/* current login user */
 char personalname[MAILTMPLEN];	/* user's personal name */
@@ -79,7 +71,7 @@ void display_body (BODY *body,char *pfx,long i);
 void status (MAILSTREAM *stream);
 void prompt (char *msg,char *txt, int buflen);
 void smtptest (long debug);
-
+
 /* Main program - initialization */
 
 int main ()
@@ -141,7 +133,7 @@ int main ()
 #endif
   return NIL;
 }
-
+
 /* MM command loop
  * Accepts: MAIL stream
  */
@@ -363,7 +355,7 @@ void mm (MAILSTREAM *stream,long debug)
     }
   }
 }
-
+
 /* MM display header
  * Accepts: IMAP2 stream
  *	    message number
@@ -412,7 +404,7 @@ void overview_header (MAILSTREAM *stream,unsigned long uid,OVERVIEW *ov,
   }
   else printf ("%%No overview for UID %lu\n",uid);
 }
-
+
 /* MM display header
  * Accepts: IMAP2 stream
  *	    message number
@@ -448,7 +440,7 @@ void header (MAILSTREAM *stream,long msgno)
   sprintf (t += strlen (t)," (%lu chars)",cache->rfc822_size);
   puts (tmp);
 }
-
+
 /* MM display body
  * Accepts: BODY structure pointer
  *	    prefix string
@@ -498,7 +490,7 @@ void display_body (BODY *body,char *pfx,long i)
     }
   }
 }
-
+
 /* MM status report
  * Accepts: MAIL stream
  */
@@ -609,7 +601,7 @@ void prompt (char *msg,char *txt, int buflen)
   if(txt[strlen(txt)-1] == '\015')
       txt[strlen(txt)-1] = '\0';
 }
-
+
 /* Interfaces to C-client */
 
 
@@ -753,7 +745,7 @@ void mm_fatal (char *string)
 {
   printf ("?%s\n",string);
 }
-
+
 /* SMTP tester */
 
 void smtptest (long debug)

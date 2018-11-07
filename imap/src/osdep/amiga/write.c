@@ -7,7 +7,6 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 
  * ========================================================================
  */
 
@@ -15,12 +14,6 @@
  * Program:	Write data, treating partial writes as an error
  *
  * Author:	Mark Crispin
- *		Networks and Distributed Computing
- *		Computing & Communications
- *		University of Washington
- *		Administration Building, AG-44
- *		Seattle, WA  98195
- *		Internet: MRC@CAC.Washington.EDU
  *
  * Date:	26 May 1995
  * Last Edited:	30 August 2006
@@ -35,7 +28,7 @@
  *  BSD won't screw us this way on the local filesystem, but who knows what
  * some NFS-mounted filesystem will do.
  */
-
+
 #undef write
 
 /* Write data to file
