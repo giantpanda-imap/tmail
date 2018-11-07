@@ -4068,6 +4068,19 @@ SEARCHPGM *mail_criteria (char *criteria)
 	else if (!strcmp (criterion+1,"ROM"))
 	  f = mail_criteria_string (&pgm->from,&r);
 	break;
+      case 'H':          /* possible HEADER */
+    //char* header_name, header_value;
+    if (!strcmp (criterion+1,"EADER")) {
+      char* header_name = strtok_r (NIL," ",&r);
+      char* header_value = strtok_r (NIL," ",&r);
+
+      if(header_name && header_value) {
+        pgm->header = mail_newsearchheader (header_name,header_value);
+        //pgm->header->next = mail_newsearchheader();
+        f = T; /* success */
+      }
+    }
+    break;
       case 'K':			/* possible KEYWORD */
 	if (!strcmp (criterion+1,"EYWORD"))
 	  f = mail_criteria_string (&pgm->keyword,&r);
