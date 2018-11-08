@@ -37,6 +37,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <signal.h>
+#include <utime.h>
 #include "mail.h"
 #include "osdep.h"
 #include <time.h>

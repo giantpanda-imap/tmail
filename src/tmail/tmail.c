@@ -553,7 +553,9 @@ int delivery_unsafe (char *path,uid_t uid,struct stat *sbuf,char *tmp)
   case S_IFCHR: strcat (tmp,"character special"); break;
   case S_IFBLK: strcat (tmp,"block special"); break;
   case S_IFLNK: strcat (tmp,"symbolic link"); break;
+#if defined(S_IFSOCK)
   case S_IFSOCK: strcat (tmp,"socket"); break;
+#endif
   default:
     sprintf (tmp + strlen (tmp),"file type %07o",(unsigned int) type);
   }
