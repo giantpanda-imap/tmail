@@ -797,6 +797,7 @@ void ssl_server_init (char *server)
   char cert[MAILTMPLEN],key[MAILTMPLEN];
   unsigned long i;
   struct stat sbuf;
+  char *dhparams = NIL;
   SSLSTREAM *stream = (SSLSTREAM *) memset (fs_get (sizeof (SSLSTREAM)),0,
 					    sizeof (SSLSTREAM));
   ssl_onceonlyinit ();		/* make sure algorithms added */
@@ -853,6 +854,34 @@ void ssl_server_init (char *server)
       if (SSL_CTX_need_tmp_RSA (stream->context))
 	SSL_CTX_set_tmp_rsa_callback (stream->context,ssl_genkey);
 #endif /* OPENSSL_1_1_0 */
+      dhparams= (char *) mail_parameters (NIL,GET_SSLDHPARAMS,NIL);
+      if (dhparams) {	/* we got a DHparams file, try processing it */
+        BIO *bio;
+        DH *dh = NIL;
+        if ((bio = BIO_new_file(dhparams, "r")) != NULL) {
+        dh = PEM_read_bio_DHparams(bio, NULL, NULL, NULL);
+        BIO_free(bio);
+          if (dh == NULL ) {
+          unsigned long err;
+          err = ERR_get_error();
+          syslog(LOG_WARNING,
+            "STARTTLS=%s, error: cannot read DH parameters(%s): %s",
+            tcp_clienthost(), dhparams,
+            ERR_error_string(err, NULL));
+          }
+        }
+        else {
+          syslog(LOG_WARNING,
+            "STARTTLS=%s, error: BIO_new_file(%s) failed",
+            tcp_clienthost(), dhparams);
+        }
+        if (dh != NULL) {
+          SSL_CTX_set_tmp_dh(stream->context, dh);
+          /* important to avoid small subgroup attacks */
+          SSL_CTX_set_options(stream->context, SSL_OP_SINGLE_DH_USE);
+          DH_free(dh);
+        }
+      }
 				/* create new SSL connection */
       if (!(stream->con = SSL_new (stream->context)))
 	syslog (LOG_ALERT,"Unable to create SSL connection, host=%.80s",

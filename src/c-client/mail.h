@@ -182,6 +182,8 @@
 #define SET_SSLCAPATH (long) 232
 #define GET_RESTRICTIONS (long) 233
 #define SET_RESTRICTIONS (long) 234
+#define GET_SSLDHPARAMS (long) 235
+#define SET_SSLDHPARAMS (long) 236
 
 	/* 3xx: TCP/IP */
 #define GET_OPENTIMEOUT (long) 300
