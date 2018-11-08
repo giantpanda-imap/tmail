@@ -6,3 +6,5 @@ config.log
 *.orig
 *.rej
 *.patch
+
+.vscode/
