@@ -35,6 +35,7 @@
 #include <pwd.h>
 #include <shadow.h>
 #include "misc.h"
+#include <poll.h>
 
 
 #include "fs_unix.c"

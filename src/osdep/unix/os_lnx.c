@@ -34,6 +34,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include "misc.h"
+#include <poll.h>
 
 
 #include "fs_unix.c"
