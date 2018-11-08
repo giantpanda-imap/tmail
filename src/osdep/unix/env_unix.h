@@ -41,7 +41,7 @@ typedef struct dotlock_base {
 
 /* dorc() options */
 
-#define SYSCONFIG "/etc/c-client.cf"
+#define SYSCONFIG "/etc/imap/c-client.cf"
 
 
 /* Special users */
