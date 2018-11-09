@@ -328,7 +328,7 @@ w2k:
 
 # SSL build choices
 
-sslnopwd sslunix.nopwd sslsco.nopwd:
+sslnopwd sslunix.nopwd:
 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@echo + Building in full compliance with RFC 3501 security
 	@echo + requirements:
@@ -336,7 +336,7 @@ sslnopwd sslunix.nopwd sslsco.nopwd:
 	@echo ++ Unencrypted plaintext passwords are prohibited
 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-sslunix sslsco:
+sslunix:
 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@echo + Building in PARTIAL compliance with RFC 3501 security
 	@echo + requirements:
@@ -432,7 +432,7 @@ noip6:
 
 # C compiler types
 
-an ua:
+an:
 	@$(MAKE) ssl$(SSLTYPE)
 	@echo Applying $@ process to sources...
 	$(TOOLS)/$@ "$(LN)" src/c-client c-client
@@ -498,7 +498,7 @@ sysexitwarn:
 
 clean:
 	@echo Removing old processed sources and binaries...
-	$(SH) -c '$(RM) an ua OSTYPE SPECIALS c-client mtest imapd ipopd mailutil mlock dmail tmail ip6 || true'
+	$(SH) -c '$(RM) an OSTYPE SPECIALS c-client mtest imapd ipopd mailutil mlock dmail tmail ip6 || true'
 	$(CD) tools;$(MAKE) clean
 
 

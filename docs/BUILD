@@ -59,8 +59,7 @@ before inventing a new port.  Try:
 panda-imap/Makefile and panda-imap/src/osdep/Makefile for your new port, as
 well as osdep/os_???.h and osdep/os_???.c files with the appropriate
 OS-dependent support for that system.  You also need to determine which setup
-process to use.  You should use the ua process unless you are sure that your
-compiler supports *ALL* aspects of ANSI C prototyping.  Note that some
+process to use. Note that some
 compilers, support some aspects of ANSI C but not others;
 c-client really beats on the full prototyping capability of ANSI C so you
 have to use the non-ANSI source tree for such systems.

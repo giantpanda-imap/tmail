@@ -18,11 +18,8 @@ CC=cc
 RM=rm -f
 
 
-uahelper:
-	$(CC) -o uahelper uahelper.c $(LDFLAGS)
-
 clean:
-	sh -c '$(RM) *.o uahelper || true'
+	sh -c '$(RM) *.o || true'
 
 # A monument to a hack of long ago and far away...
 love:
