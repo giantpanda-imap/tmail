@@ -12,7 +12,7 @@
  */
 
 /*
- * Program:	Operating-system dependent routines -- BSDI BSD/386 version
+ * Program:	Operating-system dependent routines -- FreeBSD version
  *
  * Author:	Mark Crispin
  *
