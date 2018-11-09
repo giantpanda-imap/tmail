@@ -38,7 +38,7 @@
 #include "ftl_nt.c"
 #include "nl_nt.c"
 #include "yunchan.c"
-#include "kerb_mit.c"
+#include "krb.c"
 #include "tcp_nt.c"		/* must be before env_nt.c */
 #include "env_nt.c"
 #include "ssl_nt.c"
