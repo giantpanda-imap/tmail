@@ -21,28 +21,30 @@
 
 /* Log in
  * Accepts: login passwd struct
- *	    argument count
- *	    argument vector
+ *          argument count
+ *          argument vector
  * Returns: T if success, NIL otherwise
  */
 
-long loginpw (struct passwd *pw,int argc,char *argv[])
+long loginpw(struct passwd *pw, int argc, char *argv[])
 {
-  long ret = NIL;
-  uid_t euid = geteuid ();
-  login_cap_t *lc = login_getclass (pw->pw_class);
-				/* have class and can become user? */
-  if (lc && !seteuid (pw->pw_uid)) {
-				/* ask for approval */
-    if (auth_approve (lc,pw->pw_name,
-		      (char *) mail_parameters (NIL,GET_SERVICENAME,NIL)) <= 0)
-      seteuid (euid);		/* not approved, restore root euid */
-    else {			/* approved */
-      seteuid (euid);		/* restore former root euid first */
-      setsid ();		/* ensure we are session leader */
-				/* log the guy in */
-      ret = !setusercontext (lc,pw,pw->pw_uid,LOGIN_SETALL&~LOGIN_SETPATH);
-    }
-  }
-  return ret;
+   long ret = NIL;
+   uid_t euid = geteuid();
+   login_cap_t *lc = login_getclass(pw->pw_class);
+   /* have class and can become user? */
+   if (lc && !seteuid(pw->pw_uid))
+   {
+      /* ask for approval */
+      if (auth_approve(lc, pw->pw_name,
+                       (char *)mail_parameters(NIL, GET_SERVICENAME, NIL)) <= 0)
+         seteuid(euid); /* not approved, restore root euid */
+      else
+      {                 /* approved */
+         seteuid(euid); /* restore former root euid first */
+         setsid();      /* ensure we are session leader */
+                        /* log the guy in */
+         ret = !setusercontext(lc, pw, pw->pw_uid, LOGIN_SETALL & ~LOGIN_SETPATH);
+      }
+   }
+   return ret;
 }

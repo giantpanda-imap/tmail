@@ -21,13 +21,13 @@
 
 /* Copy memory block
  * Accepts: destination pointer
- *	    source pointer
- *	    length
+ *          source pointer
+ *          length
  * Returns: destination pointer
  */
 
-void *memmove (void *s,void *ct,size_t n)
+void *memmove(void *s, void *ct, size_t n)
 {
-  bcopy (ct,s,n);		/* they should have this one */
-  return s;
+    bcopy(ct, s, n); /* they should have this one */
+    return s;
 }

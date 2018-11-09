@@ -21,20 +21,20 @@
 
 /* Function prototypes */
 
-long pmatch_full (unsigned char *s,unsigned char *pat,unsigned char delim);
-long dmatch (unsigned char *s,unsigned char *pat,unsigned char delim);
-void *env_parameters (long function,void *value);
-void rfc822_date (char *date);
-void rfc822_timezone (char *s,void *t);
-void internal_date (char *date);
-long server_input_wait (long seconds);
-void server_init (char *server,char *service,char *sasl,
-		  void *clkint,void *kodint,void *hupint,void *trmint,
-		  void *staint);
-long server_login (char *user,char *pass,char *authuser,int argc,char *argv[]);
-long authserver_login (char *user,char *authuser,int argc,char *argv[]);
-long anonymous_login (int argc,char *argv[]);
-char *mylocalhost (void);
-char *myhomedir (void);
-char *mailboxfile (char *dst,char *name);
-MAILSTREAM *default_proto (long type);
+long pmatch_full(unsigned char *s, unsigned char *pat, unsigned char delim);
+long dmatch(unsigned char *s, unsigned char *pat, unsigned char delim);
+void *env_parameters(long function, void *value);
+void rfc822_date(char *date);
+void rfc822_timezone(char *s, void *t);
+void internal_date(char *date);
+long server_input_wait(long seconds);
+void server_init(char *server, char *service, char *sasl,
+                 void *clkint, void *kodint, void *hupint, void *trmint,
+                 void *staint);
+long server_login(char *user, char *pass, char *authuser, int argc, char *argv[]);
+long authserver_login(char *user, char *authuser, int argc, char *argv[]);
+long anonymous_login(int argc, char *argv[]);
+char *mylocalhost(void);
+char *myhomedir(void);
+char *mailboxfile(char *dst, char *name);
+MAILSTREAM *default_proto(long type);

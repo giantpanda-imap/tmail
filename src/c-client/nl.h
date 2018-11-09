@@ -19,9 +19,8 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Function prototypes */
 
-unsigned long strcrlfcpy (unsigned char **dst,unsigned long *dstl,
-			  unsigned char *src,unsigned long srcl);
-unsigned long strcrlflen (STRING *s);
+unsigned long strcrlfcpy(unsigned char **dst, unsigned long *dstl,
+                         unsigned char *src, unsigned long srcl);
+unsigned long strcrlflen(STRING *s);

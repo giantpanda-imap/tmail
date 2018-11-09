@@ -21,5 +21,5 @@
 
 /* Function prototypes */
 
-long tmail_quota (STRING *msg,char *path,uid_t uid,char *tmp,char *sender,
-		  long precedence);
+long tmail_quota(STRING *msg, char *path, uid_t uid, char *tmp, char *sender,
+                 long precedence);

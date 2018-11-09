@@ -19,14 +19,13 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Emulator for BSD fsync() call
  * Accepts: file name
  * Returns: 0 if successful, -1 if failure
  */
 
-int fsync (int fd)
+int fsync(int fd)
 {
-  sync ();
-  return 0;
+    sync();
+    return 0;
 }

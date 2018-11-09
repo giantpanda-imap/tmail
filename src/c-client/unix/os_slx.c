@@ -19,8 +19,8 @@
  * Date:	1 August 1993
  * Last Edited:	18 May 2009
  */
- 
-#include "tcp_unix.h"		/* must be before osdep includes tcp.h */
+
+#include "tcp_unix.h" /* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
 #include <stdio.h>
@@ -37,12 +37,11 @@
 #include "misc.h"
 #include <poll.h>
 
-
 #include "fs_unix.c"
 #include "ftl_unix.c"
 #include "nl_unix.c"
 #include "env_unix.c"
-#include "getspnam.c"		/* has socklen_t in spite of man page?? */
+#include "getspnam.c" /* has socklen_t in spite of man page?? */
 #define fork vfork
 #include "tcp_unix.c"
 #include "gr_waitp.c"

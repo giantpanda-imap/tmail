@@ -19,9 +19,8 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Function prototypes */
 
-void *fs_get (size_t size);
-void fs_resize (void **block,size_t size);
-void fs_give (void **block);
+void *fs_get(size_t size);
+void fs_resize(void **block, size_t size);
+void fs_give(void **block);

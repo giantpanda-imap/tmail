@@ -19,7 +19,6 @@
  * Last Update: June 10, 2014
  */
 
-
 #include <stdio.h>
 #include <ctype.h>
 #include <errno.h>
@@ -463,7 +462,7 @@ maildir_scandir(char *name, struct direct ***flist,
 
 /* Does a message with given name exists (or was it removed)?
  * Returns: 1 - yes, such message exist,
- *	    0 - No, that message does not exist anymore
+ *          0 - No, that message does not exist anymore
  *
  * Parameters: stream, name of mailbox, new name if his message does not
  *		exist.
@@ -1199,7 +1198,7 @@ char *maildir_header(MAILSTREAM *stream, unsigned long msgno,
 
 /* Maildir find list of subscribed mailboxes
  * Accepts: mail stream
- *	    pattern to search
+ *          pattern to search
  */
 
 void maildir_list(MAILSTREAM *stream, char *ref, char *pat)
@@ -1220,7 +1219,7 @@ void maildir_list(MAILSTREAM *stream, char *ref, char *pat)
     else if (maildir_canonicalize(test, ref, pat))
     {
         if (test[3] == '/')
-        {   /* looking down levels? */
+        { /* looking down levels? */
             /* yes, found any wildcards? */
             if ((s = strpbrk(test, "%*")) != NULL)
             {

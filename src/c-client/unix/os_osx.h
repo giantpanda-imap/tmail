@@ -30,11 +30,9 @@
 #include <syslog.h>
 #include <sys/file.h>
 
-
 /* Mac OS X gets this wrong as of Leopard */
 
 #define setpgrp setpgid
-
 
 #define unix 1
 
@@ -44,10 +42,8 @@
 
 #define checkpw Checkpw
 
-
 #define utime portable_utime
-int portable_utime (char *file,time_t timep[2]);
-
+int portable_utime(char *file, time_t timep[2]);
 
 #include "env_unix.h"
 #include "fs.h"

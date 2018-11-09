@@ -19,5 +19,4 @@
  * Last Edited:	30 August 2006
  */
 
-
-extern char *pseudo_from,*pseudo_name,*pseudo_subject,*pseudo_msg;
+extern char *pseudo_from, *pseudo_name, *pseudo_subject, *pseudo_msg;

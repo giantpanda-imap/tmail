@@ -30,28 +30,27 @@
 #include <windows.h>
 #include <sys/cygwin.h>
 
-
 /* Check password
  * Accepts: login passwd struct
- *	    password string
- *	    argument count
- *	    argument vector
+ *          password string
+ *          argument count
+ *          argument vector
  * Returns: passwd struct if password validated, NIL otherwise
  */
 
 static char *cyg_user = NIL;
 static HANDLE cyg_hdl = NIL;
 
-struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
+struct passwd *checkpw(struct passwd *pw, char *pass, int argc, char *argv[])
 {
-				/* flush last pw-checked user */
-  if (cyg_user) fs_give ((void **) &cyg_user);
-				/* forbid if UID 0 or SYSTEM uid */
-  if (!pw->pw_uid || (pw->pw_uid == SYSTEMUID) ||
-      ((cyg_hdl = cygwin_logon_user (pw,pass)) == INVALID_HANDLE_VALUE))
-    return NIL;			/* bad UID or password */
-				/* remember user for this handle */
-  cyg_user = cpystr (pw->pw_name);
-  return pw;
+    /* flush last pw-checked user */
+    if (cyg_user)
+        fs_give((void **)&cyg_user);
+    /* forbid if UID 0 or SYSTEM uid */
+    if (!pw->pw_uid || (pw->pw_uid == SYSTEMUID) ||
+        ((cyg_hdl = cygwin_logon_user(pw, pass)) == INVALID_HANDLE_VALUE))
+        return NIL; /* bad UID or password */
+    /* remember user for this handle */
+    cyg_user = cpystr(pw->pw_name);
+    return pw;
 }
-

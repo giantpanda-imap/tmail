@@ -19,14 +19,13 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Report a fatal error
  * Accepts: string to output
  */
 
-void fatal (char *string)
+void fatal(char *string)
 {
-  MM_FATAL (string);		/* pass up the string */
-  syslog (LOG_ALERT,"IMAP toolkit crash: %.100s",string);
-  abort ();			/* die horribly */
+    MM_FATAL(string); /* pass up the string */
+    syslog(LOG_ALERT, "IMAP toolkit crash: %.100s", string);
+    abort(); /* die horribly */
 }

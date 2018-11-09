@@ -23,11 +23,11 @@
 
 /* Arm a signal
  * Accepts: signal number
- *	    desired action
+ *          desired action
  * Returns: old action
  */
 
-void *arm_signal (int sig,void *action)
+void *arm_signal(int sig, void *action)
 {
-  return (void *) signal (sig,action);
+    return (void *)signal(sig, action);
 }

@@ -21,22 +21,27 @@
 
 /* Copy memory block
  * Accepts: destination pointer
- *	    source pointer
- *	    length
+ *          source pointer
+ *          length
  * Returns: destination pointer
  */
 
-void *memmove (void *s,void *ct,size_t n)
+void *memmove(void *s, void *ct, size_t n)
 {
-  char *dp,*sp;
-  int i;
-  unsigned long dest = (unsigned long) s;
-  unsigned long src = (unsigned long) ct;
-  if (((dest < src) && ((dest + n) < src)) ||
-      ((dest > src) && ((src + n) < dest))) return (void *) memcpy (s,ct,n);
-  dp = (char *) s;
-  sp = (char *) ct;
-  if (dest < src) for (i = 0; i < n; ++i) dp[i] = sp[i];
-  else if (dest > src) for (i = n - 1; i >= 0; --i) dp[i] = sp[i];
-  return s;
+    char *dp, *sp;
+    int i;
+    unsigned long dest = (unsigned long)s;
+    unsigned long src = (unsigned long)ct;
+    if (((dest < src) && ((dest + n) < src)) ||
+        ((dest > src) && ((src + n) < dest)))
+        return (void *)memcpy(s, ct, n);
+    dp = (char *)s;
+    sp = (char *)ct;
+    if (dest < src)
+        for (i = 0; i < n; ++i)
+            dp[i] = sp[i];
+    else if (dest > src)
+        for (i = n - 1; i >= 0; --i)
+            dp[i] = sp[i];
+    return s;
 }

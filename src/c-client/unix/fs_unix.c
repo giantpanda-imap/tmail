@@ -24,41 +24,40 @@
  * Returns: free storage block
  */
 
-void *fs_get (size_t size)
+void *fs_get(size_t size)
 {
-  blocknotify_t bn = (blocknotify_t) mail_parameters (NIL,GET_BLOCKNOTIFY,NIL);
-  void *data = (*bn) (BLOCK_SENSITIVE,NIL);
-  void *block = malloc (size ? size : (size_t) 1);
-  if (!block) fatal ("Out of memory");
-  (*bn) (BLOCK_NONSENSITIVE,data);
-  return (block);
+    blocknotify_t bn = (blocknotify_t)mail_parameters(NIL, GET_BLOCKNOTIFY, NIL);
+    void *data = (*bn)(BLOCK_SENSITIVE, NIL);
+    void *block = malloc(size ? size : (size_t)1);
+    if (!block)
+        fatal("Out of memory");
+    (*bn)(BLOCK_NONSENSITIVE, data);
+    return (block);
 }
-
 
 /* Resize a block of free storage
  * Accepts: ** pointer to current block
- *	    new size
+ *          new size
  */
 
-void fs_resize (void **block,size_t size)
+void fs_resize(void **block, size_t size)
 {
-  blocknotify_t bn = (blocknotify_t) mail_parameters (NIL,GET_BLOCKNOTIFY,NIL);
-  void *data = (*bn) (BLOCK_SENSITIVE,NIL);
-  if (!(*block = realloc (*block,size ? size : (size_t) 1)))
-    fatal ("Can't resize memory");
-  (*bn) (BLOCK_NONSENSITIVE,data);
+    blocknotify_t bn = (blocknotify_t)mail_parameters(NIL, GET_BLOCKNOTIFY, NIL);
+    void *data = (*bn)(BLOCK_SENSITIVE, NIL);
+    if (!(*block = realloc(*block, size ? size : (size_t)1)))
+        fatal("Can't resize memory");
+    (*bn)(BLOCK_NONSENSITIVE, data);
 }
-
 
 /* Return a block of free storage
  * Accepts: ** pointer to free storage block
  */
 
-void fs_give (void **block)
+void fs_give(void **block)
 {
-  blocknotify_t bn = (blocknotify_t) mail_parameters (NIL,GET_BLOCKNOTIFY,NIL);
-  void *data = (*bn) (BLOCK_SENSITIVE,NIL);
-  free (*block);
-  *block = NIL;
-  (*bn) (BLOCK_NONSENSITIVE,data);
+    blocknotify_t bn = (blocknotify_t)mail_parameters(NIL, GET_BLOCKNOTIFY, NIL);
+    void *data = (*bn)(BLOCK_SENSITIVE, NIL);
+    free(*block);
+    *block = NIL;
+    (*bn)(BLOCK_NONSENSITIVE, data);
 }

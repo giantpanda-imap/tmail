@@ -21,14 +21,17 @@
 
 /* Set a block of memory
  * Accepts: destination pointer
- *	    value to set
- *	    length
+ *          value to set
+ *          length
  * Returns: destination pointer
  */
 
-void *memset (void *s,int c,size_t n)
+void *memset(void *s, int c, size_t n)
 {
-  if (c) while (n) s[--n] = c;	/* this way if non-zero */
-  else bzero (s,n);		/* they should have this one */
-  return s;
+    if (c)
+        while (n)
+            s[--n] = c; /* this way if non-zero */
+    else
+        bzero(s, n); /* they should have this one */
+    return s;
 }

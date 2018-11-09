@@ -21,16 +21,16 @@
 
 /* Emulator for ftruncate() call
  * Accepts: file descriptor
- *	    length
+ *          length
  * Returns: 0 if success, -1 if failure
  */
 
-int ftruncate (int fd,off_t length)
+int ftruncate(int fd, off_t length)
 {
-  struct flock fb;
-  fb.l_whence = 0;
-  fb.l_len = 0;
-  fb.l_start = length;
-  fb.l_type = F_WRLCK;		/* write lock on file space */
-  return fcntl (fd,F_FREESP,&fb);
+    struct flock fb;
+    fb.l_whence = 0;
+    fb.l_len = 0;
+    fb.l_start = length;
+    fb.l_type = F_WRLCK; /* write lock on file space */
+    return fcntl(fd, F_FREESP, &fb);
 }

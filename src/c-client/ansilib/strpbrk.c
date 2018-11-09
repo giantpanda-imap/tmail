@@ -21,14 +21,17 @@
 
 /* Return pointer to first occurance in string of any delimiter
  * Accepts: source pointer
- *	    vector of delimiters pointer
+ *          vector of delimiters pointer
  * Returns: pointer to delimiter or NIL if not found
  */
 
-char *strpbrk (char *cs,char *ct)
+char *strpbrk(char *cs, char *ct)
 {
-  char *s;
-				/* search for delimiter until end of string */
-  for (; *cs; cs++) for (s = ct; *s; s++) if (*s == *cs) return cs;
-  return NIL;			/* not found */
+    char *s;
+    /* search for delimiter until end of string */
+    for (; *cs; cs++)
+        for (s = ct; *s; s++)
+            if (*s == *cs)
+                return cs;
+    return NIL; /* not found */
 }

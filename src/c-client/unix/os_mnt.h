@@ -29,14 +29,14 @@
 #include <sys/file.h>
 #include <time.h>
 #include <portlib.h>
- 
+
 #define EAGAIN EWOULDBLOCK
-#define FNDELAY O_NDELAY 
- 
+#define FNDELAY O_NDELAY
+
 /* MiNT gets this wrong */
- 
+
 #define setpgrp setpgid
- 
+
 #include "env_unix.h"
 #include "fs.h"
 #include "ftl.h"

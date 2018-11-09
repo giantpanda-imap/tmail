@@ -33,8 +33,7 @@
 #include <poll.h>
 
 #define utime portable_utime
-int portable_utime (char *file,time_t timep[2]);
-
+int portable_utime(char *file, time_t timep[2]);
 
 #include "env_unix.h"
 #include "fs.h"

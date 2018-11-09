@@ -19,7 +19,6 @@
  * Last Edited:	30 August 2006
  */
 
-
-				/* stream must be void* for use as readfn_t */
-long netmsg_read (void *stream,unsigned long count,char *buffer);
-FILE *netmsg_slurp (NETSTREAM *stream,unsigned long *size,unsigned long *hsiz);
+/* stream must be void* for use as readfn_t */
+long netmsg_read(void *stream, unsigned long count, char *buffer);
+FILE *netmsg_slurp(NETSTREAM *stream, unsigned long *size, unsigned long *hsiz);

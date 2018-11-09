@@ -19,18 +19,17 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Function prototypes */
 
-long newsrc_error (char *fmt,char *text,long errflg);
-long newsrc_write_error (char *name,FILE *f1,FILE *f2);
-FILE *newsrc_create (MAILSTREAM *stream,int notify);
-long newsrc_newstate (FILE *f,char *group,char state,char *nl);
-long newsrc_newmessages (FILE *f,MAILSTREAM *stream,char *nl);
-void newsrc_lsub (MAILSTREAM *stream,char *pattern);
-long newsrc_update (MAILSTREAM *stream,char *group,char state);
-long newsrc_read (char *group,MAILSTREAM *stream);
-long newsrc_write (char *group,MAILSTREAM *stream);
-char *newsrc_state (MAILSTREAM *stream,char *group);
-void newsrc_check_uid (unsigned char *state,unsigned long uid,
-		       unsigned long *recent,unsigned long *unseen);
+long newsrc_error(char *fmt, char *text, long errflg);
+long newsrc_write_error(char *name, FILE *f1, FILE *f2);
+FILE *newsrc_create(MAILSTREAM *stream, int notify);
+long newsrc_newstate(FILE *f, char *group, char state, char *nl);
+long newsrc_newmessages(FILE *f, MAILSTREAM *stream, char *nl);
+void newsrc_lsub(MAILSTREAM *stream, char *pattern);
+long newsrc_update(MAILSTREAM *stream, char *group, char state);
+long newsrc_read(char *group, MAILSTREAM *stream);
+long newsrc_write(char *group, MAILSTREAM *stream);
+char *newsrc_state(MAILSTREAM *stream, char *group);
+void newsrc_check_uid(unsigned char *state, unsigned long uid,
+					  unsigned long *recent, unsigned long *unseen);

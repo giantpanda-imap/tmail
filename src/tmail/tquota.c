@@ -23,16 +23,16 @@
 
 /* Site-written routine to validate delivery per quota and policy
  * Accepts: stringstruct of message temporary file
- *	    filesystem path
- *	    recipient user id
- *	    return path
- *	    buffer to write error message
- *	    precedence setting
+ *          filesystem path
+ *          recipient user id
+ *          return path
+ *          buffer to write error message
+ *          precedence setting
  * Returns: T if can deliver, or NIL if quota issue and must bounce
  */
 
-long tmail_quota (STRING *msg,char *path,uid_t uid,char *tmp,char *sender,
-		  long precedence)
+long tmail_quota(STRING *msg, char *path, uid_t uid, char *tmp, char *sender,
+                 long precedence)
 {
-  return LONGT;			/* dummy success return */
+    return LONGT; /* dummy success return */
 }

@@ -19,8 +19,8 @@
  * Last Edited:	30 August 2006
  */
 
-#include "tcp_nt.h"		/* must be before osdep includes tcp.h */
-#undef	ERROR			/* quell conflicting def warning */
+#include "tcp_nt.h" /* must be before osdep includes tcp.h */
+#undef ERROR        /* quell conflicting def warning */
 #include "mail.h"
 #include "osdep.h"
 #include <stdio.h>
@@ -36,6 +36,6 @@
 #include "ftl_nt.c"
 #include "nl_nt.c"
 #include "yunchan.c"
-#include "tcp_nt.c"		/* must be before env_nt.c */
+#include "tcp_nt.c" /* must be before env_nt.c */
 #include "env_nt.c"
 #include "ssl_nt.c"

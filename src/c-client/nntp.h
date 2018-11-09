@@ -21,29 +21,26 @@
 
 /* Constants (should be in nntp.c) */
 
-#define NNTPTCPPORT (long) 119	/* assigned TCP contact port */
-
+#define NNTPTCPPORT (long)119 /* assigned TCP contact port */
 
 /* NNTP open options
  * For compatibility with the past, NOP_DEBUG must always be 1.
  */
 
-#define NOP_DEBUG (long) 0x1	/* debug protocol negotiations */
-#define NOP_READONLY (long) 0x2	/* read-only open */
-#define NOP_TRYSSL (long) 0x4	/* try SSL first */
-				/* reserved for application use */
-#define NOP_RESERVED (unsigned long) 0xff000000
-
+#define NOP_DEBUG (long)0x1    /* debug protocol negotiations */
+#define NOP_READONLY (long)0x2 /* read-only open */
+#define NOP_TRYSSL (long)0x4   /* try SSL first */
+/* reserved for application use */
+#define NOP_RESERVED (unsigned long)0xff000000
 
 /* Compatibility support names */
 
-#define nntp_open(hostlist,options) \
-  nntp_open_full (NIL,hostlist,"nntp",NIL,options)
-
+#define nntp_open(hostlist, options) \
+    nntp_open_full(NIL, hostlist, "nntp", NIL, options)
 
 /* Function prototypes */
 
-SENDSTREAM *nntp_open_full (NETDRIVER *dv,char **hostlist,char *service,
-			    unsigned long port,long options);
-SENDSTREAM *nntp_close (SENDSTREAM *stream);
-long nntp_mail (SENDSTREAM *stream,ENVELOPE *msg,BODY *body);
+SENDSTREAM *nntp_open_full(NETDRIVER *dv, char **hostlist, char *service,
+                           unsigned long port, long options);
+SENDSTREAM *nntp_close(SENDSTREAM *stream);
+long nntp_mail(SENDSTREAM *stream, ENVELOPE *msg, BODY *body);

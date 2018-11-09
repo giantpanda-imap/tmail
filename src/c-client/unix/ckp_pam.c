@@ -19,91 +19,94 @@
  * Last Edited:	31 August 2006
  */
 
-
-#ifdef MAC_OSX_KLUDGE		/* why can't Apple be compatible? */
+#ifdef MAC_OSX_KLUDGE /* why can't Apple be compatible? */
 #include <pam/pam_appl.h>
 #else
 #include <security/pam_appl.h>
 #endif
 
-struct checkpw_cred {
-  char *uname;			/* user name */
-  char *pass;			/* password */
+struct checkpw_cred
+{
+    char *uname; /* user name */
+    char *pass;  /* password */
 };
 
 /* PAM conversation function
  * Accepts: number of messages
- *	    vector of messages
- *	    pointer to response return
- *	    application data
+ *          vector of messages
+ *          pointer to response return
+ *          application data
  * Returns: PAM_SUCCESS if OK, response vector filled in, else PAM_CONV_ERR
  */
 
-static int checkpw_conv (int num_msg,const struct pam_message **msg,
-			 struct pam_response **resp,void *appdata_ptr)
+static int checkpw_conv(int num_msg, const struct pam_message **msg,
+                        struct pam_response **resp, void *appdata_ptr)
 {
-  int i;
-  struct checkpw_cred *cred = (struct checkpw_cred *) appdata_ptr;
-  struct pam_response *reply = fs_get (sizeof (struct pam_response) * num_msg);
-  for (i = 0; i < num_msg; i++) switch (msg[i]->msg_style) {
-  case PAM_PROMPT_ECHO_ON:	/* assume want user name */
-    reply[i].resp_retcode = PAM_SUCCESS;
-    reply[i].resp = cpystr (cred->uname);
-    break;
-  case PAM_PROMPT_ECHO_OFF:	/* assume want password */
-    reply[i].resp_retcode = PAM_SUCCESS;
-    reply[i].resp = cpystr (cred->pass);
-    break;
-  case PAM_TEXT_INFO:
-  case PAM_ERROR_MSG:
-    reply[i].resp_retcode = PAM_SUCCESS;
-    reply[i].resp = NULL;
-    break;
-  default:			/* unknown message style */
-    fs_give ((void **) &reply);
-    return PAM_CONV_ERR;
-  }
-  *resp = reply;
-  return PAM_SUCCESS;
+    int i;
+    struct checkpw_cred *cred = (struct checkpw_cred *)appdata_ptr;
+    struct pam_response *reply = fs_get(sizeof(struct pam_response) * num_msg);
+    for (i = 0; i < num_msg; i++)
+        switch (msg[i]->msg_style)
+        {
+        case PAM_PROMPT_ECHO_ON: /* assume want user name */
+            reply[i].resp_retcode = PAM_SUCCESS;
+            reply[i].resp = cpystr(cred->uname);
+            break;
+        case PAM_PROMPT_ECHO_OFF: /* assume want password */
+            reply[i].resp_retcode = PAM_SUCCESS;
+            reply[i].resp = cpystr(cred->pass);
+            break;
+        case PAM_TEXT_INFO:
+        case PAM_ERROR_MSG:
+            reply[i].resp_retcode = PAM_SUCCESS;
+            reply[i].resp = NULL;
+            break;
+        default: /* unknown message style */
+            fs_give((void **)&reply);
+            return PAM_CONV_ERR;
+        }
+    *resp = reply;
+    return PAM_SUCCESS;
 }
-
 
 /* PAM cleanup
  * Accepts: handle
  */
 
-static void checkpw_cleanup (pam_handle_t *hdl)
+static void checkpw_cleanup(pam_handle_t *hdl)
 {
-#if 0	/* see checkpw() for why this is #if 0 */
+#if 0 /* see checkpw() for why this is #if 0 */
   pam_close_session (hdl,NIL);	/* close session [uw]tmp */
 #endif
-  pam_setcred (hdl,PAM_DELETE_CRED);
-  pam_end (hdl,PAM_SUCCESS);
+    pam_setcred(hdl, PAM_DELETE_CRED);
+    pam_end(hdl, PAM_SUCCESS);
 }
 
 /* Server log in
  * Accepts: user name string
- *	    password string
+ *          password string
  * Returns: T if password validated, NIL otherwise
  */
 
-struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
+struct passwd *checkpw(struct passwd *pw, char *pass, int argc, char *argv[])
 {
-  pam_handle_t *hdl;
-  struct pam_conv conv;
-  struct checkpw_cred cred;
-  char *name = cpystr (pw->pw_name);
-  conv.conv = &checkpw_conv;
-  conv.appdata_ptr = &cred;
-  cred.uname = name;
-  cred.pass = pass;
-  if ((pw = ((pam_start ((char *) mail_parameters (NIL,GET_SERVICENAME,NIL),
-			pw->pw_name,&conv,&hdl) == PAM_SUCCESS) &&
-	    (pam_set_item (hdl,PAM_RHOST,tcp_clientaddr ()) == PAM_SUCCESS) &&
-	    (pam_authenticate (hdl,NIL) == PAM_SUCCESS) &&
-	    (pam_acct_mgmt (hdl,NIL) == PAM_SUCCESS) &&
-	    (pam_setcred (hdl,PAM_ESTABLISH_CRED) == PAM_SUCCESS)) ?
-      getpwnam (name) : NIL) != NULL) {
+    pam_handle_t *hdl;
+    struct pam_conv conv;
+    struct checkpw_cred cred;
+    char *name = cpystr(pw->pw_name);
+    conv.conv = &checkpw_conv;
+    conv.appdata_ptr = &cred;
+    cred.uname = name;
+    cred.pass = pass;
+    if ((pw = ((pam_start((char *)mail_parameters(NIL, GET_SERVICENAME, NIL),
+                          pw->pw_name, &conv, &hdl) == PAM_SUCCESS) &&
+               (pam_set_item(hdl, PAM_RHOST, tcp_clientaddr()) == PAM_SUCCESS) &&
+               (pam_authenticate(hdl, NIL) == PAM_SUCCESS) &&
+               (pam_acct_mgmt(hdl, NIL) == PAM_SUCCESS) &&
+               (pam_setcred(hdl, PAM_ESTABLISH_CRED) == PAM_SUCCESS))
+                  ? getpwnam(name)
+                  : NIL) != NULL)
+    {
 #if 0
     /*
      * Some people have reported that this causes a SEGV in strncpy() from
@@ -117,13 +120,15 @@ struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
      */
     pam_open_session (hdl,NIL);	/* make sure account doesn't go inactive */
 #endif
-				/* arm hook to delete credentials */
-    mail_parameters (NIL,SET_LOGOUTHOOK,(void *) checkpw_cleanup);
-    mail_parameters (NIL,SET_LOGOUTDATA,(void *) hdl);
-  }
-  else checkpw_cleanup (hdl);	/* clean up */
-  fs_give ((void **) &name);
-				/* reset log facility in case PAM broke it */
-  if (myServerName) openlog (myServerName,LOG_PID,syslog_facility);
-  return pw;
+        /* arm hook to delete credentials */
+        mail_parameters(NIL, SET_LOGOUTHOOK, (void *)checkpw_cleanup);
+        mail_parameters(NIL, SET_LOGOUTDATA, (void *)hdl);
+    }
+    else
+        checkpw_cleanup(hdl); /* clean up */
+    fs_give((void **)&name);
+    /* reset log facility in case PAM broke it */
+    if (myServerName)
+        openlog(myServerName, LOG_PID, syslog_facility);
+    return pw;
 }

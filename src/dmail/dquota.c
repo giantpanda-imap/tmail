@@ -23,15 +23,15 @@
 
 /* Site-written routine to validate delivery per quota and policy
  * Accepts: stringstruct of message temporary file
- *	    filesystem path
- *	    return path
- *	    buffer to write error message
- *	    precedence setting
+ *          filesystem path
+ *          return path
+ *          buffer to write error message
+ *          precedence setting
  * Returns: T if can deliver, or NIL if quota issue and must bounce
  */
 
-long dmail_quota (STRING *msg,char *path,char *tmp,char *sender,
-		  long precedence)
+long dmail_quota(STRING *msg, char *path, char *tmp, char *sender,
+                 long precedence)
 {
-  return LONGT;			/* dummy success return */
+    return LONGT; /* dummy success return */
 }

@@ -33,20 +33,24 @@
 
 /* Write data to file
  * Accepts: file descriptor
- *	    I/O vector structure
- *	    number of vectors in structure
+ *          I/O vector structure
+ *          number of vectors in structure
  * Returns: number of bytes written if successful, -1 if failure
  */
 
-long maxposint = (long)((((unsigned long) 1) << ((sizeof(int) * 8) - 1)) - 1);
+long maxposint = (long)((((unsigned long)1) << ((sizeof(int) * 8) - 1)) - 1);
 
-long safe_write (int fd,char *buf,long nbytes)
+long safe_write(int fd, char *buf, long nbytes)
 {
-  long i,j;
-  if (nbytes > 0) for (i = nbytes; i; i -= j,buf += j) {
-    while (((j = write (fd,buf,(int) min (maxposint,i))) < 0) &&
-	   (errno == EINTR));
-    if (j < 0) return j;
-  }
+  long i, j;
+  if (nbytes > 0)
+    for (i = nbytes; i; i -= j, buf += j)
+    {
+      while (((j = write(fd, buf, (int)min(maxposint, i))) < 0) &&
+             (errno == EINTR))
+        ;
+      if (j < 0)
+        return j;
+    }
   return nbytes;
 }

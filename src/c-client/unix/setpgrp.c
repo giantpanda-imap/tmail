@@ -19,14 +19,13 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Emulator for BSD setpgrp() call
  * Accepts: process ID
- *	    group ID
+ *          group ID
  * Returns: 0 if successful, -1 if failure
  */
 
-int Setpgrp (int pid,int gid)
+int Setpgrp(int pid, int gid)
 {
-  return setpgrp ();
+    return setpgrp();
 }

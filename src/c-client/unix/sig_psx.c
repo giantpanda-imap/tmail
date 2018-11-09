@@ -28,17 +28,17 @@
 
 /* Arm a signal
  * Accepts: signal number
- *	    desired action
+ *          desired action
  * Returns: old action
  */
 
-void *arm_signal (int sig,void *action)
+void *arm_signal(int sig, void *action)
 {
-  struct sigaction nact,oact;
-  memset (&nact,0,sizeof (struct sigaction));
-  sigemptyset (&nact.sa_mask);	/* no signals blocked */
-  nact.sa_handler = action;	/* set signal handler */
-  nact.sa_flags = SA_RESTART;	/* needed on Linux, nice on SVR4 */
-  sigaction (sig,&nact,&oact);	/* do the signal action */
-  return (void *) oact.sa_handler;
+    struct sigaction nact, oact;
+    memset(&nact, 0, sizeof(struct sigaction));
+    sigemptyset(&nact.sa_mask);   /* no signals blocked */
+    nact.sa_handler = action;     /* set signal handler */
+    nact.sa_flags = SA_RESTART;   /* needed on Linux, nice on SVR4 */
+    sigaction(sig, &nact, &oact); /* do the signal action */
+    return (void *)oact.sa_handler;
 }

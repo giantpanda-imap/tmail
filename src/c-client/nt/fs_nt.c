@@ -24,32 +24,31 @@
  * Returns: free storage block
  */
 
-void *fs_get (size_t size)
+void *fs_get(size_t size)
 {
-  void *block = malloc (size ? size : (size_t) 1);
-  if (!block) fatal ("Out of memory");
+  void *block = malloc(size ? size : (size_t)1);
+  if (!block)
+    fatal("Out of memory");
   return (block);
 }
 
-
 /* Resize a block of free storage
  * Accepts: ** pointer to current block
- *	    new size
+ *          new size
  */
 
-void fs_resize (void **block,size_t size)
+void fs_resize(void **block, size_t size)
 {
-  if (!(*block = realloc (*block,size ? size : (size_t) 1)))
-    fatal ("Can't resize memory");
+  if (!(*block = realloc(*block, size ? size : (size_t)1)))
+    fatal("Can't resize memory");
 }
-
 
 /* Return a block of free storage
  * Accepts: ** pointer to free storage block
  */
 
-void fs_give (void **block)
+void fs_give(void **block)
 {
-  free (*block);
+  free(*block);
   *block = NIL;
 }

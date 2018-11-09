@@ -21,17 +21,17 @@
 
 /* Log in
  * Accepts: login passwd struct
- *	    argument count
- *	    argument vector
+ *          argument count
+ *          argument vector
  * Returns: T if success, NIL otherwise
  */
 
-long loginpw (struct passwd *pw,int argc,char *argv[])
+long loginpw(struct passwd *pw, int argc, char *argv[])
 {
-  uid_t uid = pw->pw_uid;
-  char *name = cpystr (pw->pw_name);
-  long ret = !(setgid (pw->pw_gid) || initgroups (name,pw->pw_gid) ||
-	       setuid (uid));
-  fs_give ((void **) &name);
-  return ret;
+    uid_t uid = pw->pw_uid;
+    char *name = cpystr(pw->pw_name);
+    long ret = !(setgid(pw->pw_gid) || initgroups(name, pw->pw_gid) ||
+                 setuid(uid));
+    fs_give((void **)&name);
+    return ret;
 }

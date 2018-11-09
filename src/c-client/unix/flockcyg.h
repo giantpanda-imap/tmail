@@ -25,19 +25,17 @@
  * flocksim.  Also, we don't test NFS either
  */
 
-
-#define flock flocksim		/* use ours instead of theirs */
+#define flock flocksim /* use ours instead of theirs */
 
 #undef LOCK_SH
-#define LOCK_SH 1		/* shared lock */
+#define LOCK_SH 1 /* shared lock */
 #undef LOCK_EX
-#define LOCK_EX 2		/* exclusive lock */
+#define LOCK_EX 2 /* exclusive lock */
 #undef LOCK_NB
-#define LOCK_NB 4		/* no blocking */
+#define LOCK_NB 4 /* no blocking */
 #undef LOCK_UN
-#define LOCK_UN 8		/* unlock */
-
+#define LOCK_UN 8 /* unlock */
 
 /* Function prototypes */
 
-int flocksim (int fd,int operation);
+int flocksim(int fd, int operation);

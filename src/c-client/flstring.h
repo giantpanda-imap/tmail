@@ -19,5 +19,4 @@
  * Last Edited:	30 August 2006
  */
 
-
 extern STRINGDRIVER file_string;

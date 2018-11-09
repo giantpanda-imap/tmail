@@ -19,7 +19,6 @@
  * Last Update: June 10, 2014
  */
 
-
 /* 
  * A few definitions that try to make this module portable to other
  * platforms (e.g. Cygwin). This module is based on the information from

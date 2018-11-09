@@ -19,7 +19,6 @@
  * Last Edited:	5 September 2007
  */
 
-
 /* This include file is provided for applications which need to look under
  * the covers at the IMAP driver and in particular want to do different
  * operations depending upon the IMAP server's protocol level and
@@ -49,207 +48,177 @@
 
 /* Server protocol level and capabilities */
 
-typedef struct imap_cap {
-  unsigned int rfc1176 : 1;	/* server is RFC-1176 IMAP2 */
-  unsigned int imap2bis : 1;	/* server is IMAP2bis */
-  unsigned int imap4 : 1;	/* server is IMAP4 (RFC 1730) */
-  unsigned int imap4rev1 : 1;	/* server is IMAP4rev1 */
-  unsigned int acl : 1;		/* server has ACL (RFC 2086) */
-  unsigned int annotate : 1;	/* server has ANNOTATE (RFC 5257) */
-  unsigned int quota : 1;	/* server has QUOTA (RFC 2087) */
-  unsigned int litplus : 1;	/* server has LITERAL+ (RFC 2088) */
-  unsigned int idle : 1;	/* server has IDLE (RFC 2177) */
-  unsigned int mbx_ref : 1;	/* server has mailbox referrals (RFC 2193) */
-  unsigned int log_ref : 1;	/* server has login referrals (RFC 2221) */
-  unsigned int authanon : 1;	/* server has anonymous SASL (RFC 2245) */
-  unsigned int namespace :1;	/* server has NAMESPACE (RFC 2342) */
-  unsigned int uidplus : 1;	/* server has UIDPLUS (RFC 2359) */
-  unsigned int starttls : 1;	/* server has STARTTLS (RFC 2595) */
-  unsigned int logindisabled : 1; /* server disallows LOGIN command (RFC 2595) */
-  unsigned int id : 1;		/* server has ID (RFC 2971) */
-  unsigned int children : 1;	/* server has CHILDREN (RFC 3348) */
-  unsigned int multiappend : 1;	/* server has multi-APPEND (RFC 3502) */
-  unsigned int binary : 1;	/* server has BINARY (RFC 3516) */
-  unsigned int unselect : 1;	/* server has UNSELECT */
-  unsigned int sasl_ir : 1;	/* server has SASL-IR initial response */
-  unsigned int sort : 1;	/* server has SORT */
-  unsigned int scan : 1;	/* server has SCAN */
-  unsigned int urlauth : 1;	/* server has URLAUTH (RFC 4467) */
-  unsigned int catenate : 1;	/* server has CATENATE (RFC 4469) */
-  unsigned int condstore : 1;	/* server has CONDSTORE (RFC 4551) */
-  unsigned int esearch : 1;	/* server has ESEARCH (RFC 4731) */
-  unsigned int within : 1;	/* server has WITHIN (RFC 5032) */
-  unsigned int extlevel;	/* extension data level supported by server */
-  unsigned int x_gm_ext1 : 1;	/* special extension for gmail server */
-  unsigned int auth : MAXAUTHENTICATORS; /* supported authenticators */
-  THREADER *threader;		/* list of threaders */
+typedef struct imap_cap
+{
+    unsigned int rfc1176 : 1;              /* server is RFC-1176 IMAP2 */
+    unsigned int imap2bis : 1;             /* server is IMAP2bis */
+    unsigned int imap4 : 1;                /* server is IMAP4 (RFC 1730) */
+    unsigned int imap4rev1 : 1;            /* server is IMAP4rev1 */
+    unsigned int acl : 1;                  /* server has ACL (RFC 2086) */
+    unsigned int annotate : 1;             /* server has ANNOTATE (RFC 5257) */
+    unsigned int quota : 1;                /* server has QUOTA (RFC 2087) */
+    unsigned int litplus : 1;              /* server has LITERAL+ (RFC 2088) */
+    unsigned int idle : 1;                 /* server has IDLE (RFC 2177) */
+    unsigned int mbx_ref : 1;              /* server has mailbox referrals (RFC 2193) */
+    unsigned int log_ref : 1;              /* server has login referrals (RFC 2221) */
+    unsigned int authanon : 1;             /* server has anonymous SASL (RFC 2245) */
+    unsigned int namespace : 1;            /* server has NAMESPACE (RFC 2342) */
+    unsigned int uidplus : 1;              /* server has UIDPLUS (RFC 2359) */
+    unsigned int starttls : 1;             /* server has STARTTLS (RFC 2595) */
+    unsigned int logindisabled : 1;        /* server disallows LOGIN command (RFC 2595) */
+    unsigned int id : 1;                   /* server has ID (RFC 2971) */
+    unsigned int children : 1;             /* server has CHILDREN (RFC 3348) */
+    unsigned int multiappend : 1;          /* server has multi-APPEND (RFC 3502) */
+    unsigned int binary : 1;               /* server has BINARY (RFC 3516) */
+    unsigned int unselect : 1;             /* server has UNSELECT */
+    unsigned int sasl_ir : 1;              /* server has SASL-IR initial response */
+    unsigned int sort : 1;                 /* server has SORT */
+    unsigned int scan : 1;                 /* server has SCAN */
+    unsigned int urlauth : 1;              /* server has URLAUTH (RFC 4467) */
+    unsigned int catenate : 1;             /* server has CATENATE (RFC 4469) */
+    unsigned int condstore : 1;            /* server has CONDSTORE (RFC 4551) */
+    unsigned int esearch : 1;              /* server has ESEARCH (RFC 4731) */
+    unsigned int within : 1;               /* server has WITHIN (RFC 5032) */
+    unsigned int extlevel;                 /* extension data level supported by server */
+    unsigned int x_gm_ext1 : 1;            /* special extension for gmail server */
+    unsigned int auth : MAXAUTHENTICATORS; /* supported authenticators */
+    THREADER *threader;                    /* list of threaders */
 } IMAPCAP;
 
 /* IMAP4rev1 level or better */
 
-#define LEVELIMAP4rev1(stream) imap_cap (stream)->imap4rev1
+#define LEVELIMAP4rev1(stream) imap_cap(stream)->imap4rev1
 
 #define LEVELSTATUS LEVELIMAP4rev1
 
-
 /* IMAP4 level or better (not including RFC 1730 design mistakes) */
 
-#define LEVELIMAP4(stream) (imap_cap (stream)->imap4rev1 || \
-			    imap_cap (stream)->imap4)
-
+#define LEVELIMAP4(stream) (imap_cap(stream)->imap4rev1 || \
+                            imap_cap(stream)->imap4)
 
 /* IMAP4 RFC-1730 level */
 
-#define LEVEL1730(stream) imap_cap (stream)->imap4
-
+#define LEVEL1730(stream) imap_cap(stream)->imap4
 
 /* IMAP2bis level or better */
 
-#define LEVELIMAP2bis(stream) imap_cap (stream)->imap2bis
-
+#define LEVELIMAP2bis(stream) imap_cap(stream)->imap2bis
 
 /* IMAP2 RFC-1176 level or better */
 
-#define LEVEL1176(stream) imap_cap (stream)->rfc1176
-
+#define LEVEL1176(stream) imap_cap(stream)->rfc1176
 
 /* IMAP2 RFC-1064 or better */
 
 #define LEVEL1064(stream) 1
 
-
 /* Has ACL extension */
 
-#define LEVELACL(stream) imap_cap (stream)->acl
-
+#define LEVELACL(stream) imap_cap(stream)->acl
 
 /* Has ANNOTATE extension */
 
 #define LEVELANNOTATE(stream) imap_cap(stream)->annotate
 
-
 /* Has X-GM-EXT-1 extension */
 
 #define XGMEXT1(stream) imap_cap(stream)->x_gm_ext1
 
-
 /* Has QUOTA extension */
 
-#define LEVELQUOTA(stream) imap_cap (stream)->quota
-
+#define LEVELQUOTA(stream) imap_cap(stream)->quota
 
 /* Has LITERALPLUS extension */
 
-#define LEVELLITERALPLUS(stream) imap_cap (stream)->litplus
-
+#define LEVELLITERALPLUS(stream) imap_cap(stream)->litplus
 
 /* Has IDLE extension */
 
-#define LEVELIDLE(stream) imap_cap (stream)->idle
-
+#define LEVELIDLE(stream) imap_cap(stream)->idle
 
 /* Has mailbox referrals */
 
-#define LEVELMBX_REF(stream) imap_cap (stream)->mbx_ref
-
+#define LEVELMBX_REF(stream) imap_cap(stream)->mbx_ref
 
 /* Has login referrals */
 
-#define LEVELLOG_REF(stream) imap_cap (stream)->log_ref
-
+#define LEVELLOG_REF(stream) imap_cap(stream)->log_ref
 
 /* Has AUTH=ANONYMOUS extension */
 
-#define LEVELANONYMOUS(stream) imap_cap (stream)->authanon
-
+#define LEVELANONYMOUS(stream) imap_cap(stream)->authanon
 
 /* Has NAMESPACE extension */
 
-#define LEVELNAMESPACE(stream) imap_cap (stream)->namespace
-
+#define LEVELNAMESPACE(stream) imap_cap(stream)->namespace
 
 /* Has UIDPLUS extension */
 
-#define LEVELUIDPLUS(stream) imap_cap (stream)->uidplus
-
+#define LEVELUIDPLUS(stream) imap_cap(stream)->uidplus
 
 /* Has STARTTLS extension */
 
-#define LEVELSTARTTLS(stream) imap_cap (stream)->starttls
-
+#define LEVELSTARTTLS(stream) imap_cap(stream)->starttls
 
 /* Has LOGINDISABLED extension */
 
-#define LEVELLOGINDISABLED(stream) imap_cap (stream)->logindisabled
+#define LEVELLOGINDISABLED(stream) imap_cap(stream)->logindisabled
 
 /* Has ID extension */
 
-#define LEVELID(stream) imap_cap (stream)->id
-
+#define LEVELID(stream) imap_cap(stream)->id
 
 /* Has CHILDREN extension */
 
-#define LEVELCHILDREN(stream) imap_cap (stream)->children
-
+#define LEVELCHILDREN(stream) imap_cap(stream)->children
 
 /* Has MULTIAPPEND extension */
 
-#define LEVELMULTIAPPEND(stream) imap_cap (stream)->multiappend
-
+#define LEVELMULTIAPPEND(stream) imap_cap(stream)->multiappend
 
 /* Has BINARY extension */
 
-#define LEVELBINARY(stream) imap_cap (stream)->binary
-
+#define LEVELBINARY(stream) imap_cap(stream)->binary
 
 /* Has UNSELECT extension */
 
-#define LEVELUNSELECT(stream) imap_cap (stream)->unselect
-
+#define LEVELUNSELECT(stream) imap_cap(stream)->unselect
 
 /* Has SASL initial response extension */
 
-#define LEVELSASLIR(stream) imap_cap (stream)->sasl_ir
-
+#define LEVELSASLIR(stream) imap_cap(stream)->sasl_ir
 
 /* Has SORT extension */
 
-#define LEVELSORT(stream) imap_cap (stream)->sort
-
+#define LEVELSORT(stream) imap_cap(stream)->sort
 
 /* Has at least one THREAD extension */
 
-#define LEVELTHREAD(stream) ((imap_cap (stream)->threader) ? T : NIL)
-
+#define LEVELTHREAD(stream) ((imap_cap(stream)->threader) ? T : NIL)
 
 /* Has SCAN extension */
 
-#define LEVELSCAN(stream) imap_cap (stream)->scan
-
+#define LEVELSCAN(stream) imap_cap(stream)->scan
 
 /* Has URLAUTH extension */
 
-#define LEVELURLAUTH(stream) imap_cap (stream)->urlauth
-
+#define LEVELURLAUTH(stream) imap_cap(stream)->urlauth
 
 /* Has CATENATE extension */
 
-#define LEVELCATENATE(stream) imap_cap (stream)->catenate
-
+#define LEVELCATENATE(stream) imap_cap(stream)->catenate
 
 /* Has CONDSTORE extension */
 
-#define LEVELCONDSTORE(stream) imap_cap (stream)->condstore
-
+#define LEVELCONDSTORE(stream) imap_cap(stream)->condstore
 
 /* Has ESEARCH extension */
 
-#define LEVELESEARCH(stream) imap_cap (stream)->esearch
-
+#define LEVELESEARCH(stream) imap_cap(stream)->esearch
 
 /* Has WITHIN extension */
 
-#define LEVELWITHIN(stream) imap_cap (stream)->within
+#define LEVELWITHIN(stream) imap_cap(stream)->within
 
 /* Body structure extension levels */
 
@@ -259,29 +228,27 @@ typedef struct imap_cap {
  * changes, this will have to be split.
  */
 
-#define BODYEXTMD5 1		/* body-fld-md5 */
-#define BODYEXTDSP 2		/* body-fld-dsp */
-#define BODYEXTLANG 3		/* body-fld-lang */
-#define BODYEXTLOC 4		/* body-fld-loc */
-
+#define BODYEXTMD5 1  /* body-fld-md5 */
+#define BODYEXTDSP 2  /* body-fld-dsp */
+#define BODYEXTLANG 3 /* body-fld-lang */
+#define BODYEXTLOC 4  /* body-fld-loc */
 
 /* Function prototypes */
 
-IMAPCAP *imap_cap (MAILSTREAM *stream);
-char *imap_host (MAILSTREAM *stream);
-long imap_cache (MAILSTREAM *stream,unsigned long msgno,char *seg,
-		 STRINGLIST *stl,SIZEDTEXT *text);
-
+IMAPCAP *imap_cap(MAILSTREAM *stream);
+char *imap_host(MAILSTREAM *stream);
+long imap_cache(MAILSTREAM *stream, unsigned long msgno, char *seg,
+                STRINGLIST *stl, SIZEDTEXT *text);
 
 /* Temporary */
 
-long imap_setacl (MAILSTREAM *stream,char *mailbox,char *id,char *rights);
-long imap_deleteacl (MAILSTREAM *stream,char *mailbox,char *id);
-long imap_getacl (MAILSTREAM *stream,char *mailbox);
-long imap_getannotation (MAILSTREAM *stream,char *mailbox,STRINGLIST *entries,STRINGLIST *attributes);
-long imap_setannotation (MAILSTREAM *stream,ANNOTATION *annotation);
-long imap_listrights (MAILSTREAM *stream,char *mailbox,char *id);
-long imap_myrights (MAILSTREAM *stream,char *mailbox);
-long imap_setquota (MAILSTREAM *stream,char *qroot,STRINGLIST *limits);
-long imap_getquota (MAILSTREAM *stream,char *qroot);
-long imap_getquotaroot (MAILSTREAM *stream,char *mailbox);
+long imap_setacl(MAILSTREAM *stream, char *mailbox, char *id, char *rights);
+long imap_deleteacl(MAILSTREAM *stream, char *mailbox, char *id);
+long imap_getacl(MAILSTREAM *stream, char *mailbox);
+long imap_getannotation(MAILSTREAM *stream, char *mailbox, STRINGLIST *entries, STRINGLIST *attributes);
+long imap_setannotation(MAILSTREAM *stream, ANNOTATION *annotation);
+long imap_listrights(MAILSTREAM *stream, char *mailbox, char *id);
+long imap_myrights(MAILSTREAM *stream, char *mailbox);
+long imap_setquota(MAILSTREAM *stream, char *qroot, STRINGLIST *limits);
+long imap_getquota(MAILSTREAM *stream, char *qroot);
+long imap_getquotaroot(MAILSTREAM *stream, char *mailbox);

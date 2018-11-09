@@ -23,31 +23,30 @@
 #include <gssapi/gssapi.h>
 #include <gssapi/krb5.h>
 
-
-long kerberos_server_valid (void);
-long kerberos_try_kinit (OM_uint32 error);
-char *kerberos_login (char *user,char *authuser,int argc,char *argv[]);
+long kerberos_server_valid(void);
+long kerberos_try_kinit(OM_uint32 error);
+char *kerberos_login(char *user, char *authuser, int argc, char *argv[]);
 
 /* Kerberos server valid check
  * Returns: T if have keytab, NIL otherwise
  */
 
-long kerberos_server_valid ()
+long kerberos_server_valid()
 {
   return NIL;
 }
-
 
 /* Kerberos check for missing or expired credentials
  * Returns: T if should suggest running kinit, NIL otherwise
  */
 
-long kerberos_try_kinit (OM_uint32 error)
+long kerberos_try_kinit(OM_uint32 error)
 {
-  switch (error) {
+  switch (error)
+  {
   case KRB5KRB_AP_ERR_TKT_EXPIRED:
-  case KRB5_FCC_NOFILE:		/* MIT */
-  case KRB5_CC_NOTFOUND:	/* Heimdal */
+  case KRB5_FCC_NOFILE:  /* MIT */
+  case KRB5_CC_NOTFOUND: /* Heimdal */
     return LONGT;
   }
   return NIL;
@@ -55,13 +54,13 @@ long kerberos_try_kinit (OM_uint32 error)
 
 /* Kerberos server log in
  * Accepts: authorization ID as user name
- *	    authentication ID as Kerberos principal
- *	    argument count
- *	    argument vector
+ *          authentication ID as Kerberos principal
+ *          argument count
+ *          argument vector
  * Returns: logged in user name if logged in, NIL otherwise
  */
 
-char *kerberos_login (char *user,char *authuser,int argc,char *argv[])
+char *kerberos_login(char *user, char *authuser, int argc, char *argv[])
 {
   return NIL;
 }

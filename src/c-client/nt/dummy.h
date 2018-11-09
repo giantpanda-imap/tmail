@@ -21,16 +21,16 @@
 
 /* Exported function prototypes */
 
-void dummy_scan (MAILSTREAM *stream,char *ref,char *pat,char *contents);
-void dummy_list (MAILSTREAM *stream,char *ref,char *pat);
-void dummy_lsub (MAILSTREAM *stream,char *ref,char *pat);
-long scan_contents (DRIVER *dtb,char *name,char *contents,
-		    unsigned long csiz,unsigned long fsiz);
-long dummy_scan_contents (char *name,char *contents,unsigned long csiz,
-			  unsigned long fsiz);
-long dummy_create (MAILSTREAM *stream,char *mailbox);
-long dummy_create_path (MAILSTREAM *stream,char *path,long dirmode);
-long dummy_delete (MAILSTREAM *stream,char *mailbox);
-long dummy_rename (MAILSTREAM *stream,char *old,char *newname);
-char *dummy_file (char *dst,char *name);
-long dummy_canonicalize (char *tmp,char *ref,char *pat);
+void dummy_scan(MAILSTREAM *stream, char *ref, char *pat, char *contents);
+void dummy_list(MAILSTREAM *stream, char *ref, char *pat);
+void dummy_lsub(MAILSTREAM *stream, char *ref, char *pat);
+long scan_contents(DRIVER *dtb, char *name, char *contents,
+				   unsigned long csiz, unsigned long fsiz);
+long dummy_scan_contents(char *name, char *contents, unsigned long csiz,
+						 unsigned long fsiz);
+long dummy_create(MAILSTREAM *stream, char *mailbox);
+long dummy_create_path(MAILSTREAM *stream, char *path, long dirmode);
+long dummy_delete(MAILSTREAM *stream, char *mailbox);
+long dummy_rename(MAILSTREAM *stream, char *old, char *newname);
+char *dummy_file(char *dst, char *name);
+long dummy_canonicalize(char *tmp, char *ref, char *pat);

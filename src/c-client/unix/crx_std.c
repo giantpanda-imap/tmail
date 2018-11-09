@@ -24,15 +24,16 @@
  * Return: T if success, NIL if failed, -1 if retry
  */
 
-long crexcl (char *name)
+long crexcl(char *name)
 {
-  int i;
-  int mask = umask (0);
-  long ret = LONGT;
-				/* try to get the lock */
-  if ((i = open (name,O_WRONLY|O_CREAT|O_EXCL,(int) shlock_mode)) < 0)
-    ret = (errno == EEXIST) ? -1 : NIL;
-  else close (i);		/* made the file, now close it */
-  umask (mask);			/* restore previous mask */
-  return LONGT;			/* success */
+    int i;
+    int mask = umask(0);
+    long ret = LONGT;
+    /* try to get the lock */
+    if ((i = open(name, O_WRONLY | O_CREAT | O_EXCL, (int)shlock_mode)) < 0)
+        ret = (errno == EEXIST) ? -1 : NIL;
+    else
+        close(i); /* made the file, now close it */
+    umask(mask);  /* restore previous mask */
+    return LONGT; /* success */
 }

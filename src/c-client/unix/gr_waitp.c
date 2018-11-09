@@ -21,12 +21,14 @@
 
 /* Grim PID reaper
  * Accepts: process ID
- *	    kill request flag
- *	    status return value
+ *          kill request flag
+ *          status return value
  */
 
-void grim_pid_reap_status (int pid,int killreq,void *status)
+void grim_pid_reap_status(int pid, int killreq, void *status)
 {
-  if (killreq) kill(pid,SIGHUP);/* kill if not already dead */
-  while ((waitpid (pid,status,NIL) < 0) && (errno != ECHILD));
+    if (killreq)
+        kill(pid, SIGHUP); /* kill if not already dead */
+    while ((waitpid(pid, status, NIL) < 0) && (errno != ECHILD))
+        ;
 }

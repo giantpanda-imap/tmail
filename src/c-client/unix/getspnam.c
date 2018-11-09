@@ -19,40 +19,37 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Jacket into getpeername()
  * Accepts: socket
- *	    pointer to socket address
- *	    void pointer to len
+ *          pointer to socket address
+ *          void pointer to len
  * Returns: 0 if success, -1 if error
  */
 
-int Getpeername (int s,struct sockaddr *name,size_t *namelen)
+int Getpeername(int s, struct sockaddr *name, size_t *namelen)
 {
-  int ret;
-  socklen_t len = (socklen_t) *namelen;
-  ret = getpeername (s,name,&len);
-  *namelen = (size_t) len;
-  return ret;
+    int ret;
+    socklen_t len = (socklen_t)*namelen;
+    ret = getpeername(s, name, &len);
+    *namelen = (size_t)len;
+    return ret;
 }
-
 
 /* Jacket into getsockname()
  * Accepts: socket
- *	    pointer to socket address
- *	    void pointer to len
+ *          pointer to socket address
+ *          void pointer to len
  * Returns: 0 if success, -1 if error
  */
 
-int Getsockname (int s,struct sockaddr *name,size_t *namelen)
+int Getsockname(int s, struct sockaddr *name, size_t *namelen)
 {
-  int ret;
-  socklen_t len = (socklen_t) *namelen;
-  ret = getsockname (s,name,&len);
-  *namelen = (size_t) len;
-  return ret;
+    int ret;
+    socklen_t len = (socklen_t)*namelen;
+    ret = getsockname(s, name, &len);
+    *namelen = (size_t)len;
+    return ret;
 }
-
 
 #define getpeername Getpeername
 #define getsockname Getsockname

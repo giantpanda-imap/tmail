@@ -19,23 +19,22 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* TCP input buffer */
 
 #define BUFLEN 8192
 
-
 /* TCP I/O stream */
 
 #define TCPSTREAM struct tcp_stream
-TCPSTREAM {
-  char *host;			/* host name */
-  unsigned long port;		/* port number */
-  char *localhost;		/* local host name */
-  char *remotehost;		/* remote host name */
-  int tcpsi;			/* input socket */
-  int tcpso;			/* output socket */
-  int ictr;			/* input counter */
-  char *iptr;			/* input pointer */
-  char ibuf[BUFLEN];		/* input buffer */
+TCPSTREAM
+{
+    char *host;         /* host name */
+    unsigned long port; /* port number */
+    char *localhost;    /* local host name */
+    char *remotehost;   /* remote host name */
+    int tcpsi;          /* input socket */
+    int tcpso;          /* output socket */
+    int ictr;           /* input counter */
+    char *iptr;         /* input pointer */
+    char ibuf[BUFLEN];  /* input buffer */
 };

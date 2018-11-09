@@ -19,7 +19,6 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Function prototypes */
 
-void fatal (char *string);
+void fatal(char *string);

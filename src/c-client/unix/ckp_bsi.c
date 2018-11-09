@@ -21,23 +21,24 @@
 
 /* Check password
  * Accepts: login passwd struct
- *	    password string
- *	    argument count
- *	    argument vector
+ *          password string
+ *          argument count
+ *          argument vector
  * Returns: passwd struct if password validated, NIL otherwise
  */
 
 #include <login_cap.h>
 
-struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
+struct passwd *checkpw(struct passwd *pw, char *pass, int argc, char *argv[])
 {
-  char *s,tmp[MAILTMPLEN];
-  login_cap_t *lc;
-				/* make service name */
-  sprintf (tmp,"auth-%s",(char *) mail_parameters (NIL,GET_SERVICENAME,NIL));
-				/* validate password */
-  return ((lc = login_getclass (pw->pw_class)) &&
-	  (s = login_getstyle (lc,NIL,tmp)) &&
-	  (auth_response (pw->pw_name,lc->lc_class,s,"response",NIL,"",pass)
-	   > 0)) ? pw : NIL;
+    char *s, tmp[MAILTMPLEN];
+    login_cap_t *lc;
+    /* make service name */
+    sprintf(tmp, "auth-%s", (char *)mail_parameters(NIL, GET_SERVICENAME, NIL));
+    /* validate password */
+    return ((lc = login_getclass(pw->pw_class)) &&
+            (s = login_getstyle(lc, NIL, tmp)) &&
+            (auth_response(pw->pw_name, lc->lc_class, s, "response", NIL, "", pass) > 0))
+               ? pw
+               : NIL;
 }

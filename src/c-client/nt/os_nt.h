@@ -27,19 +27,19 @@
 #include <io.h>
 #include <conio.h>
 #include <process.h>
-#undef ERROR			/* quell conflicting defintion warning */
+#undef ERROR /* quell conflicting defintion warning */
 #include <windows.h>
 #include <lm.h>
 #undef ERROR
-#define ERROR (long) 2		/* must match mail.h */
+#define ERROR (long)2 /* must match mail.h */
 
 #if _MSC_VER >= 1400
-#define strtok_r strtok_s	/* for some reason they called it this */
+#define strtok_r strtok_s /* for some reason they called it this */
 #else
 /* strtok() is actually MT-safe in MSVC.  Why is it that Microsoft can do
  * their CRT right, but GNU, Sun, etc. can't?
  */
-#define strtok_r(a,b,c) strtok(*(c) = a,b)
+#define strtok_r(a, b, c) strtok(*(c) = a, b)
 #endif
 
 #include "env_nt.h"

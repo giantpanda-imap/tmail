@@ -21,17 +21,16 @@
 
 /* Emulator for working Unix rename() call
  * Accepts: old file name
- *	    new file name
+ *          new file name
  * Returns: 0 if success, -1 if error with error in errno
  */
 
-int Rename (char *oldname,char *newname)
+int Rename(char *oldname, char *newname)
 {
-  int ret;
-  unlink (newname);		/* make sure the old name doesn't exist */
-				/* link to new name, unlink old name */
-  if (!(ret = link (oldname,newname))) unlink (oldname);
-  return ret;
+    int ret;
+    unlink(newname); /* make sure the old name doesn't exist */
+    /* link to new name, unlink old name */
+    if (!(ret = link(oldname, newname)))
+        unlink(oldname);
+    return ret;
 }
-
-

@@ -25,5 +25,4 @@ char *pseudo_from = "MAILER-DAEMON";
 char *pseudo_name = "Mail System Internal Data";
 char *pseudo_subject = "DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA";
 char *pseudo_msg =
-  "This text is part of the internal format of your mail folder, and is not\na real message.  It is created automatically by the mail system software.\nIf deleted, important folder data will be lost, and it will be re-created\nwith the data reset to initial values."
-  ;
+    "This text is part of the internal format of your mail folder, and is not\na real message.  It is created automatically by the mail system software.\nIf deleted, important folder data will be lost, and it will be re-created\nwith the data reset to initial values.";

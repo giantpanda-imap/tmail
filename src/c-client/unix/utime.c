@@ -23,16 +23,16 @@
 
 /* Portable utime() that takes it args like real Unix systems
  * Accepts: file path
- *	    traditional utime() argument
+ *          traditional utime() argument
  * Returns: utime() results
  */
 
-int portable_utime (char *file,time_t timep[2])
+int portable_utime(char *file, time_t timep[2])
 {
-  struct utimbuf times;
-				/* in case there's other cruft there */
-  memset (&times,0,sizeof (struct utimbuf));
-  times.actime = timep[0];	/* copy the portable values */
-  times.modtime = timep[1];
-  return utime (file,&times);	/* now call the SVR4 routine */
+    struct utimbuf times;
+    /* in case there's other cruft there */
+    memset(&times, 0, sizeof(struct utimbuf));
+    times.actime = timep[0]; /* copy the portable values */
+    times.modtime = timep[1];
+    return utime(file, &times); /* now call the SVR4 routine */
 }

@@ -21,15 +21,16 @@
 
 /* Check password
  * Accepts: login passwd struct
- *	    password string
- *	    argument count
- *	    argument vector
+ *          password string
+ *          argument count
+ *          argument vector
  * Returns: passwd struct if password validated, NIL otherwise
  */
 
-struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
+struct passwd *checkpw(struct passwd *pw, char *pass, int argc, char *argv[])
 {
-  return (pw->pw_passwd && pw->pw_passwd[0] && pw->pw_passwd[1] &&
-	  !strcmp (pw->pw_passwd,(char *) crypt (pass,pw->pw_passwd))) ?
-	    pw : NIL;
+    return (pw->pw_passwd && pw->pw_passwd[0] && pw->pw_passwd[1] &&
+            !strcmp(pw->pw_passwd, (char *)crypt(pass, pw->pw_passwd)))
+               ? pw
+               : NIL;
 }

@@ -19,13 +19,12 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Append local timezone name
  * Accepts: destination string
  */
 
-void rfc822_timezone (char *s,void *t)
+void rfc822_timezone(char *s, void *t)
 {
-				/* append timezone from tm struct */
-  sprintf (s + strlen (s)," (%.50s)",((struct tm *) t)->tm_zone);
+    /* append timezone from tm struct */
+    sprintf(s + strlen(s), " (%.50s)", ((struct tm *)t)->tm_zone);
 }

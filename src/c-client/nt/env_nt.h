@@ -20,9 +20,8 @@
  * Last Edited:	15 November 2010
  */
 
-
-#define SUBSCRIPTIONFILE(t) sprintf (t,"%s\\MAILBOX.LST",myhomedir ())
-#define SUBSCRIPTIONTEMP(t) sprintf (t,"%s\\MAILBOX.TMP",myhomedir ())
+#define SUBSCRIPTIONFILE(t) sprintf(t, "%s\\MAILBOX.LST", myhomedir())
+#define SUBSCRIPTIONTEMP(t) sprintf(t, "%s\\MAILBOX.TMP", myhomedir())
 
 /* Note: the \CRAM-MD5.PWD file only works on DOS-based Windows (Win9x/Me)
  * and not on NT-based Windows (WinNT/2K/XP).  If installed on NT-based
@@ -38,25 +37,25 @@
 
 #include "env.h"
 
-void rfc822_fixed_date (char *date);
-long env_init (char *user,char *home);
-int check_nt (void);
-char *win_homedir (char *user);
-static char *defaultDrive (void);
-char *myusername_full (unsigned long *flags);
+void rfc822_fixed_date(char *date);
+long env_init(char *user, char *home);
+int check_nt(void);
+char *win_homedir(char *user);
+static char *defaultDrive(void);
+char *myusername_full(unsigned long *flags);
 #define MU_LOGGEDIN 0
 #define MU_NOTLOGGEDIN 1
 #define MU_ANONYMOUS 2
 #define myusername() \
-  myusername_full (NIL)
-char *sysinbox (void);
-char *mailboxdir (char *dst,char *dir,char *name);
-int lockname (char *lock,char *fname,int op);
-char *lockdir (char *lock,char *first,char *last);
-void unlockfd (int fd,char *lock);
-long safe_write (int fd,char *buf,long nbytes);
-void *mm_blocknotify (int reason,void *data);
-long random (void);
+  myusername_full(NIL)
+char *sysinbox(void);
+char *mailboxdir(char *dst, char *dir, char *name);
+int lockname(char *lock, char *fname, int op);
+char *lockdir(char *lock, char *first, char *last);
+void unlockfd(int fd, char *lock);
+long safe_write(int fd, char *buf, long nbytes);
+void *mm_blocknotify(int reason, void *data);
+long random(void);
 void env_end(void);
 #if _MSC_VER < 700
 #define getpid random

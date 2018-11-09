@@ -19,18 +19,19 @@
  * Last Edited:	30 August 2006
  */
 
-long auth_external_client (authchallenge_t challenger,authrespond_t responder,
-			  char *service,NETMBX *mb,void *stream,
-			  unsigned long *trial,char *user);
-char *auth_external_server (authresponse_t responder,int argc,char *argv[]);
+long auth_external_client(authchallenge_t challenger, authrespond_t responder,
+                          char *service, NETMBX *mb, void *stream,
+                          unsigned long *trial, char *user);
+char *auth_external_server(authresponse_t responder, int argc, char *argv[]);
 
-AUTHENTICATOR auth_ext = {	/* secure, has full auth, hidden */
-  AU_SECURE | AU_AUTHUSER | AU_HIDE,
-  "EXTERNAL",			/* authenticator name */
-  NIL,				/* always valid */
-  auth_external_client,		/* client method */
-  auth_external_server,		/* server method */
-  NIL				/* next authenticator */
+AUTHENTICATOR auth_ext = {
+    /* secure, has full auth, hidden */
+    AU_SECURE | AU_AUTHUSER | AU_HIDE,
+    "EXTERNAL",           /* authenticator name */
+    NIL,                  /* always valid */
+    auth_external_client, /* client method */
+    auth_external_server, /* server method */
+    NIL                   /* next authenticator */
 };
 
 /* Client authenticator
@@ -44,46 +45,49 @@ AUTHENTICATOR auth_ext = {	/* secure, has full auth, hidden */
  * Returns: T if success, NIL otherwise, number of trials incremented if retry
  */
 
-long auth_external_client (authchallenge_t challenger,authrespond_t responder,
-			  char *service,NETMBX *mb,void *stream,
-			  unsigned long *trial,char *user)
+long auth_external_client(authchallenge_t challenger, authrespond_t responder,
+                          char *service, NETMBX *mb, void *stream,
+                          unsigned long *trial, char *user)
 {
-  void *challenge;
-  unsigned long clen;
-  long ret = NIL;
-  *trial = 65535;		/* never retry */
-  if ((challenge = (*challenger) (stream,&clen)) != NULL) {
-    fs_give ((void **) &challenge);
-				/* send authorization id (empty string OK) */
-    if ((*responder) (stream,strcpy (user,mb->user),strlen (mb->user))) {
-      if ((challenge = (*challenger) (stream,&clen)) != NULL)
-	fs_give ((void **) &challenge);
-      else ret = LONGT;		/* check the authentication */
+    void *challenge;
+    unsigned long clen;
+    long ret = NIL;
+    *trial = 65535; /* never retry */
+    if ((challenge = (*challenger)(stream, &clen)) != NULL)
+    {
+        fs_give((void **)&challenge);
+        /* send authorization id (empty string OK) */
+        if ((*responder)(stream, strcpy(user, mb->user), strlen(mb->user)))
+        {
+            if ((challenge = (*challenger)(stream, &clen)) != NULL)
+                fs_give((void **)&challenge);
+            else
+                ret = LONGT; /* check the authentication */
+        }
     }
-  }
-  return ret;
+    return ret;
 }
-
 
 /* Server authenticator
  * Accepts: responder function
- *	    argument count
- *	    argument vector
+ *          argument count
+ *          argument vector
  * Returns: authenticated user name or NIL
  */
 
-char *auth_external_server (authresponse_t responder,int argc,char *argv[])
+char *auth_external_server(authresponse_t responder, int argc, char *argv[])
 {
-  unsigned long len;
-  char *authid;
-  char *authenid = (char *) mail_parameters (NIL,GET_EXTERNALAUTHID,NIL);
-  char *ret = NIL;
-				/* get authorization identity */
-  if (authenid && (authid = (*responder) ("",0,&len))) {
-				/* note: responders null-terminate */
-    if (*authid ? authserver_login (authid,authenid,argc,argv) :
-	authserver_login (authenid,NIL,argc,argv)) ret = myusername ();
-    fs_give ((void **) &authid);
-  }
-  return ret;
+    unsigned long len;
+    char *authid;
+    char *authenid = (char *)mail_parameters(NIL, GET_EXTERNALAUTHID, NIL);
+    char *ret = NIL;
+    /* get authorization identity */
+    if (authenid && (authid = (*responder)("", 0, &len)))
+    {
+        /* note: responders null-terminate */
+        if (*authid ? authserver_login(authid, authenid, argc, argv) : authserver_login(authenid, NIL, argc, argv))
+            ret = myusername();
+        fs_give((void **)&authid);
+    }
+    return ret;
 }

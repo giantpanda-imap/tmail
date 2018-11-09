@@ -23,17 +23,16 @@
  * Accepts: data
  */
 
-void checkpw_cleanup (void *data)
+void checkpw_cleanup(void *data)
 {
-  ktc_ForgetAllTokens ();
+    ktc_ForgetAllTokens();
 }
-
 
 /* Check password
  * Accepts: login passwd struct
- *	    password string
- *	    argument count
- *	    argument vector
+ *          password string
+ *          argument count
+ *          argument vector
  * Returns: passwd struct if password validated, NIL otherwise
  */
 
@@ -43,22 +42,24 @@ void checkpw_cleanup (void *data)
 #include <afs/param.h>
 #include <afs/kautils.h>
 
-struct passwd *checkpw (struct passwd *pw,char *pass,int argc,char *argv[])
+struct passwd *checkpw(struct passwd *pw, char *pass, int argc, char *argv[])
 {
-  char *reason;
-				/* faster validation for POP servers */
-  if (!strcmp ((char *) mail_parameters (NIL,GET_SERVICENAME,NIL),"pop")) {
-    struct ktc_encryptionKey key;
-    struct ktc_token token;
-				/* just check the password */
-    ka_StringToKey (pass,NIL,&key);
-    if (ka_GetAdminToken (pw->pw_name,"","",&key,600,&token,1)) return NIL;
-  }
-				/* check password and get AFS token */
-  else if (ka_UserAuthenticateGeneral
-	   (KA_USERAUTH_VERSION + KA_USERAUTH_DOSETPAG,pw->pw_name,NIL,NIL,
-	    pass,0,0,0,&reason)) return NIL;
-				/* arm hook to delete credentials */
-  mail_parameters (NIL,SET_LOGOUTHOOK,(void *) checkpw_cleanup);
-  return pw;
+    char *reason;
+    /* faster validation for POP servers */
+    if (!strcmp((char *)mail_parameters(NIL, GET_SERVICENAME, NIL), "pop"))
+    {
+        struct ktc_encryptionKey key;
+        struct ktc_token token;
+        /* just check the password */
+        ka_StringToKey(pass, NIL, &key);
+        if (ka_GetAdminToken(pw->pw_name, "", "", &key, 600, &token, 1))
+            return NIL;
+    }
+    /* check password and get AFS token */
+    else if (ka_UserAuthenticateGeneral(KA_USERAUTH_VERSION + KA_USERAUTH_DOSETPAG, pw->pw_name, NIL, NIL,
+                                        pass, 0, 0, 0, &reason))
+        return NIL;
+    /* arm hook to delete credentials */
+    mail_parameters(NIL, SET_LOGOUTHOOK, (void *)checkpw_cleanup);
+    return pw;
 }

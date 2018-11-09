@@ -19,7 +19,6 @@
  * Last Edited:	30 August 2006
  */
 
-
 /*				DEDICATION
  *
  *  This file is dedicated to my dog, Unix, also known as Yun-chan and
@@ -34,49 +33,64 @@
 
 /* Validate line
  * Accepts: pointer to candidate string to validate as a From header
- *	    return pointer to end of date/time field
- *	    return pointer to offset from t of time (hours of ``mmm dd hh:mm'')
- *	    return pointer to offset from t of time zone (if non-zero)
+ *          return pointer to end of date/time field
+ *          return pointer to offset from t of time (hours of ``mmm dd hh:mm'')
+ *          return pointer to offset from t of time zone (if non-zero)
  * Returns: t,ti,zn set if valid From string, else ti is NIL
  */
 
-#define VALID(s,x,ti,zn) {						\
-  ti = 0;								\
-  if ((*s == 'F') && (s[1] == 'r') && (s[2] == 'o') && (s[3] == 'm') &&	\
-      (s[4] == ' ')) {							\
-    for (x = s + 5; *x && *x != '\012'; x++);				\
-    if (*x) {								\
-      if (x[-1] == '\015') --x;						\
-      if (x - s >= 41) {						\
-	for (zn = -1; x[zn] != ' '; zn--);				\
-	if ((x[zn-1] == 'm') && (x[zn-2] == 'o') && (x[zn-3] == 'r') &&	\
-	    (x[zn-4] == 'f') && (x[zn-5] == ' ') && (x[zn-6] == 'e') &&	\
-	    (x[zn-7] == 't') && (x[zn-8] == 'o') && (x[zn-9] == 'm') &&	\
-	    (x[zn-10] == 'e') && (x[zn-11] == 'r') && (x[zn-12] == ' '))\
-	  x += zn - 12;							\
-      }									\
-      if (x - s >= 27) {						\
-	if (x[-5] == ' ') {						\
-	  if (x[-8] == ':') zn = 0,ti = -5;				\
-	  else if (x[-9] == ' ') ti = zn = -9;				\
-	  else if ((x[-11] == ' ') && ((x[-10]=='+') || (x[-10]=='-')))	\
-	    ti = zn = -11;						\
-	}								\
-	else if (x[-4] == ' ') {					\
-	  if (x[-9] == ' ') zn = -4,ti = -9;				\
-	}								\
-	else if (x[-6] == ' ') {					\
-	  if ((x[-11] == ' ') && ((x[-5] == '+') || (x[-5] == '-')))	\
-	    zn = -6,ti = -11;						\
-	}								\
-	if (ti && !((x[ti - 3] == ':') &&				\
-		    (x[ti -= ((x[ti - 6] == ':') ? 9 : 6)] == ' ') &&	\
-		    (x[ti - 3] == ' ') && (x[ti - 7] == ' ') &&		\
-		    (x[ti - 11] == ' '))) ti = 0;			\
-      }									\
-    }									\
-  }									\
-}
+#define VALID(s, x, ti, zn)                                                                \
+    {                                                                                      \
+        ti = 0;                                                                            \
+        if ((*s == 'F') && (s[1] == 'r') && (s[2] == 'o') && (s[3] == 'm') &&              \
+            (s[4] == ' '))                                                                 \
+        {                                                                                  \
+            for (x = s + 5; *x && *x != '\012'; x++)                                       \
+                ;                                                                          \
+            if (*x)                                                                        \
+            {                                                                              \
+                if (x[-1] == '\015')                                                       \
+                    --x;                                                                   \
+                if (x - s >= 41)                                                           \
+                {                                                                          \
+                    for (zn = -1; x[zn] != ' '; zn--)                                      \
+                        ;                                                                  \
+                    if ((x[zn - 1] == 'm') && (x[zn - 2] == 'o') && (x[zn - 3] == 'r') &&  \
+                        (x[zn - 4] == 'f') && (x[zn - 5] == ' ') && (x[zn - 6] == 'e') &&  \
+                        (x[zn - 7] == 't') && (x[zn - 8] == 'o') && (x[zn - 9] == 'm') &&  \
+                        (x[zn - 10] == 'e') && (x[zn - 11] == 'r') && (x[zn - 12] == ' ')) \
+                        x += zn - 12;                                                      \
+                }                                                                          \
+                if (x - s >= 27)                                                           \
+                {                                                                          \
+                    if (x[-5] == ' ')                                                      \
+                    {                                                                      \
+                        if (x[-8] == ':')                                                  \
+                            zn = 0, ti = -5;                                               \
+                        else if (x[-9] == ' ')                                             \
+                            ti = zn = -9;                                                  \
+                        else if ((x[-11] == ' ') && ((x[-10] == '+') || (x[-10] == '-')))  \
+                            ti = zn = -11;                                                 \
+                    }                                                                      \
+                    else if (x[-4] == ' ')                                                 \
+                    {                                                                      \
+                        if (x[-9] == ' ')                                                  \
+                            zn = -4, ti = -9;                                              \
+                    }                                                                      \
+                    else if (x[-6] == ' ')                                                 \
+                    {                                                                      \
+                        if ((x[-11] == ' ') && ((x[-5] == '+') || (x[-5] == '-')))         \
+                            zn = -6, ti = -11;                                             \
+                    }                                                                      \
+                    if (ti && !((x[ti - 3] == ':') &&                                      \
+                                (x[ti -= ((x[ti - 6] == ':') ? 9 : 6)] == ' ') &&          \
+                                (x[ti - 3] == ' ') && (x[ti - 7] == ' ') &&                \
+                                (x[ti - 11] == ' ')))                                      \
+                        ti = 0;                                                            \
+                }                                                                          \
+            }                                                                              \
+        }                                                                                  \
+    }
 
 /* You are not expected to understand this macro, but read the next page if
  * you are not faint of heart.
@@ -150,5 +164,5 @@
 
 /* Build parameters */
 
-#define KODRETRY 15		/* kiss-of-death retry in seconds */
-#define LOCKTIMEOUT 5		/* lock timeout in minutes */
+#define KODRETRY 15   /* kiss-of-death retry in seconds */
+#define LOCKTIMEOUT 5 /* lock timeout in minutes */

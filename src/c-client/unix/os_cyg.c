@@ -19,7 +19,7 @@
  * Last Edited:	30 August 2006
  */
 
-#include "tcp_unix.h"		/* must be before osdep includes tcp.h */
+#include "tcp_unix.h" /* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
 #include <stdio.h>
@@ -35,9 +35,8 @@
 #include <crypt.h>
 #include "misc.h"
 
-
-#define isodigit(c)    (((unsigned)(c)>=060)&((unsigned)(c)<=067))
-#define toint(c)       ((c)-'0')
+#define isodigit(c) (((unsigned)(c) >= 060) & ((unsigned)(c) <= 067))
+#define toint(c) ((c) - '0')
 
 #include "fs_unix.c"
 #include "ftl_unix.c"
@@ -49,15 +48,14 @@
 #include "flockcyg.c"
 #include "gethstid.c"
 
-
 /* Emulator for geteuid() call
  * Returns: effective UID
  */
 
 #undef geteuid
 
-uid_t Geteuid (void)
+uid_t Geteuid(void)
 {
-  uid_t ret = geteuid ();
-  return (ret == SYSTEMUID) ? 0 : ret;
+    uid_t ret = geteuid();
+    return (ret == SYSTEMUID) ? 0 : ret;
 }

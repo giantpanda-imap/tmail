@@ -24,83 +24,90 @@
  * Returns: character or EOF
  */
 
-int PBIN (void)
+int PBIN(void)
 {
-  if (!sslstdio) {
+  if (!sslstdio)
+  {
     int ret;
-    do {
-      clearerr (stdin);
-      ret = getchar ();
-    } while ((ret == EOF) && !feof (stdin) && ferror (stdin) &&
-	     (errno == EINTR));
+    do
+    {
+      clearerr(stdin);
+      ret = getchar();
+    } while ((ret == EOF) && !feof(stdin) && ferror(stdin) &&
+             (errno == EINTR));
     return ret;
   }
-  if (!ssl_getdata (sslstdio->sslstream)) return EOF;
-				/* one last byte available */
+  if (!ssl_getdata(sslstdio->sslstream))
+    return EOF;
+  /* one last byte available */
   sslstdio->sslstream->ictr--;
-  return (int) *(sslstdio->sslstream->iptr)++;
+  return (int)*(sslstdio->sslstream->iptr)++;
 }
-
 
 /* Get string
  * Accepts: destination string pointer
- *	    number of bytes available
+ *          number of bytes available
  * Returns: destination string pointer or NIL if EOF
  */
 
-char *PSIN (char *s,int n)
+char *PSIN(char *s, int n)
 {
-  int i,c;
-  if (start_tls) {		/* doing a start TLS? */
-    ssl_server_init (start_tls);/* enter the mode */
-    start_tls = NIL;		/* don't do this again */
+  int i, c;
+  if (start_tls)
+  {                             /* doing a start TLS? */
+    ssl_server_init(start_tls); /* enter the mode */
+    start_tls = NIL;            /* don't do this again */
   }
-  if (!sslstdio) {
+  if (!sslstdio)
+  {
     char *ret;
-    do {
-      clearerr (stdin);
-      ret = fgets (s,n,stdin);
-    } while (!ret && !feof (stdin) && ferror (stdin) && (errno == EINTR));
+    do
+    {
+      clearerr(stdin);
+      ret = fgets(s, n, stdin);
+    } while (!ret && !feof(stdin) && ferror(stdin) && (errno == EINTR));
     return ret;
   }
-  for (i = c = 0, n-- ; (c != '\n') && (i < n); sslstdio->sslstream->ictr--) {
-    if ((sslstdio->sslstream->ictr <= 0) && !ssl_getdata (sslstdio->sslstream))
-      return NIL;		/* read error */
+  for (i = c = 0, n--; (c != '\n') && (i < n); sslstdio->sslstream->ictr--)
+  {
+    if ((sslstdio->sslstream->ictr <= 0) && !ssl_getdata(sslstdio->sslstream))
+      return NIL; /* read error */
     c = s[i++] = *(sslstdio->sslstream->iptr)++;
   }
-  s[i] = '\0';			/* tie off string */
+  s[i] = '\0'; /* tie off string */
   return s;
 }
 
-
 /* Get record
  * Accepts: destination string pointer
- *	    number of bytes to read
+ *          number of bytes to read
  * Returns: T if success, NIL otherwise
  */
 
-long PSINR (char *s,unsigned long n)
+long PSINR(char *s, unsigned long n)
 {
   unsigned long i;
-  if (start_tls) {		/* doing a start TLS? */
-    ssl_server_init (start_tls);/* enter the mode */
-    start_tls = NIL;		/* don't do this again */
+  if (start_tls)
+  {                             /* doing a start TLS? */
+    ssl_server_init(start_tls); /* enter the mode */
+    start_tls = NIL;            /* don't do this again */
   }
-  if (sslstdio) return ssl_getbuffer (sslstdio->sslstream,n,s);
-				/* non-SSL case */
-  while (n && ((i = fread (s,1,n,stdin)) || (errno == EINTR))) s += i,n -= i;
+  if (sslstdio)
+    return ssl_getbuffer(sslstdio->sslstream, n, s);
+  /* non-SSL case */
+  while (n && ((i = fread(s, 1, n, stdin)) || (errno == EINTR)))
+    s += i, n -= i;
   return n ? NIL : LONGT;
 }
-
 
 /* Wait for stdin input
  * Accepts: timeout in seconds
  * Returns: T if have input on stdin, else NIL
  */
 
-long INWAIT (long seconds)
+long INWAIT(long seconds)
 {
-  return (sslstdio ? ssl_server_input_wait : server_input_wait) (seconds);
+  return (sslstdio ? ssl_server_input_wait : server_input_wait)(seconds);
 }
 
 /* Put character
@@ -108,31 +115,35 @@ long INWAIT (long seconds)
  * Returns: character written or EOF
  */
 
-int PBOUT (int c)
+int PBOUT(int c)
 {
-  if (!sslstdio) return putchar (c);
-				/* flush buffer if full */
-  if (!sslstdio->octr && PFLUSH ()) return EOF;
-  sslstdio->octr--;		/* count down one character */
-  *sslstdio->optr++ = c;	/* write character */
-  return c;			/* return that character */
+  if (!sslstdio)
+    return putchar(c);
+  /* flush buffer if full */
+  if (!sslstdio->octr && PFLUSH())
+    return EOF;
+  sslstdio->octr--;      /* count down one character */
+  *sslstdio->optr++ = c; /* write character */
+  return c;              /* return that character */
 }
-
 
 /* Put string
  * Accepts: destination string pointer
  * Returns: 0 or EOF if error
  */
 
-int PSOUT (char *s)
+int PSOUT(char *s)
 {
-  if (!sslstdio) return fputs (s,stdout);
-  while (*s) {			/* flush buffer if full */
-    if (!sslstdio->octr && PFLUSH ()) return EOF;
-    *sslstdio->optr++ = *s++;	/* write one more character */
-    sslstdio->octr--;		/* count down one character */
+  if (!sslstdio)
+    return fputs(s, stdout);
+  while (*s)
+  { /* flush buffer if full */
+    if (!sslstdio->octr && PFLUSH())
+      return EOF;
+    *sslstdio->optr++ = *s++; /* write one more character */
+    sslstdio->octr--;         /* count down one character */
   }
-  return 0;			/* success */
+  return 0; /* success */
 }
 
 /* Put record
@@ -140,39 +151,44 @@ int PSOUT (char *s)
  * Returns: 0 or EOF if error
  */
 
-int PSOUTR (SIZEDTEXT *s)
+int PSOUTR(SIZEDTEXT *s)
 {
   unsigned char *t = s->data;
   unsigned long i = s->size;
   unsigned long j;
-  if (sslstdio) while (i) {	/* until request satisfied */
-				/* flush buffer if full */
-    if (!sslstdio->octr && PFLUSH ()) break;
-				/* blat as big a chucnk as we can */
-    memcpy (sslstdio->optr,t,j = min (i,sslstdio->octr));
-    sslstdio->optr += j;	/* account for chunk */
-    sslstdio->octr -= j;
-    t += j;
-    i -= j;
-  }
-  else while (i && ((j = fwrite (t,1,i,stdout)) || (errno == EINTR)))
-    t += j,i -= j;
+  if (sslstdio)
+    while (i)
+    { /* until request satisfied */
+      /* flush buffer if full */
+      if (!sslstdio->octr && PFLUSH())
+        break;
+      /* blat as big a chucnk as we can */
+      memcpy(sslstdio->optr, t, j = min(i, sslstdio->octr));
+      sslstdio->optr += j; /* account for chunk */
+      sslstdio->octr -= j;
+      t += j;
+      i -= j;
+    }
+  else
+    while (i && ((j = fwrite(t, 1, i, stdout)) || (errno == EINTR)))
+      t += j, i -= j;
   return i ? EOF : NIL;
 }
-
 
 /* Flush output
  * Returns: 0 or EOF if error
  */
 
-int PFLUSH (void)
+int PFLUSH(void)
 {
-  if (!sslstdio) return fflush (stdout);
-				/* force out buffer */
-  if (!ssl_sout (sslstdio->sslstream,sslstdio->obuf,
-		 SSLBUFLEN - sslstdio->octr)) return EOF;
-				/* renew output buffer */
+  if (!sslstdio)
+    return fflush(stdout);
+  /* force out buffer */
+  if (!ssl_sout(sslstdio->sslstream, sslstdio->obuf,
+                SSLBUFLEN - sslstdio->octr))
+    return EOF;
+  /* renew output buffer */
   sslstdio->optr = sslstdio->obuf;
   sslstdio->octr = SSLBUFLEN;
-  return 0;			/* success */
+  return 0; /* success */
 }

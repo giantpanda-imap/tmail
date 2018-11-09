@@ -21,12 +21,12 @@
 
 /* Driver-dependent data passed to init method */
 
-typedef struct fd_data {
-  int fd;			/* file descriptor */
-  unsigned long pos;		/* initial position */
-  char *chunk;			/* I/O buffer chunk */
-  unsigned long chunksize;	/* I/O buffer chunk length */
+typedef struct fd_data
+{
+    int fd;                  /* file descriptor */
+    unsigned long pos;       /* initial position */
+    char *chunk;             /* I/O buffer chunk */
+    unsigned long chunksize; /* I/O buffer chunk length */
 } FDDATA;
-
 
 extern STRINGDRIVER fd_string;

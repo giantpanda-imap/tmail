@@ -27,44 +27,52 @@
 #define NFS_SUPER_MAGIC 0x6969
 #endif
 
-int safe_flock (int fd,int op)
+int safe_flock(int fd, int op)
 {
-  struct statfs sfbuf;
-  char tmp[MAILTMPLEN];
-  int e;
-  int logged = 0;
-  /* Check for NFS because Linux 2.6 broke flock() on NFS.  Instead of being
+    struct statfs sfbuf;
+    char tmp[MAILTMPLEN];
+    int e;
+    int logged = 0;
+    /* Check for NFS because Linux 2.6 broke flock() on NFS.  Instead of being
    * a no-op, flock() on NFS now returns ENOLCK.  Read
    *   https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=123415
    * for the gruesome details.
    */
-				/* check filesystem type */
-  while ((e = fstatfs (fd,&sfbuf)) && (errno == EINTR));
-  if (!e) switch (sfbuf.f_type) {
-  case NFS_SUPER_MAGIC:		/* always a fast no-op on NFS */
-    break;
-  default:			/* allow on other filesystem types */
-				/* do the lock */
-    while (flock (fd,op)) switch (errno) {
-    case EINTR:			/* interrupt */
-      break;
-    case ENOLCK:		/* lock table is full */
-      sprintf (tmp,"File locking failure: %s",strerror (errno));
-      mm_log (tmp,WARN);	/* give the user a warning of what happened */
-      if (!logged++) syslog (LOG_ERR,"%s",tmp);
-				/* return failure if non-blocking lock */
-      if (op & LOCK_NB) return -1;
-      sleep (5);		/* slow down in case it loops */
-      break;
-    case EWOULDBLOCK:		/* file is locked, LOCK_NB should be set */
-      if (op & LOCK_NB) return -1;
-    case EBADF:			/* not valid open file descriptor */
-    case EINVAL:		/* invalid operator */
-    default:			/* other error code? */
-      sprintf (tmp,"Unexpected file locking failure: %s",strerror (errno));
-      fatal (tmp);
-    }
-    break;
-  }
-  return 0;			/* success */
+    /* check filesystem type */
+    while ((e = fstatfs(fd, &sfbuf)) && (errno == EINTR))
+        ;
+    if (!e)
+        switch (sfbuf.f_type)
+        {
+        case NFS_SUPER_MAGIC: /* always a fast no-op on NFS */
+            break;
+        default: /* allow on other filesystem types */
+            /* do the lock */
+            while (flock(fd, op))
+                switch (errno)
+                {
+                case EINTR: /* interrupt */
+                    break;
+                case ENOLCK: /* lock table is full */
+                    sprintf(tmp, "File locking failure: %s", strerror(errno));
+                    mm_log(tmp, WARN); /* give the user a warning of what happened */
+                    if (!logged++)
+                        syslog(LOG_ERR, "%s", tmp);
+                    /* return failure if non-blocking lock */
+                    if (op & LOCK_NB)
+                        return -1;
+                    sleep(5); /* slow down in case it loops */
+                    break;
+                case EWOULDBLOCK: /* file is locked, LOCK_NB should be set */
+                    if (op & LOCK_NB)
+                        return -1;
+                case EBADF:  /* not valid open file descriptor */
+                case EINVAL: /* invalid operator */
+                default:     /* other error code? */
+                    sprintf(tmp, "Unexpected file locking failure: %s", strerror(errno));
+                    fatal(tmp);
+                }
+            break;
+        }
+    return 0; /* success */
 }

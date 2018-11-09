@@ -21,19 +21,20 @@
 
 /* Log in
  * Accepts: login passwd struct
- *	    argument count
- *	    argument vector
+ *          argument count
+ *          argument vector
  * Returns: T if success, NIL otherwise
  */
 
-long loginpw (struct passwd *pw,int argc,char *argv[])
+long loginpw(struct passwd *pw, int argc, char *argv[])
 {
-  uid_t uid = pw->pw_uid;
-				/* must be same user name as last checkpw() */
-  if (!(cyg_user && !strcmp (pw->pw_name,cyg_user))) return NIL;
-				/* do the ImpersonateLoggedOnUser() */
-  cygwin_set_impersonation_token (cyg_hdl);
+    uid_t uid = pw->pw_uid;
+    /* must be same user name as last checkpw() */
+    if (!(cyg_user && !strcmp(pw->pw_name, cyg_user)))
+        return NIL;
+    /* do the ImpersonateLoggedOnUser() */
+    cygwin_set_impersonation_token(cyg_hdl);
 
-  return !(setgid (pw->pw_gid) || initgroups (cyg_user,pw->pw_gid) ||
-	   setuid (uid));
+    return !(setgid(pw->pw_gid) || initgroups(cyg_user, pw->pw_gid) ||
+             setuid(uid));
 }

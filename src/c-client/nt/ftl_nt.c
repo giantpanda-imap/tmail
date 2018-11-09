@@ -19,13 +19,12 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Report a fatal error
  * Accepts: string to output
  */
 
-void fatal (char *string)
+void fatal(char *string)
 {
-  mm_fatal (string);		/* pass up the string */
-  abort ();			/* die horribly */
+  mm_fatal(string); /* pass up the string */
+  abort();          /* die horribly */
 }

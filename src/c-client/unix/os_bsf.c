@@ -20,7 +20,7 @@
  * Last Edited:	18 May 2009
  */
 
-#include "tcp_unix.h"		/* must be before osdep includes tcp.h */
+#include "tcp_unix.h" /* must be before osdep includes tcp.h */
 #include "mail.h"
 #include "osdep.h"
 #include <stdio.h>
@@ -34,7 +34,6 @@
 #include <errno.h>
 #include <pwd.h>
 #include "misc.h"
-
 
 #include "fs_unix.c"
 #include "ftl_unix.c"

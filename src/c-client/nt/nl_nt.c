@@ -21,9 +21,9 @@
 
 /* Copy string with CRLF newlines
  * Accepts: destination string
- *	    pointer to size of destination string buffer
- *	    source string
- *	    length of source string
+ *          pointer to size of destination string buffer
+ *          source string
+ *          length of source string
  * Returns: length of copied string
  */
 

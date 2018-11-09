@@ -24,7 +24,7 @@
  * Returns: string for that error
  */
 
-char *strerror (int n)
+char *strerror(int n)
 {
-  return (n >= 0 && n < sys_nerr) ? sys_errlist[n] : NIL;
+    return (n >= 0 && n < sys_nerr) ? sys_errlist[n] : NIL;
 }

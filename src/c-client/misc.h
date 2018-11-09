@@ -11,8 +11,8 @@
  *
  * ========================================================================
  */
- 
- /*
+
+/*
  * Program:	Miscellaneous utility routines
  *
  * Author:	Mark Crispin
@@ -23,26 +23,26 @@
 
 /* Hash table operations */
 
-#define HASHMULT 29		/* hash polynomial multiplier */
+#define HASHMULT 29 /* hash polynomial multiplier */
 
 #define HASHENT struct hash_entry
 
-HASHENT {
-  HASHENT *next;		/* next entry with same hash code */
-  char *name;			/* name of this hash entry */
-  void *data[1];		/* data of this hash entry */
+HASHENT
+{
+    HASHENT *next; /* next entry with same hash code */
+    char *name;    /* name of this hash entry */
+    void *data[1]; /* data of this hash entry */
 };
-
 
 #define HASHTAB struct hash_table
 
-HASHTAB {
-  size_t size;			/* size of this table */
-  HASHENT *table[1];		/* table */
+HASHTAB
+{
+    size_t size;       /* size of this table */
+    HASHENT *table[1]; /* table */
 };
 
-
-/* KLUDGE ALERT!!!
+    /* KLUDGE ALERT!!!
  *
  * Yes, write() is overridden here instead of in osdep.  This
  * is because misc.h is one of the last files that most things #include, so
@@ -51,49 +51,46 @@ HASHTAB {
 
 #define write safe_write
 
-
-/* Some C compilers have these as macros */
+    /* Some C compilers have these as macros */
 
 #undef min
 #undef max
 
-
-/* And some C libraries have these as int functions */
+    /* And some C libraries have these as int functions */
 
 #define min Min
 #define max Max
 
+    /* Compatibility definitions */
 
-/* Compatibility definitions */
-
-#define pmatch(s,pat) \
-  pmatch_full (s,pat,NIL)
+#define pmatch(s, pat) \
+    pmatch_full(s, pat, NIL)
 
 /* Function prototypes */
 
-unsigned char *ucase (unsigned char *string);
-unsigned char *lcase (unsigned char *string);
-char *cpystr (const char *string);
-char *cpytxt (SIZEDTEXT *dst,char *text,unsigned long size);
-char *textcpy (SIZEDTEXT *dst,SIZEDTEXT *src);
-char *textcpystring (SIZEDTEXT *text,STRING *bs);
-char *textcpyoffstring (SIZEDTEXT *text,STRING *bs,unsigned long offset,
-			unsigned long size);
-unsigned long find_rightmost_bit (unsigned long *valptr);
-long min (long i,long j);
-long max (long i,long j);
-long search (unsigned char *base,long basec,unsigned char *pat,long patc);
-long ssearch (unsigned char *base,long basec,unsigned char *pat,long patc);
-HASHTAB *hash_create (size_t size);
-void hash_destroy (HASHTAB **hashtab);
-void hash_reset (HASHTAB *hashtab);
-unsigned long hash_index (HASHTAB *hashtab,char *key);
-void **hash_lookup (HASHTAB *hashtab,char *key);
-HASHENT *hash_add (HASHTAB *hashtab,char *key,void *data,long extra);
-void **hash_lookup_and_add (HASHTAB *hashtab,char *key,void *data,long extra);
-unsigned char hex2byte (unsigned char c1,unsigned char c2);
-int compare_ulong (unsigned long l1,unsigned long l2);
-int compare_uchar (unsigned char c1,unsigned char c2);
-int compare_string (unsigned char *s1,unsigned char *s2);
-int compare_cstring (unsigned char *s1,unsigned char *s2);
-int compare_csizedtext (unsigned char *s1,SIZEDTEXT *s2);
+unsigned char *ucase(unsigned char *string);
+unsigned char *lcase(unsigned char *string);
+char *cpystr(const char *string);
+char *cpytxt(SIZEDTEXT *dst, char *text, unsigned long size);
+char *textcpy(SIZEDTEXT *dst, SIZEDTEXT *src);
+char *textcpystring(SIZEDTEXT *text, STRING *bs);
+char *textcpyoffstring(SIZEDTEXT *text, STRING *bs, unsigned long offset,
+                       unsigned long size);
+unsigned long find_rightmost_bit(unsigned long *valptr);
+long min(long i, long j);
+long max(long i, long j);
+long search(unsigned char *base, long basec, unsigned char *pat, long patc);
+long ssearch(unsigned char *base, long basec, unsigned char *pat, long patc);
+HASHTAB *hash_create(size_t size);
+void hash_destroy(HASHTAB **hashtab);
+void hash_reset(HASHTAB *hashtab);
+unsigned long hash_index(HASHTAB *hashtab, char *key);
+void **hash_lookup(HASHTAB *hashtab, char *key);
+HASHENT *hash_add(HASHTAB *hashtab, char *key, void *data, long extra);
+void **hash_lookup_and_add(HASHTAB *hashtab, char *key, void *data, long extra);
+unsigned char hex2byte(unsigned char c1, unsigned char c2);
+int compare_ulong(unsigned long l1, unsigned long l2);
+int compare_uchar(unsigned char c1, unsigned char c2);
+int compare_string(unsigned char *s1, unsigned char *s2);
+int compare_cstring(unsigned char *s1, unsigned char *s2);
+int compare_csizedtext(unsigned char *s1, SIZEDTEXT *s2);

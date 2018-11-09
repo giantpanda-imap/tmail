@@ -26,38 +26,37 @@
 
 /* String driver for fd stringstructs */
 
-static void fd_string_init (STRING *s,void *data,unsigned long size);
-static char fd_string_next (STRING *s);
-static void fd_string_setpos (STRING *s,unsigned long i);
+static void fd_string_init(STRING *s, void *data, unsigned long size);
+static char fd_string_next(STRING *s);
+static void fd_string_setpos(STRING *s, unsigned long i);
 
 STRINGDRIVER fd_string = {
-  fd_string_init,		/* initialize string structure */
-  fd_string_next,		/* get next byte in string structure */
-  fd_string_setpos		/* set position in string structure */
+    fd_string_init,  /* initialize string structure */
+    fd_string_next,  /* get next byte in string structure */
+    fd_string_setpos /* set position in string structure */
 };
-
 
 /* Initialize string structure for fd stringstruct
  * Accepts: string structure
- *	    pointer to string
- *	    size of string
+ *          pointer to string
+ *          size of string
  */
 
-static void fd_string_init (STRING *s,void *data,unsigned long size)
+static void fd_string_init(STRING *s, void *data, unsigned long size)
 {
-  FDDATA *d = (FDDATA *) data;
-				/* note fd */
-  s->data = (void *) (unsigned long) d->fd;
-  s->data1 = d->pos;		/* note file offset */
-  s->size = size;		/* note size */
+  FDDATA *d = (FDDATA *)data;
+  /* note fd */
+  s->data = (void *)(unsigned long)d->fd;
+  s->data1 = d->pos; /* note file offset */
+  s->size = size;    /* note size */
   s->curpos = s->chunk = d->chunk;
-  s->chunksize = (unsigned long) d->chunksize;
-  s->offset = 0;		/* initial position */
-				/* and size of data */
-  s->cursize = min (s->chunksize,size);
-				/* move to that position in the file */
-  lseek (d->fd,d->pos,L_SET);
-  read (d->fd,s->chunk,(size_t) s->cursize);
+  s->chunksize = (unsigned long)d->chunksize;
+  s->offset = 0; /* initial position */
+  /* and size of data */
+  s->cursize = min(s->chunksize, size);
+  /* move to that position in the file */
+  lseek(d->fd, d->pos, L_SET);
+  read(d->fd, s->chunk, (size_t)s->cursize);
 }
 
 /* Get next character from fd stringstruct
@@ -65,28 +64,29 @@ static void fd_string_init (STRING *s,void *data,unsigned long size)
  * Returns: character, string structure chunk refreshed
  */
 
-static char fd_string_next (STRING *s)
+static char fd_string_next(STRING *s)
 {
-  char c = *s->curpos++;	/* get next byte */
-  SETPOS (s,GETPOS (s));	/* move to next chunk */
-  return c;			/* return the byte */
+  char c = *s->curpos++; /* get next byte */
+  SETPOS(s, GETPOS(s));  /* move to next chunk */
+  return c;              /* return the byte */
 }
-
 
 /* Set string pointer position for fd stringstruct
  * Accepts: string structure
- *	    new position
+ *          new position
  */
 
-static void fd_string_setpos (STRING *s,unsigned long i)
+static void fd_string_setpos(STRING *s, unsigned long i)
 {
-  if (i > s->size) i = s->size;	/* don't permit setting beyond EOF */
-  s->offset = i;		/* set new offset */
-  s->curpos = s->chunk;		/* reset position */
-				/* set size of data */
-  if (s->cursize = min (s->chunksize,SIZE (s))) {
-				/* move to that position in the file */
-    lseek ((long) s->data,s->data1 + s->offset,L_SET);
-    read ((long) s->data,s->curpos,(size_t) s->cursize);
+  if (i > s->size)
+    i = s->size;        /* don't permit setting beyond EOF */
+  s->offset = i;        /* set new offset */
+  s->curpos = s->chunk; /* reset position */
+  /* set size of data */
+  if (s->cursize = min(s->chunksize, SIZE(s)))
+  {
+    /* move to that position in the file */
+    lseek((long)s->data, s->data1 + s->offset, L_SET);
+    read((long)s->data, s->curpos, (size_t)s->cursize);
   }
 }

@@ -32,17 +32,16 @@
 
 #define direct dirent
 
-
-#define CYGKLUDGEOFFSET 1	/* don't write 1st byte of shared-lock files */
+#define CYGKLUDGEOFFSET 1 /* don't write 1st byte of shared-lock files */
 
 /* Cygwin gets this wrong */
 
 #define setpgrp setpgid
 
-#define SYSTEMUID 18		/* Cygwin returns this for SYSTEM */
+#define SYSTEMUID 18 /* Cygwin returns this for SYSTEM */
 #define FLAGSEP ';'
 #define geteuid Geteuid
-uid_t Geteuid (void);
+uid_t Geteuid(void);
 
 /* Now Cygwin has reportedly joined this madness.  Use ifndef in case it shares
    the SVR4 <sys/file.h> silliness too */
@@ -55,7 +54,6 @@ uid_t Geteuid (void);
 #ifndef L_XTND
 #define L_XTND SEEK_END
 #endif
-
 
 #include "env_unix.h"
 #include "fs.h"

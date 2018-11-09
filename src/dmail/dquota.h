@@ -21,5 +21,5 @@
 
 /* Function prototypes */
 
-long dmail_quota (STRING *msg,char *path,char *tmp,char *sender,
-		  long precedence);
+long dmail_quota(STRING *msg, char *path, char *tmp, char *sender,
+                 long precedence);

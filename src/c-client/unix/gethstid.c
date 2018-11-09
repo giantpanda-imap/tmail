@@ -19,13 +19,12 @@
  * Last Edited:	30 August 2006
  */
 
-
 /* Emulator for BSD gethostid() call
  * Returns: unique identifier for this machine
  */
 
-long gethostid (void)
+long gethostid(void)
 {
-  /* No gethostid() here, so just fake it and hope things turn out okay. */
-  return 0xdeadface;
+    /* No gethostid() here, so just fake it and hope things turn out okay. */
+    return 0xdeadface;
 }

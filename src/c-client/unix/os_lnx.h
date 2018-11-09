@@ -30,8 +30,8 @@
 #endif /* _XOPEN_SOURCE */
 #ifndef _DEFAULT_SOURCE
 #define _DEFAULT_SOURCE 1
-#endif /* _DEFAULT_SOURCE */
-#ifndef _BSD_SOURCE		/* gcc 6 deprecates this, so will we */
+#endif              /* _DEFAULT_SOURCE */
+#ifndef _BSD_SOURCE /* gcc 6 deprecates this, so will we */
 #define _BSD_SOURCE 1
 #endif /* _BSD_SOURCE */
 
@@ -42,12 +42,11 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
-#include <time.h>		/* for struct tm */
+#include <time.h> /* for struct tm */
 #include <fcntl.h>
 #include <utime.h>
 #include <syslog.h>
 #include <sys/file.h>
-
 
 /* Linux gets this wrong */
 
@@ -58,8 +57,7 @@
 #define flock safe_flock
 
 #define utime portable_utime
-int portable_utime (char *file,time_t timep[2]);
-
+int portable_utime(char *file, time_t timep[2]);
 
 #include "env_unix.h"
 #include "fs.h"

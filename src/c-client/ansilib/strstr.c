@@ -21,19 +21,22 @@
 
 /* Return pointer to first occurance in string of a substring
  * Accepts: source pointer
- *	    substring pointer
+ *          substring pointer
  * Returns: pointer to substring in source or NIL if not found
  */
 
-char *strstr (char *cs,char *ct)
+char *strstr(char *cs, char *ct)
 {
-  char *s;
-  char *t;
-  while (cs = strchr (cs,*ct)) {/* for each occurance of the first character */
-				/* see if remainder of string matches */
-    for (s = cs + 1, t = ct + 1; *t && *s == *t; s++, t++);
-    if (!*t) return cs;		/* if ran out of substring then have match */
-    cs++;			/* try from next character */
-  }
-  return NIL;			/* not found */
+    char *s;
+    char *t;
+    while (cs = strchr(cs, *ct))
+    { /* for each occurance of the first character */
+        /* see if remainder of string matches */
+        for (s = cs + 1, t = ct + 1; *t && *s == *t; s++, t++)
+            ;
+        if (!*t)
+            return cs; /* if ran out of substring then have match */
+        cs++;          /* try from next character */
+    }
+    return NIL; /* not found */
 }
