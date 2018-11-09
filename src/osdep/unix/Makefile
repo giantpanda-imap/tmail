@@ -162,6 +162,10 @@ BUILD=$(MAKE) build EXTRACFLAGS='$(EXTRACFLAGS)'\
  PASSWDTYPE=$(PASSWDTYPE) SSLTYPE=$(SSLTYPE) IP=$(IP)
 
 
+# Need this for the shared library rule to work correctly
+.SUFFIXES: .o .so
+SOFILES=${BINARIES:.o=.so}
+
 # Here if no make argument established
 
 missing: osdep.h
@@ -267,17 +271,24 @@ slx:	# Secure Linux
 
 # Build it!
 
-build:	clean once $(ARCHIVE)
+build:	clean once $(ARCHIVE) $(SHLIBNAME)
 
-all:	$(ARCHIVE)
+all:	$(ARCHIVE) $(SHLIBNAME)
 
 $(ARCHIVE): $(BINARIES)
 	sh -c '$(RM) $(ARCHIVE) || true'
 	@$(CAT) ./ARCHIVE
 	@$(SH) ./ARCHIVE
 
+$(SHLIBNAME):	$(SOFILES)
+	gcc -shared -Wl,-soname,$(SHLIBNAME) -o $(SHLIBNAME) $(SOFILES) `cat LDFLAGS`
+	ln -s $(SHLIBNAME) lib$(SHLIBBASE).so
+ 
+.c.so:	osdep.h
+	$(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` ${@:.so=.c} -o $@
+
 .c.o:
-	`$(CAT) CCTYPE` -c `$(CAT) CFLAGS` $*.c
+	$(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` $*.c
 
 
 # Cleanup
@@ -319,7 +330,7 @@ maildir.o: mail.h misc.h osdep.h maildir.h dummy.h
 
 # OS-dependent
 
-osdep.o:mail.h misc.h env.h fs.h ftl.h nl.h tcp.h \
+OSDEPS= mail.h misc.h env.h fs.h ftl.h nl.h tcp.h \
 	osdep.h env_unix.h tcp_unix.h \
 	osdep.c env_unix.c fs_unix.c ftl_unix.c nl_unix.c tcp_unix.c ip_unix.c\
 	auths.c crexcl.c flockcyg.c flocklnx.c flocksim.c fsync.c \
@@ -333,12 +344,19 @@ osdep.o:mail.h misc.h env.h fs.h ftl.h nl.h tcp.h \
 	write.c sslstdio.c \
 	strerror.c strpbrk.c strstr.c strtok.c strtoul.c \
 	OSCFLAGS
+
+osdep.o:	$(OSDEPS)
+	$(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `$(CAT) OSCFLAGS` -c osdep.c
+	@echo ========================================================================
 	@echo Building OS-dependent module
 	@echo If you get No such file error messages for files x509.h, ssl.h,
 	@echo pem.h, buffer.h, bio.h, and crypto.h, that means that OpenSSL
 	@echo is not installed on your system.  Either install OpenSSL first
 	@echo or build with command: make `$(CAT) OSTYPE` SSLTYPE=none
-	`$(CAT) CCTYPE` -c `$(CAT) CFLAGS` `$(CAT) OSCFLAGS` -c osdep.c
+	@echo ========================================================================
+
+osdep.so:	$(OSDEPS)
+	$(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `cat OSCFLAGS` -c osdep.c -o $@
 
 osdep.c: osdepbas.c osdepckp.c osdeplog.c osdepssl.c
 	$(CAT) osdepbas.c osdepckp.c osdeplog.c osdepssl.c > osdep.c
