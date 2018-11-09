@@ -11,7 +11,7 @@
  */
 
 /*
- * Program:	UNIX/VMS newline routines
+ * Program:	UNIX newline routines
  *
  * Author:	Mark Crispin
  *

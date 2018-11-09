@@ -30,6 +30,7 @@
 #include <utime.h>
 #include <syslog.h>
 #include <sys/file.h>
+#include <poll.h>
 
 #define utime portable_utime
 int portable_utime (char *file,time_t timep[2]);

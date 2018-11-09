@@ -49,18 +49,6 @@
         <li><a href="#1.3">1.3 Can I set up a POP or IMAP server on Windows
         XP, 2000, NT, Me, 98, or 95?</a></li>
 
-        <li><a href="#1.4">1.4 Can I set up a POP or IMAP server on Windows
-        3.1 or DOS?</a></li>
-
-        <li><a href="#1.5">1.5 Can I set up a POP or IMAP server on
-        Macintosh?</a></li>
-
-        <li><a href="#1.6">1.6 Can I set up a POP or IMAP server on
-        VAX/VMS?</a></li>
-
-        <li><a href="#1.7">1.7 Can I set up a POP or IMAP server on
-        TOPS-20?</a></li>
-
         <li><a href="#1.8">1.8 Are hierarchical mailboxes supported?</a></li>
 
         <li><a href="#1.9">1.9 Are "dual-use" mailboxes supported?</a></li>
@@ -143,26 +131,9 @@
         <li><a href="#2.4">2.4 What do I need to build this software on
         Windows?</a></li>
 
-        <li><a href="#2.5">2.5 What do I need to build this software on
-        DOS?</a></li>
-
         <li><a href="#2.6">2.6 Can't I use Borland C to build this software
         on the PC?</a></li>
 
-        <li><a href="#2.7">2.7 What do I need to build this software on the
-        Mac?</a></li>
-
-        <li><a href="#2.8">2.8 What do I need to build this software on
-        VMS?</a></li>
-
-        <li><a href="#2.9">2.9 What do I need to build this software on
-        TOPS-20?</a></li>
-
-        <li><a href="#2.10">2.10 What do I need to build this software on
-        Amiga or OS/2?</a></li>
-
-        <li><a href="#2.11">2.11 What do I need to build this software on
-        Windows CE?</a></li>
       </ul>
     </li>
 
@@ -833,45 +804,6 @@
   <p><a href="#top">Back to top</a></p>
   <hr>
 
-  <p><a name="1.4"><strong>1.4 Can I set up a POP or IMAP server on Windows 3.1 or
-     DOS?</strong></a><br>
-  <a name="1.5"><strong>1.5 Can I set up a POP or IMAP server on
-     Macintosh?</strong></a><br>
-  <a name="1.6"><strong>1.6 Can I set up a POP or IMAP server on
-     VAX/VMS?</strong></a></p>
-
-  <dl>
-    <dd>Yes, it's just a small matter of programming.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
-  <p><a name="1.7"><strong>1.7 Can I set up a POP or IMAP server on
-     TOPS-20?</strong></a></p>
-
-  <dl>
-    <dd>
-      You have a TOPS-20 system? Cool.
-
-      <p>If IMAP2 (RFC 1176) is good enough for you, you can use MAPSER which
-      is about the ultimate gonzo pure TOPS-20 extended addressing assembly
-      language program. Unfortunately, IMAP2 is barely good enough for Alpine
-      these days, and most other IMAP clients won't work with IMAP2 at all.
-      Maybe someone will hack MAPSER to do IMAP4rev1 some day.</p>
-
-      <p>We don't know if anyone wrote a POP3 server for TOPS-20. There
-      definitely was a POP2 server once upon a time.</p>
-
-      <p>Or you can port the POP and IMAP server from this IMAP toolkit to
-      it. All that you need for a first stab is to port the MTX driver.
-      That'll probably be just a couple of hours of hacking.</p>
-    </dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
   <p><a name="1.8"><strong>1.8 Are hierarchical mailboxes
      supported?</strong></a><br>
   <a name="1.9"><strong>1.9 Are "dual-use" mailboxes
@@ -1277,65 +1209,11 @@
   <p><a href="#top">Back to top</a></p>
   <hr>
 
-  <p><a name="2.5"><strong>2.5 What do I need to build this software on
-     DOS?</strong></a></p>
-
-  <dl>
-    <dd>It's been several years since we last attempted to do this. At the
-    time, we used Microsoft C.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
   <p><a name="2.6"><strong>2.6 Can't I use Borland C to build this software on the
      PC?</strong></a></p>
 
   <dl>
     <dd>Probably not. If you know otherwise, please let us know.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
-  <p><a name="2.7"><strong>2.7 What do I need to build this software on the
-     Mac?</strong></a></p>
-
-  <dl>
-    <dd>It has been several years since we last attempted to do this. At the
-    time, we used Symantec THINK C; but today you'll need a C compiler which
-    allows segments to be more than 32K.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
-  <p><a name="2.8"><strong>2.8 What do I need to build this software on
-     VMS?</strong></a></p>
-
-  <dl>
-    <dd>You need the VMS C compiler, and either the Multinet or Netlib
-    TCP.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
-  <p><a name="2.9"><strong>2.9 What do I need to build this software on
-     TOPS-20?</strong></a></p>
-
-  <dl>
-    <dd>You need the TOPS-20 KCC compiler.</dd>
-  </dl>
-
-  <p><a href="#top">Back to top</a></p>
-  <hr>
-
-  <p><a name="2.10"><strong>2.10 What do I need to build this software on Amiga or
-     OS/2?</strong></a></p>
-
-  <dl>
-    <dd>We don't know.</dd>
   </dl>
 
   <p><a href="#top">Back to top</a></p>
@@ -1488,15 +1366,10 @@
       <pre>
  make lnp
 
-</pre>On Solaris systems and other systems with defective PAM
-implementations, build with PASSWDTYPE=pmb, e.g.
-      <pre>
- make sol PASSWDTYPE=pmb
 </pre>On all other systems, build with PASSWDTYPE=pam, e.g
       <pre>
  make foo PASSWDTYPE=pam
-</pre>If you build with PASSWDTYPE=pam and authentication does not work, try
-rebuilding (after a "make clean") with PASSWDTYPE=pmb.
+</pre>
     </dd>
   </dl>
 

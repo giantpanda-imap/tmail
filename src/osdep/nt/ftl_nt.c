@@ -11,7 +11,7 @@
  */
 
 /*
- * Program:	DOS/VMS/TOPS-20 crash management routines
+ * Program:	Windows crash management routines
  *
  * Author:	Mark Crispin
  *

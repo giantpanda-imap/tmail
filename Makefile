@@ -31,102 +31,26 @@
 #
 # If you are using gcc and it is not the standard compiler on your system, try
 # using an ANSI port that is close to what you have.  For example, if your
-# system is SVR4ish, try a32 or lnx; if it's more BSDish, try nxt, mct, or bsi.
+# system is SVR4ish, try lnx; if it's more BSDish, try mct, or bsi.
 #
 # The following ports are bundled:
-# a32	AIX 3.2 for RS/6000
-# a41	AIX 4.1 for RS/6000
-# a52	AIX 5.2
-# aix	AIX/370 (not RS/6000!!)
-# ami	AmigaDOS
-# am2	AmigaDOS with a 68020+
-# ama	AmigaDOS using AS225R2
-# amn	AmigaDOS with a 680x0 using "new" socket library
-# aos	AOS for RT
-# art	AIX 2.2.1 for RT
-# asv	Altos SVR4
-# aux	A/UX
-# bs3	BSD/i386 3.0 and higher
-# bsd	generic BSD 4.3 (as in ancient 1980s version)
 # bsf	FreeBSD
 # bsi	BSD/i386
 # bso	OpenBSD (yes, yet another one...)
-# cvx	Convex
 # cyg	Cygwin
-# d-g	Data General DG/UX prior to 5.4 (d41 port no longer exists)
-# d54	Data General DG/UX 5.4
-# do4	Apollo Domain/OS sr10.4
-# dpx	Bull DPX/2 B.O.S.
-# drs	ICL DRS/NX
-# dyn	Dynix
-# epx	EP/IX
-# ga4	GCC AIX 4.x for RS/6000
-# gas	GCC Altos SVR4
-# gcs	GCC Solaris with Blastwave Community Open Source Software
-# gh9   GCC HP-UX 9.x
-# ghp	GCC HP-UX 10.x
-# ghs	GCC HP-UX 10.x with Trusted Computer Base
-# go5	GCC 2.7.1 (95q4 from Skunkware _not_ 98q2!) SCO Open Server 5.0.x
-# gsc	GCC Santa Cruz Operation
-# gsg	GCC SGI
-# gso	GCC Solaris
-# gsu	GCC SUN-OS
-# gul	GCC RISC Ultrix (DEC-5000)
-# h11	HP-UX 11i
-# hpp	HP-UX 9.x (see gh9)
-# hpx	HP-UX 10.x (see ghp, ghs, hxd, and shp)
-# hxd	HP-UX 10.x with DCE security (see shp)
-# isc	Interactive Systems
 # ldb	Debian Linux
 # lfd	Fedora Linux
-# ln8	Linux for Nokia N800
 # lnx	Linux with traditional passwords and crypt() in the C library
-#	 (see lnp, sl4, sl5, and slx)
+#	 (see lnp, and slx)
 # lnp	Linux with Pluggable Authentication Modules (PAM)
 # lmd	Mandrake Linux
-# lr5	RedHat Enterprise Linux 5 and later (same as lfd)
-# lrh	RedHat Linux 7.2 and later
-# lsu	SuSE Linux (same as lrh)
-# lyn	LynxOS
-# mct	MachTen
-# mnt	Atari ST Mint (not MacMint)
+# lsu	SuSE Linux
+# mnt	Atari ST Mint (not MacMint) aka FreeMint
 # neb	NetBSD
-# nec	NEC UX
-# nto	QNX Neutrino RTP
-# nxt	NEXTSTEP
-# nx3	NEXTSTEP 3.x
-# osf	OSF/1 (see sos, os4)
-# os4	OSF/1 (Digital UNIX) 4
 # osi	Apple iPhone and iPod Touch
 # osx	Mac OS X
 # oxp	Mac OS X with Pluggable Authentication Modules (PAM)
-# oxs	Mac OS X Snow Leopard
-# ptx	PTX
-# pyr	Pyramid
-# qnx	QNX 4
-# qn6	QNX 6
-# s40	SUN-OS 4.0 (*not* Solaris)
-# sc5	SCO Open Server 5.0.x (see go5)
-# sco	Santa Cruz Operation (see sc5, go5)
-# shp	HP-UX with Trusted Computer Base
-# sgi	Silicon Graphics IRIX
-# sg6	Silicon Graphics IRIX 6.5
-# sl4	Linux using -lshadow to get the crypt() function
-# sl5	Linux with shadow passwords, no extra libraries
 # slx	Linux using -lcrypt to get the crypt() function
-# snx	Siemens Nixdorf SININX or Reliant UNIX
-# soc	Solaris with /opt/SUNWspro/bin/cc
-# sol	Solaris (won't work unless "ucbcc" works -- use gso instead)
-# sos	OSF/1 with SecureWare
-# ssn	SUN-OS with shadow password security
-# sua	Windows Vista (Enterprise or Ultima) Subsystem for Unix Applications
-# sun	SUN-OS 4.1 or better (*not* Solaris) (see ssn)
-# sv2	SVR2 on AT&T PC-7300 (incomplete port)
-# sv4	generic SVR4
-# ult	RISC Ultrix (DEC-5000)
-# uw2	UnixWare SVR4.2
-# vul	VAX Ultrix
-# vu2	VAX Ultrix 2.3 (e.g. for VAXstation-2000 or similar old version)
 
 
 # Extra authenticators (e.g. OTP, Kerberos, etc.).  Adds linkage for
@@ -160,8 +84,6 @@ EXTRADRIVERS=mbox
 # pam	PAM authentication (note: for Linux, you should use the "lnp" port
 #	 instead of setting this...also, you may have to modify PAMLDFLAGS
 #	 in the imap-[]/src/osdep/unix/Makefile
-# pmb	PAM authentication for broken implementations such as Solaris.
-#	 you may have to modify PAMLDFLAGS
 # std	system standard (typically passwd file), determined by port
 # two	try alternative (defined by CHECKPWALT), then std
 
@@ -175,9 +97,7 @@ PASSWDTYPE=std
 # unix	SSL support using OpenSSL
 # nopwd	SSL support using OpenSSL, and plaintext authentication permitted only
 #	in SSL/TLS sessions
-# sco	link SSL before other libraries (for SCO systems)
 # unix.nopwd	same as nopwd
-# sco.nopwd	same as nopwd, plaintext authentication in SSL/TLS only
 #
 # SSLTYPE=nopwd is now the default as required by RFC 3501
 
@@ -305,18 +225,9 @@ c-client:
 SPECIALS:
 	echo $(SPECIALS) > SPECIALS
 
-# Note on SCO you may have to set LN to "ln".
 
-a32 a41 a52 aix bs3 bsi d-g d54 do4 drs epx ga4 gas gh9 ghp ghs go5 gsc gsg gso gul h11 hpp hpx lnp lyn mct mnt nec nto nxt nx3 osf os4 ptx qnx qn6 sc5 sco sgi sg6 shp sl4 sl5 slx snx soc sol sos uw2: an
+bsi lnp lyn mct mnt slx: an
 	$(BUILD) BUILDTYPE=$@
-
-# If you use sv4, you may find that it works to move it to use the an process.
-# If so, you probably will want to delete the "-Dconst=" from the sv4 CFLAGS in
-# the c-client Makefile.
-
-aos art asv aux bsd cvx dpx dyn isc pyr sv4 ult vul vu2: ua
-	$(BUILD) BUILDTYPE=$@
-
 
 # Knotheads moved Kerberos and SSL locations on these platforms
 
@@ -346,10 +257,6 @@ neb:	an
 cyg:	an
 	$(BUILD) BUILDTYPE=cyg \
 
-gcs:	an
-	$(BUILD) BUILDTYPE=gso \
-	SPECIALS="SSLINCLUDE=/opt/csw/include/openssl SSLLIB=/opt/csw/lib SSLCERTS=/opt/csw/ssl/certs SSLKEYS=/opt/csw/ssl/certs"
-
 ldb:	an
 	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
 	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib MAILSPOOL=/var/mail"
@@ -358,48 +265,9 @@ lfd:	an
 	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
 	SPECIALS="GSSDIR=/usr/kerberos"
 
-ln8:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=slx IP=$(IP6) \
-	SPECIALS="MAILSPOOL=/var/mail"
-
-
-# RHEL5/6 does not have the IPv6 bug
-
-lr5:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSDIR=/usr/kerberos"
-
 lmd:	an
 	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
 	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
-
-# RHEL3 definitely has the IPv6 bug
-
-lrh:	lrhok an
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSDIR=/usr/kerberos"
-
-lrhok:
-	@$(SH) -c '(test ! -d /etc/pki/tls ) || make lrhwarn'
-	@$(TOUCH) lrhok
-
-lrhwarn:
-	@echo You are building for OLD versions of RedHat Linux.  This build
-	@echo is NOT suitable for RedHat Enterprise 5 / 6, which store SSL/TLS
-	@echo certificates and keys in /etc/pki/tls rather than /usr/share/ssl.
-	@echo If you want to build for modern RedHat Linux, you should use
-	@echo make lr5 instead.
-	@echo Do you want to continue this build?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) exit 1;; esac'
-	@echo OK, I will remember that you really want to build for old
-	@echo RedHat Linux.  You will not see this message again.
-	@echo If you realize that you really wanted to build for modern
-	@echo RedHat Linux, then do the following commands:
-	@echo % rm lrhok
-	@echo % make clean
-	@echo % make lr5
 
 lsu:	an
 	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
@@ -420,36 +288,6 @@ oxp:	an
 	PASSWDTYPE=pam \
 	EXTRACFLAGS="$(EXTRACFLAGS) -DMAC_OSX_KLUDGE=1" \
 	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMDLFLAGS=-lpam"
-
-oxs:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=osx IP=$(IP6) \
-	PASSWDTYPE=pam \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMDLFLAGS=-lpam"
-
-osx:	osxok an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=$@ IP=$(IP6) \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
-
-osxok:
-	@$(SH) -c '(test ! -f /usr/include/pam/pam_appl.h ) || make osxwarn'
-	@$(TOUCH) osxok
-
-osxwarn:
-	@echo You are building for OLD versions of Mac OS X.  This build is
-	@echo NOT suitable for modern versions of Mac OS X, such as Tiger,
-	@echo which use PAM-based authentication.  If you want to build for
-	@echo modern Mac OS X, you should use make oxp instead.
-	@echo Do you want to continue this build?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) exit 1;; esac'
-	@echo OK, I will remember that you really want to build for old
-	@echo Mac OS X.  You will not see this message again.
-	@echo If you realize that you really wanted to build for modern
-	@echo Mac OS X, then do the following commands:
-	@echo % rm osxok
-	@echo % make clean
-	@echo % make oxp
 
 
 # Linux shadow password support doesn't build on traditional systems, but most
@@ -473,77 +311,7 @@ lnxok:
 	@echo % rm lnxok
 	@echo % make clean
 	@echo % make slx
-	@echo If slx does not work, try sl4 or sl5.  Be sure to do a
-	@echo make clean between each try!
 	@$(TOUCH) lnxok
-
-
-# SUN-OS C compiler makes you load libdl by hand...
-
-ssn sun: sunok suntools ua
-	$(BUILD) BUILDTYPE=$@
-
-suntools:
-	$(CD) tools;$(MAKE) LDFLAGS=-ldl
-
-gsu:	sunok an
-	$(BUILD) BUILDTYPE=$@
-
-s40:	sunok ua
-	$(BUILD) BUILDTYPE=$@
-
-sunok:
-	@echo You are building for the old BSD-based SUN-OS.  This is NOT
-	@echo the modern SVR4-based Solaris.  If you want to build for
-	@echo Solaris, you should use make gso or make sol or make soc.  Do
-	@echo you want to continue this build?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) exit 1;; esac'
-	@echo OK, I will remember that you really want to build for the old
-	@echo BSD-based SUN-OS.  You will not see this message again.
-	@echo If the build fails and you realize that you really wanted to
-	@echo build for Solaris, then do the following commands:
-	@echo % rm sunok
-	@echo % make clean
-	@echo % make gso
-	@echo If gso does not work, try sol.  Be sure to do a make clean
-	@echo between each try!
-	@$(TOUCH) sunok
-
-
-# SVR2 doesn't have symbolic links (at least my SVR2 system doesn't)
-
-sv2:
-	$(MAKE) ua LN=ln
-	$(BUILD) BUILDTYPE=$@ LN=ln
-
-# Hard links don't quite work right in SUA, and there don't seem to be any
-# SSL includes.  However, IPv6 works.
-
-sua:
-	$(TOUCH) ip6 sslnone
-	$(MAKE) an LN=cp SSLTYPE=none
-	$(BUILD) BUILDTYPE=$@ LN=cp IP=$(IP6) SSLTYPE=none
-
-
-# Pine port names, not distinguished in c-client
-
-bs2:	an
-	$(BUILD) BUILDTYPE=bsi
-
-pt1:	an
-	$(BUILD) BUILDTYPE=ptx
-
-
-# Compatibility
-
-hxd:
-	$(BUILD) BUILDTYPE=hpx PASSWDTYPE=dce
-
-# Amiga
-
-ami am2 ama amn:
-	$(MAKE) an LN=cp SYSTEM=amiga
-	$(BUILD) BUILDTYPE=$@ LN=cp
 
 
 # Courtesy entries for Microsoft systems
@@ -556,9 +324,6 @@ ntk:
 
 w2k:
 	nmake /nologo /f makefile.w2k
-
-wce:
-	nmake /nologo /f makefile.wce
 
 
 # SSL build choices

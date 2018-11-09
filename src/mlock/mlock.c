@@ -107,12 +107,6 @@ int main (int argc,char *argv[])
   do {				/* until OK or out of tries */
     if (!stat (lock,&sb) && (time (0) > (sb.st_ctime + LOCKTIMEOUT * 60)))
       unlink (lock);		/* time out lock if enough time has passed */
-    /* SUN-OS had an NFS
-     * As kludgy as an albatross;
-     * And everywhere that it was installed,
-     * It was a total loss.
-     * -- MRC 9/25/91
-     */
 				/* build hitching post file name */
     sprintf (hitch,"%s.%lu.%lu.",lock,(unsigned long) time (0),
 	     (unsigned long) getpid ());

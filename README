@@ -30,7 +30,7 @@ refer to the docs/BUILD file for more information.
 
 1) Look in the top-level Makefile and find your system type code.  For example,
    modern versions of Linux will use either "slx", "lnp", or one of the
-   lnp-variants (such as "lrh").
+   lnp-variants.
 
 2) Type "make" followed by the system type, e.g. "make slx".
 
@@ -58,16 +58,13 @@ information and/or you don't understand these quick build instructions.
 
 			     MISCELLANEOUS NOTES
 
-     mtest has been run under UNIX, DOS, Windows, NT, Macintosh, TOPS-20, and
-VMS.  It is a very primitive interface, however, and is suited mainly as a
-model of how to write a main program for c-client.  You should take a look at
-the source to figure out how to use it.  Briefly, it first asks for a mailbox
-name (either a local file path or an IMAP mailbox in the form
-"{hostname}mailbox") and then puts you in a command mode where "?" will give
-you a list of commands.
+     mtest has been run under UNIX and Windows.  It is a very primitive
+ interface, however, and is suited mainly as a model of how to write a 
+main program for c-client.  You should take a look at the source to figure
+out how to use it.  Briefly, it first asks for a mailbox name (either a 
+local file path or an IMAP mailbox in the form "{hostname}mailbox") and 
+then puts you in a command mode where "?" will give you a list of commands.
 
      Pine is available separately on the FTP.CAC.Washington.EDU archives.
 
-     The focus of development and support is for UNIX and Win32 (including
-Windows 95/98/Millenium, Windows NT, and Windows 2000).  The other ports are
-not frequently used or tested, and may be incomplete.
+     The focus of development and support is for UNIX and Win32.

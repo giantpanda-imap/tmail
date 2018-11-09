@@ -89,8 +89,7 @@ int flocksim (int fd,int op)
    * . has inconsistent calling conventions (there are two additional int
    *   arguments on Solaris and I don't know what they do).
    * . returns inconsistent statfs structs.  On Solaris, the file system type
-   *   is a short called f_fstyp.  On AIX, it's an int called f_type that is
-   *   documented as always being 0!
+   *   is a short called f_fstyp.
    *
    * For what it's worth, here's the scoop on fstatfs() elsewhere:
    *
@@ -155,10 +154,10 @@ int flocksim (int fd,int op)
  * descriptor, but rather on some other file descriptor.
  *
  *  This bug is on every implementation of fcntl() locking that I have
- * tested.  Fortunately, on BSD systems, OSF/1, and Linux, we can use the
+ * tested.  Fortunately, on BSD systems and Linux, we can use the
  * flock() system call which doesn't have this bug.
  *
- *  Note that OSF/1, Linux, and some BSD systems have both broken fcntl()
+ *  Note that Linux and some BSD systems have both broken fcntl()
  * locking and the working flock() locking.
  *
  *  The program below can be used to demonstrate this problem.  Be sure to

@@ -10,10 +10,6 @@ Table of Contents
             I need to replace it with ipop3d in order to run imapd?
           + 1.3 Can I set up a POP or IMAP server on Windows XP, 2000, NT,
             Me, 98, or 95?
-          + 1.4 Can I set up a POP or IMAP server on Windows 3.1 or DOS?
-          + 1.5 Can I set up a POP or IMAP server on Macintosh?
-          + 1.6 Can I set up a POP or IMAP server on VAX/VMS?
-          + 1.7 Can I set up a POP or IMAP server on TOPS-20?
           + 1.8 Are hierarchical mailboxes supported?
           + 1.9 Are "dual-use" mailboxes supported?
           + 1.10 Can I have a mailbox that has both messages and
@@ -49,13 +45,7 @@ Table of Contents
           + 2.3 What do I need to use a C++ compiler with this software to
             build my own application?
           + 2.4 What do I need to build this software on Windows?
-          + 2.5 What do I need to build this software on DOS?
           + 2.6 Can't I use Borland C to build this software on the PC?
-          + 2.7 What do I need to build this software on the Mac?
-          + 2.8 What do I need to build this software on VMS?
-          + 2.9 What do I need to build this software on TOPS-20?
-          + 2.10 What do I need to build this software on Amiga or OS/2?
-          + 2.11 What do I need to build this software on Windows CE?
      * 3. Build and Configuration Questions
           + 3.1 How do I configure the IMAP and POP servers on UNIX?
           + 3.2 I built and installed the servers according to the BUILD
@@ -407,36 +397,6 @@ What is Panda IMAP?
    Back to top
      __________________________________________________________________
 
-   1.4 Can I set up a POP or IMAP server on Windows 3.1 or DOS?
-   1.5 Can I set up a POP or IMAP server on Macintosh?
-   1.6 Can I set up a POP or IMAP server on VAX/VMS?
-
-          Yes, it's just a small matter of programming.
-
-   Back to top
-     __________________________________________________________________
-
-   1.7 Can I set up a POP or IMAP server on TOPS-20?
-
-          You have a TOPS-20 system? Cool.
-
-          If IMAP2 (RFC 1176) is good enough for you, you can use MAPSER
-          which is about the ultimate gonzo pure TOPS-20 extended
-          addressing assembly language program. Unfortunately, IMAP2 is
-          barely good enough for Alpine these days, and most other IMAP
-          clients won't work with IMAP2 at all. Maybe someone will hack
-          MAPSER to do IMAP4rev1 some day.
-
-          We don't know if anyone wrote a POP3 server for TOPS-20. There
-          definitely was a POP2 server once upon a time.
-
-          Or you can port the POP and IMAP server from this IMAP toolkit
-          to it. All that you need for a first stab is to port the MTX
-          driver. That'll probably be just a couple of hours of hacking.
-
-   Back to top
-     __________________________________________________________________
-
    1.8 Are hierarchical mailboxes supported?
    1.9 Are "dual-use" mailboxes supported?
    1.10 Can I have a mailbox that has both messages and sub-mailboxes?
@@ -752,55 +712,9 @@ What is Panda IMAP?
    Back to top
      __________________________________________________________________
 
-   2.5 What do I need to build this software on DOS?
-
-          It's been several years since we last attempted to do this. At
-          the time, we used Microsoft C.
-
-   Back to top
-     __________________________________________________________________
-
    2.6 Can't I use Borland C to build this software on the PC?
 
           Probably not. If you know otherwise, please let us know.
-
-   Back to top
-     __________________________________________________________________
-
-   2.7 What do I need to build this software on the Mac?
-
-          It has been several years since we last attempted to do this. At
-          the time, we used Symantec THINK C; but today you'll need a C
-          compiler which allows segments to be more than 32K.
-
-   Back to top
-     __________________________________________________________________
-
-   2.8 What do I need to build this software on VMS?
-
-          You need the VMS C compiler, and either the Multinet or Netlib
-          TCP.
-
-   Back to top
-     __________________________________________________________________
-
-   2.9 What do I need to build this software on TOPS-20?
-
-          You need the TOPS-20 KCC compiler.
-
-   Back to top
-     __________________________________________________________________
-
-   2.10 What do I need to build this software on Amiga or OS/2?
-
-          We don't know.
-
-   Back to top
-     __________________________________________________________________
-
-   2.11 What do I need to build this software on Windows CE?
-
-          This port is incomplete. Someone needs to finish it.
 
    Back to top
      __________________________________________________________________
@@ -909,17 +823,9 @@ What is Panda IMAP?
 
  make lnp
 
-          On Solaris systems and other systems with defective PAM
-          implementations, build with PASSWDTYPE=pmb, e.g.
-
- make sol PASSWDTYPE=pmb
-
           On all other systems, build with PASSWDTYPE=pam, e.g
 
  make foo PASSWDTYPE=pam
-
-          If you build with PASSWDTYPE=pam and authentication does not
-          work, try rebuilding (after a "make clean") with PASSWDTYPE=pmb.
 
    Back to top
      __________________________________________________________________

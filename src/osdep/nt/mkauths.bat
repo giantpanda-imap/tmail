@@ -10,7 +10,7 @@ REM     http://www.apache.org/licenses/LICENSE-2.0
 REM
 REM ========================================================================
 
-REM Program:	Authenticator Linkage Generator for DOS and Windows
+REM Program:	Authenticator Linkage Generator for Windows
 REM
 REM Author:	Mark Crispin
 REM

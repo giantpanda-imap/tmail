@@ -46,9 +46,6 @@ Sources:
  . Makefile		master makefile for UNIX
  . makefile.nt		master makefile for NT/Win32
  . makefile.ntk		master makefile for NT/Win32 using Kerberos V
- . makefile.os2		master makefile for OS/2
- . makefile.w2k		master makefile for Windows 2000
- . makefile.wce		master makefile for Windows CE
  . src/ansilib		pre-processed ANSI library routines
  . src/c-client		pre-processed c-client sources
  . src/charset		pre-processed character set conversion tables
@@ -58,15 +55,8 @@ Sources:
  . src/mailutil		pre-processed mailbox utility sources
  . src/mlock		pre-processed mailbox locking sources
  . src/mtest		pre-processed c-client testbed sources
- . src/osdep/amiga	pre-processed Amiga-specific sources
- . src/osdep/dos	pre-processed DOS-specific sources
- . src/osdep/mac	pre-processed Mac-specific sources
  . src/osdep/nt		pre-processed NT-specific sources
- . src/osdep/os2	pre-processed OS/2-specific sources (incomplete)
- . src/osdep/tops-20	pre-processed TOPS-20 specific sources
  . src/osdep/unix	pre-processed UNIX-specific sources
- . src/osdep/vms	pre-processed VAX/VMS specific sources
- . src/osdep/wce	pre-processed Windows CE-specific sources (incomplete)
  . src/tmail		pre-processed system mail delivery sources
  . tools		internal tools needed as part of the build process
 

@@ -53,17 +53,6 @@ The following are known problems/deficiencies in the imap-2007 toolkit:
        {imap.example.com/ssl/novalidate-cert}INBOX
       to get an SSL session instead of just
        {imap.example.com/ssl}INBOX
-   . GCC 8.x and above on SGI systems does not correctly pass/return
-      structures which are smaller than 16 bytes and are not 8 bytes.  The
-      problem is that structures are padded at the wrong end; e.g. a 4 byte
-      structure is loaded into the lower 4 bytes of the register when it
-      should be loaded into the upper 4 bytes of the register.  This affects
-      IRIX 6 the most because it is a 64-bit system and 4 byte structures are
-      common.  This compiler bug impacts the use of inet_ntoa() in c-client
-      and causes syslog messages to show IP addresses as 255.255.255.255
-      instead of the correct values.  The fix is either to use SGI's C compiler
-      instead of GCC or link with an implementation of inet_ntoa() that was
-      built with GCC instead of the standard SGI C library version.
    . By default, the UNIX SSL build assumes that RSAREF is not needed, because
       RSA Security Inc. released the RSA public key encryption algorithm into
       the public domain on September 6, 2000.  There is no longer any need to
@@ -155,18 +144,6 @@ The following are known problems/deficiencies in the imap-2007 toolkit:
    . UIDPLUS support is limited to the unix, mmdf, mbx, mx, and mix formats.
    . Non-standard IMAP SCAN extension not support for mh and news formats.
 
- . Amiga limitations:
-   . Supported local file formats: mbx, mh, mmdf, mix, mtx, mx, news, phile,
-      tenex, unix
-   . Supported SASL mechanisms: CRAM-MD5, PLAIN, LOGIN, ANONYMOUS
-   . Sticky UIDs are not supported in the mh, mtx, and tenex drivers
-   . Creation of keywords is not supported in the mh, mtx, and tenex drivers
-   . Copy and append of keywords only works in the mbx driver.
-   . Flat file formats (mbx, mmdf, mtx, phile, tenex, unix) do not permit
-      mailboxes to have inferior names
-   . UIDPLUS support is limited to the unix, mmdf, mbx, mx, and mix formats.
-   . Non-standard IMAP SCAN extension not supported for mh and news formats.
-
  . Win32 (Win9x/NT/Windows 2000) limitations:
    . IPv6 is supported in W2K builds but is not the default; you have to use
       IP=6 in the nmake command
@@ -183,51 +160,3 @@ The following are known problems/deficiencies in the imap-2007 toolkit:
    . Flat file formats (mbx, mtx, tenex, unix) do not permit mailboxes to have
       inferior names
    . UIDPLUS support is limited to the unix and mbx formats.
-
- . Win16 (Win3.1)/DOS limitations:
-   . IPv6 not supported
-   . Supported local file formats: bezerk, mtx
-   . Supported SASL mechanisms: CRAM-MD5, LOGIN, ANONYMOUS
-   . Supported TCPs: B&W, Novell, PC-NFs, PC/TCP, Waterloo, Winsock
-   . Sticky UIDs are not supported on local files
-   . Creation of keywords are not supported on local files
-   . Bezerk driver is read-only and does not handle LF-only newlines well
-   . No support for any TCP timeouts on Waterloo DOS
-   . No support for TCP open timeouts on Winsock and generic DOS
-   . Flat file formats (bezerk, mtx) do not permit mailboxes to have inferior
-      names
-   . Does not work well unless a mailgets routine is armed when fetching
-      texts.
-
- . Mac limitations:
-   . IPv6 not supported
-   . No local file drivers
-   . Supported SASL mechanisms: CRAM-MD5, LOGIN, ANONYMOUS
-   . Does not output human-friendly time zone string
-
- . TOPS-20 limitations:
-   . IPv6 not supported
-   . No local file drivers
-   . Supported SASL mechanisms: CRAM-MD5, LOGIN, ANONYMOUS
-   . No support for any TCP timeouts
-
- . VMS limitations:
-   . IPv6 not supported
-   . No local file drivers
-   . Supported SASL mechanisms: CRAM-MD5, LOGIN, ANONYMOUS
-   . Supported TCPs: Multinet, Netlib
-   . No support for any TCP timeouts on VMS Netlib
-   . No support for TCP open timeouts on VMS Multinet
-   . Time zone must be configured at build time
-   . Does not output human-friendly time zone string
-
- . Windows CE limitations:
-   . IPv6 not yet supported
-   . No local file drivers
-   . Supported SASL mechanisms: CRAM-MD5, LOGIN, ANONYMOUS
-   . No support for TCP open timeouts
-   . Not finished, only builds c-client library
-
- . OS/2 limitations:
-   . IPv6 not supported
-   . Not finished, does not build

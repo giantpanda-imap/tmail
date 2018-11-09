@@ -155,7 +155,7 @@ mbx	yes	yes	yes	yes	no	no	very good	prefile
 tenex	yes	no	no	limited	no	no	good		prefile
  ;;; compatible with UNIX MM
 mtx	yes	no	no	limited	no	no	very good	prefile
- ;;; PC Pine standard format; compatible with TOPS-20; identical to tenex
+ ;;; PC Pine standard format; identical to tenex
  ;;; but instead CRLF newlines instead of LF
 mx	yes	buggy	yes	yes	yes	no	poor		ixdir
  ;;; fullest function; *not* recommended due to performance problems and bugs;

@@ -10,7 +10,7 @@ REM     http://www.apache.org/licenses/LICENSE-2.0
 REM 
 REM ========================================================================
 
-REM Program:	Driver Linkage Generator for DOS/NT
+REM Program:	Driver Linkage Generator for NT
 REM
 REM Author:	Mark Crispin
 REM

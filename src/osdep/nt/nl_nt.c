@@ -11,7 +11,7 @@
  */
 
 /*
- * Program:	Windows/TOPS-20 newline routines
+ * Program:	Windows newline routines
  *
  * Author:	Mark Crispin
  *

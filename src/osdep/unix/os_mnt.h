@@ -11,7 +11,7 @@
  */
 
 /*
- * Program:	Operating-system dependent routines -- Mint version
+ * Program:	Operating-system dependent routines -- Mint version (FreeMint)
  *
  * Author:	Mark Crispin
  *
