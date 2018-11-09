@@ -360,6 +360,10 @@
 #define SET_MHALLOWINBOX (long) 575
 #define GET_ANNOTATION (long) 576
 #define SET_ANNOTATION (long) 577
+#define GET_COURIERSTYLE (long) 578
+#define SET_COURIERSTYLE (long) 578
+#define SET_MDINBOXPATH  (long) 579
+#define GET_MDINBOXPATH  (long) 580
 
 /* Driver flags */
 
