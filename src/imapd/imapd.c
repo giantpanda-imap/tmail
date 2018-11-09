@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <errno.h>
-extern int errno;		/* just in case */
 #include <signal.h>
 #include <setjmp.h>
 #include <time.h>

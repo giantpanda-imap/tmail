@@ -24,7 +24,6 @@
 #include <pwd.h>
 #include <errno.h>
 #include <ctype.h>
-extern int errno;		/* just in case */
 #include <sysexits.h>
 #include <sys/file.h>
 #include <sys/stat.h>

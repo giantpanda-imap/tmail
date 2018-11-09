@@ -24,7 +24,6 @@
 
 #include <stdio.h>
 #include <errno.h>
-extern int errno;		/* just in case */
 #include "c-client.h"
 #ifdef SYSCONFIG		/* defined in env_unix.h */
 #include <pwd.h>

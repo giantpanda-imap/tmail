@@ -31,7 +31,6 @@
 #include <netdb.h>
 #include <ctype.h>
 #include <errno.h>
-extern int errno;		/* just in case */
 #include <pwd.h>
 #include "misc.h"
 

@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <errno.h>
-extern int errno;		/* just in case */
 #include "mail.h"
 #include "osdep.h"
 #include <sys/stat.h>
