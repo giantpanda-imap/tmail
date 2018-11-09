@@ -436,9 +436,9 @@ an:
 	@$(MAKE) ssl$(SSLTYPE)
 	@echo Applying $@ process to sources...
 	$(TOOLS)/$@ "$(LN)" src/c-client c-client
-	$(TOOLS)/$@ "$(LN)" src/ansilib c-client
-	$(TOOLS)/$@ "$(LN)" src/charset c-client
-	$(TOOLS)/$@ "$(LN)" src/osdep/$(SYSTEM) c-client
+	$(TOOLS)/$@ "$(LN)" src/c-client/ansilib c-client
+	$(TOOLS)/$@ "$(LN)" src/c-client/charset c-client
+	$(TOOLS)/$@ "$(LN)" src/c-client/$(SYSTEM) c-client
 	$(TOOLS)/$@ "$(LN)" src/mtest mtest
 	$(TOOLS)/$@ "$(LN)" src/ipopd ipopd
 	$(TOOLS)/$@ "$(LN)" src/imapd imapd
