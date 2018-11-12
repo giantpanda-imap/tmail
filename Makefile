@@ -217,291 +217,298 @@ BUILD=$(MAKE) build EXTRACFLAGS='$(EXTRACFLAGS)'\
 all:	c-client SPECIALS rebuild bundled
 
 c-client:
-	@echo Not processed yet.  In a first-time build, you must specify
-	@echo the system type so that the sources are properly processed.
-	@false
+    @echo Not processed yet.  In a first-time build, you must specify
+    @echo the system type so that the sources are properly processed.
+    @false
 
 
 SPECIALS:
-	echo $(SPECIALS) > SPECIALS
+    echo $(SPECIALS) > SPECIALS
 
 
 bsi lnp lyn mct mnt slx: an
-	$(BUILD) BUILDTYPE=$@
+    $(BUILD) BUILDTYPE=$@
 
 # Knotheads moved Kerberos and SSL locations on these platforms
 
 # Paul Vixie claims that all FreeBSD versions have working IPv6
 
 bsf:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=$@ IP=$(IP6) \
-	PASSWDTYPE=pam \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMLDFLAGS=-lpam"
+    $(TOUCH) ip6
+    $(BUILD) BUILDTYPE=$@ IP=$(IP6) \
+    PASSWDTYPE=pam \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMLDFLAGS=-lpam"
 
 # I assume that Theo did the right thing for IPv6.  OpenBSD does not have PAM.
 
 bso:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=$@ IP=$(IP6) \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
+    $(TOUCH) ip6
+    $(BUILD) BUILDTYPE=$@ IP=$(IP6) \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
 
 # Info from Joel Reicher about NetBSD SSL paths.  I assume it has PAM because pam is in NetBSD sources...
 
 neb:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=$@ IP=$(IP6) \
-	PASSWDTYPE=pam \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMLDFLAGS=-lpam"
+    $(TOUCH) ip6
+    $(BUILD) BUILDTYPE=$@ IP=$(IP6) \
+    PASSWDTYPE=pam \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMLDFLAGS=-lpam"
 
 cyg:	an
-	$(BUILD) BUILDTYPE=cyg \
+    $(BUILD) BUILDTYPE=cyg \
 
 ldb:	an
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib MAILSPOOL=/var/mail"
+    $(BUILD) BUILDTYPE=lnp IP=$(IP6) \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib MAILSPOOL=/var/mail"
 
 lfd:	an
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSDIR=/usr/kerberos"
+    $(BUILD) BUILDTYPE=lnp IP=$(IP6) \
+    SPECIALS="GSSDIR=/usr/kerberos"
 
 lmd:	an
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
+    $(BUILD) BUILDTYPE=lnp IP=$(IP6) \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib"
 
 lsu:	an
-	$(BUILD) BUILDTYPE=lnp IP=$(IP6) \
-	SPECIALS="GSSDIR=/usr/kerberos"
+    $(BUILD) BUILDTYPE=lnp IP=$(IP6) \
+    SPECIALS="GSSDIR=/usr/kerberos"
 
 # iToy does not have Kerberos or PAM.  It doesn't have a
 # /System/Library/OpenSSL directory either, but the libcrypto shared library
 # has these locations so this is what we will use.
 
 osi:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=osx IP=$(IP6) CC=arm-apple-darwin-gcc \
-	EXTRACFLAGS="$(EXTRACFLAGS) -DMAC_OSX_KLUDGE=1 -Dhash_create=Hash_create -Dhash_destroy=Hash_destroy -Dlogout=Logout" \
+    $(TOUCH) ip6
+    $(BUILD) BUILDTYPE=osx IP=$(IP6) CC=arm-apple-darwin-gcc \
+    EXTRACFLAGS="$(EXTRACFLAGS) -DMAC_OSX_KLUDGE=1 -Dhash_create=Hash_create -Dhash_destroy=Hash_destroy -Dlogout=Logout" \
 
 oxp:	an
-	$(TOUCH) ip6
-	$(BUILD) BUILDTYPE=osx IP=$(IP6) \
-	PASSWDTYPE=pam \
-	EXTRACFLAGS="$(EXTRACFLAGS) -DMAC_OSX_KLUDGE=1" \
-	SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMDLFLAGS=-lpam"
+    $(TOUCH) ip6
+    $(BUILD) BUILDTYPE=osx IP=$(IP6) \
+    PASSWDTYPE=pam \
+    EXTRACFLAGS="$(EXTRACFLAGS) -DMAC_OSX_KLUDGE=1" \
+    SPECIALS="GSSINCLUDE=/usr/include GSSLIB=/usr/lib PAMDLFLAGS=-lpam"
 
 
 # Linux shadow password support doesn't build on traditional systems, but most
 # Linux systems are shadow these days.
 
 lnx:	lnxnul an
-	$(BUILD) BUILDTYPE=$@
+    $(BUILD) BUILDTYPE=$@
 
 lnxnul:
-	@$(SH) -c '(test $(PASSWDTYPE) = nul) || make lnxok'
+    @$(SH) -c '(test $(PASSWDTYPE) = nul) || make lnxok'
 
 lnxok:
-	@echo You are building for traditional Linux.  Most modern Linux
-	@echo systems require that you build using make slx.
-	@echo Do you want to continue this build?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) exit 1;; esac'
-	@echo OK, I will remember that you really want to build for
-	@echo traditional Linux.  You will not see this message again.
-	@echo If you discover that you can not log in to the POP and IMAP
-	@echo servers, then do the following commands:
-	@echo % rm lnxok
-	@echo % make clean
-	@echo % make slx
-	@$(TOUCH) lnxok
+    @echo You are building for traditional Linux.  Most modern Linux
+    @echo systems require that you build using make slx.
+    @echo Do you want to continue this build?  Type y or n please:
+    @$(SH) -c 'read x; case "$$x" in y) exit 0;; *) exit 1;; esac'
+    @echo OK, I will remember that you really want to build for
+    @echo traditional Linux.  You will not see this message again.
+    @echo If you discover that you can not log in to the POP and IMAP
+    @echo servers, then do the following commands:
+    @echo % rm lnxok
+    @echo % make clean
+    @echo % make slx
+    @$(TOUCH) lnxok
 
 
 # Courtesy entries for Microsoft systems
 
 nt:
-	nmake /nologo /f makefile.nt
+    nmake /nologo /f makefile.nt
 
 ntk:
-	nmake /nologo /f makefile.ntk
+    nmake /nologo /f makefile.ntk
 
 w2k:
-	nmake /nologo /f makefile.w2k
+    nmake /nologo /f makefile.w2k
 
 
 # SSL build choices
 
 sslnopwd sslunix.nopwd:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Building in full compliance with RFC 3501 security
-	@echo + requirements:
-	@echo ++ TLS/SSL encryption is supported
-	@echo ++ Unencrypted plaintext passwords are prohibited
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Building in full compliance with RFC 3501 security
+    @echo + requirements:
+    @echo ++ TLS/SSL encryption is supported
+    @echo ++ Unencrypted plaintext passwords are prohibited
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 sslunix:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Building in PARTIAL compliance with RFC 3501 security
-	@echo + requirements:
-	@echo + Compliant:
-	@echo ++ TLS/SSL encryption is supported
-	@echo + Non-compliant:
-	@echo ++ Unencrypted plaintext passwords are permitted
-	@echo +
-	@echo + In order to rectify this problem, you MUST build with:
-	@echo ++ SSLTYPE=$(SSLTYPE).nopwd
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo
-	@echo Do you want to continue this build anyway?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nounenc;exit 1);; esac'
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Building in PARTIAL compliance with RFC 3501 security
+    @echo + requirements:
+    @echo + Compliant:
+    @echo ++ TLS/SSL encryption is supported
+    @echo + Non-compliant:
+    @echo ++ Unencrypted plaintext passwords are permitted
+    @echo +
+    @echo + In order to rectify this problem, you MUST build with:
+    @echo ++ SSLTYPE=$(SSLTYPE).nopwd
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo
+    @echo Do you want to continue this build anyway?  Type y or n please:
+    @$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nounenc;exit 1);; esac'
 
 nounenc:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + At your request, this build with unencrypted authentication has
-	@echo + been CANCELLED.
-	@echo + You must start over with a new make command.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + At your request, this build with unencrypted authentication has
+    @echo + been CANCELLED.
+    @echo + You must start over with a new make command.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 sslnone:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Building in NON-COMPLIANCE with RFC 3501 security requirements:
-	@echo + Non-compliant:
-	@echo ++ TLS/SSL encryption is NOT supported
-	@echo ++ Unencrypted plaintext passwords are permitted
-	@echo +
-	@echo + In order to rectify this problem, you MUST build with:
-	@echo ++ SSLTYPE=nopwd
-	@echo + You must also have OpenSSL or equivalent installed.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo
-	@echo Do you want to continue this build anyway?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nonossl;exit 1);; esac'
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Building in NON-COMPLIANCE with RFC 3501 security requirements:
+    @echo + Non-compliant:
+    @echo ++ TLS/SSL encryption is NOT supported
+    @echo ++ Unencrypted plaintext passwords are permitted
+    @echo +
+    @echo + In order to rectify this problem, you MUST build with:
+    @echo ++ SSLTYPE=nopwd
+    @echo + You must also have OpenSSL or equivalent installed.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo
+    @echo Do you want to continue this build anyway?  Type y or n please:
+    @$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nonossl;exit 1);; esac'
 
 nonossl:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + At your request, this build with no TLS/SSL support has been
-	@echo + CANCELLED.
-	@echo + You must start over with a new make command.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + At your request, this build with no TLS/SSL support has been
+    @echo + CANCELLED.
+    @echo + You must start over with a new make command.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 # IP build choices
 
 ip4:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Building with IPv4 support
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Building with IPv4 support
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ip6:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Building with IPv6 support
-	@echo +
-	@echo + NOTE: Some versions of glibc have a bug in the getaddrinfo
-	@echo + call which does DNS name resolution.  This bug causes host
-	@echo + names to be canonicalized incorrectly, as well as doing an
-	@echo + unnecessary and performance-sapping reverse DNS call.  This
-	@echo + problem does not affect the IPv4 gethostbyname call.
-	@echo +
-	@echo + getaddrinfo works properly on Mac OS X and Windows.  However,
-	@echo + the problem has been observed on some Linux systems.
-	@echo +
-	@echo + If you answer n to the following question the build will be
-	@echo + cancelled and you must rebuild.  If you did not specify IPv6
-	@echo + yourself, try adding IP6=4 to the make command line.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo
-	@echo Do you want to build with IPv6 anyway?  Type y or n please:
-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make noip6;exit 1);; esac'
-	@echo OK, I will remember that you really want to build with IPv6.
-	@echo You will not see this message again.
-	@$(TOUCH) ip6
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Building with IPv6 support
+    @echo +
+    @echo + NOTE: Some versions of glibc have a bug in the getaddrinfo
+    @echo + call which does DNS name resolution.  This bug causes host
+    @echo + names to be canonicalized incorrectly, as well as doing an
+    @echo + unnecessary and performance-sapping reverse DNS call.  This
+    @echo + problem does not affect the IPv4 gethostbyname call.
+    @echo +
+    @echo + getaddrinfo works properly on Mac OS X and Windows.  However,
+    @echo + the problem has been observed on some Linux systems.
+    @echo +
+    @echo + If you answer n to the following question the build will be
+    @echo + cancelled and you must rebuild.  If you did not specify IPv6
+    @echo + yourself, try adding IP6=4 to the make command line.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo
+    @echo Do you want to build with IPv6 anyway?  Type y or n please:
+    @$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make noip6;exit 1);; esac'
+    @echo OK, I will remember that you really want to build with IPv6.
+    @echo You will not see this message again.
+    @$(TOUCH) ip6
 
 noip6:
-	$(MAKE) clean
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + At your request, this build with IPv6 has been CANCELLED.
-	@echo + You must start over with a new make command.
-	@echo +
-	@echo + If you wish to rebuild without IPv6 support, do one of the
-	@echo + following:
-	@echo +
-	@echo + 1. If you specified IP=6 on the make command line, omit it.
-	@echo +
-	@echo + 2. Some of the Linux builds automatically select IPv6.  If
-	@echo + you choose one of those builds, add IP6=4 to the make command
-	@echo + line.  Note that this is IP6=4, not IP=4.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    $(MAKE) clean
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + At your request, this build with IPv6 has been CANCELLED.
+    @echo + You must start over with a new make command.
+    @echo +
+    @echo + If you wish to rebuild without IPv6 support, do one of the
+    @echo + following:
+    @echo +
+    @echo + 1. If you specified IP=6 on the make command line, omit it.
+    @echo +
+    @echo + 2. Some of the Linux builds automatically select IPv6.  If
+    @echo + you choose one of those builds, add IP6=4 to the make command
+    @echo + line.  Note that this is IP6=4, not IP=4.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # C compiler types
 
 an:
-	@$(MAKE) ssl$(SSLTYPE)
-	@echo Applying $@ process to sources...
-	$(TOOLS)/$@ "$(LN)" src/c-client c-client
-	$(TOOLS)/$@ "$(LN)" src/c-client/ansilib c-client
-	$(TOOLS)/$@ "$(LN)" src/c-client/charset c-client
-	$(TOOLS)/$@ "$(LN)" src/c-client/$(SYSTEM) c-client
-	$(TOOLS)/$@ "$(LN)" src/mtest mtest
-	$(TOOLS)/$@ "$(LN)" src/ipopd ipopd
-	$(TOOLS)/$@ "$(LN)" src/imapd imapd
-	$(TOOLS)/$@ "$(LN)" src/mailutil mailutil
-	$(TOOLS)/$@ "$(LN)" src/mlock mlock
-	$(TOOLS)/$@ "$(LN)" src/dmail dmail
-	$(TOOLS)/$@ "$(LN)" src/tmail tmail
-	$(LN) $(TOOLS)/$@ .
+    @$(MAKE) ssl$(SSLTYPE)
+    @echo Applying $@ process to sources...
+    $(TOOLS)/$@ "$(LN)" src/c-client c-client
+    $(TOOLS)/$@ "$(LN)" src/c-client/ansilib c-client
+    $(TOOLS)/$@ "$(LN)" src/c-client/charset c-client
+    $(TOOLS)/$@ "$(LN)" src/c-client/$(SYSTEM) c-client
+    $(TOOLS)/$@ "$(LN)" src/mtest mtest
+    $(TOOLS)/$@ "$(LN)" src/ipopd ipopd
+    $(TOOLS)/$@ "$(LN)" src/imapd imapd
+    $(TOOLS)/$@ "$(LN)" src/mailutil mailutil
+    $(TOOLS)/$@ "$(LN)" src/mlock mlock
+    $(TOOLS)/$@ "$(LN)" src/dmail dmail
+    $(TOOLS)/$@ "$(LN)" src/tmail tmail
+    $(LN) $(TOOLS)/$@ .
 
 build:	OSTYPE rebuild rebuildclean bundled
 
 OSTYPE:
-	@$(MAKE) ip$(IP)
-	@echo Building c-client for $(BUILDTYPE)...
-	@$(TOUCH) SPECIALS
-	echo `$(CAT) SPECIALS` $(EXTRASPECIALS) > c-client/SPECIALS
-	$(CD) c-client;$(MAKE) $(BUILDTYPE) EXTRACFLAGS='$(EXTRACFLAGS)'\
-	 EXTRALDFLAGS='$(EXTRALDFLAGS)'\
-	 EXTRADRIVERS='$(EXTRADRIVERS)'\
-	 EXTRAAUTHENTICATORS='$(EXTRAAUTHENTICATORS)'\
-	 PASSWDTYPE=$(PASSWDTYPE) SSLTYPE=$(SSLTYPE) IP=$(IP)\
-	 $(SPECIALS) $(EXTRASPECIALS)
-	echo $(BUILDTYPE) > OSTYPE
-	$(TOUCH) rebuild
+    @$(MAKE) ip$(IP)
+    @echo Building c-client for $(BUILDTYPE)...
+    @$(TOUCH) SPECIALS
+    echo `$(CAT) SPECIALS` $(EXTRASPECIALS) > c-client/SPECIALS
+    $(CD) c-client;$(MAKE) $(BUILDTYPE) EXTRACFLAGS='$(EXTRACFLAGS)'\
+     EXTRALDFLAGS='$(EXTRALDFLAGS)'\
+     EXTRADRIVERS='$(EXTRADRIVERS)'\
+     EXTRAAUTHENTICATORS='$(EXTRAAUTHENTICATORS)'\
+     PASSWDTYPE=$(PASSWDTYPE) SSLTYPE=$(SSLTYPE) IP=$(IP)\
+     $(SPECIALS) $(EXTRASPECIALS)
+    echo $(BUILDTYPE) > OSTYPE
+    $(TOUCH) rebuild
 
 rebuild:
-	@$(SH) -c '(test $(BUILDTYPE) = rebuild -o $(BUILDTYPE) = `$(CAT) OSTYPE`) || (echo Already built for `$(CAT) OSTYPE` -- you must do \"make clean\" first && exit 1)'
-	@echo Rebuilding c-client for `$(CAT) OSTYPE`...
-	@$(TOUCH) SPECIALS
-	$(CD) c-client;$(MAKE) all CC="`$(CAT) CCTYPE`" \
-	 CFLAGS="`$(CAT) CFLAGS`" `$(CAT) SPECIALS`
+    @$(SH) -c '(test $(BUILDTYPE) = rebuild -o $(BUILDTYPE) = `$(CAT) OSTYPE`) || (echo Already built for `$(CAT) OSTYPE` -- you must do \"make clean\" first && exit 1)'
+    @echo Rebuilding c-client for `$(CAT) OSTYPE`...
+    @$(TOUCH) SPECIALS
+    $(CD) c-client;$(MAKE) all CC="`$(CAT) CCTYPE`" \
+     CFLAGS="`$(CAT) CFLAGS`" `$(CAT) SPECIALS`
 
 rebuildclean:
-	$(SH) -c '$(RM) rebuild || true'
+    $(SH) -c '$(RM) rebuild || true'
 
 bundled:
-	@echo Building bundled tools...
-	$(CD) mtest;$(MAKE)
-	$(CD) ipopd;$(MAKE)
-	$(CD) imapd;$(MAKE)
-	$(CD) mailutil;$(MAKE)
-	@$(SH) -c '(test -f /usr/include/sysexits.h ) || make sysexitwarn'
-	$(CD) mlock;$(MAKE) || true
-	$(CD) dmail;$(MAKE) || true
-	$(CD) tmail;$(MAKE) || true
+    @echo Building bundled tools...
+    $(CD) mtest;$(MAKE)
+    $(CD) ipopd;$(MAKE)
+    $(CD) imapd;$(MAKE)
+    $(CD) mailutil;$(MAKE)
+    @$(SH) -c '(test -f /usr/include/sysexits.h ) || make sysexitwarn'
+    $(CD) mlock;$(MAKE) || true
+    $(CD) dmail;$(MAKE) || true
+    $(CD) tmail;$(MAKE) || true
 
 
 sysexitwarn:
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@echo + Hmm...it does not look like /usr/include/sysexits.h exists.
-	@echo + Either your system is too ancient to have the sysexits.h
-	@echo + include, or your C compiler gets it from some other location
-	@echo + than /usr/include.  If your system is too old to have the
-	@echo + sysexits.h include, you will not be able to build the
-	@echo + following programs.
-	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @echo + Hmm...it does not look like /usr/include/sysexits.h exists.
+    @echo + Either your system is too ancient to have the sysexits.h
+    @echo + include, or your C compiler gets it from some other location
+    @echo + than /usr/include.  If your system is too old to have the
+    @echo + sysexits.h include, you will not be able to build the
+    @echo + following programs.
+    @echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 clean:
-	@echo Removing old processed sources and binaries...
-	$(SH) -c '$(RM) an OSTYPE SPECIALS c-client mtest imapd ipopd mailutil mlock dmail tmail ip6 || true'
-	$(CD) tools;$(MAKE) clean
+    @echo Removing old processed sources and binaries...
+    $(SH) -c '$(RM) an OSTYPE SPECIALS c-client mtest imapd ipopd mailutil mlock dmail tmail ip6 || true'
+    $(CD) tools;$(MAKE) clean
 
+install: all
+    ginstall -D c-client/libc-client.so.* $(DESTDIR)/usr/lib/libc-client.so.1
+    ginstall -D c-client/c-client.a $(DESTDIR)/usr/lib/libc-client.a
+    install -v -d $(DESTDIR)/usr/include/imap
+    install -v -m 644 ./c-client/*.h $(DESTDIR)/usr/include/imap
+    install -v -m 644 ./c-client/linkage.c $(DESTDIR)/usr/include/imap
+    install -v -m 644 ./src/osdep/tops-20/shortsym.h $(DESTDIR)/usr/include/imap
 
 # A monument to a hack of long ago and far away...
 love:
-	@echo not war?
+    @echo not war?
