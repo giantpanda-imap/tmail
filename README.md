@@ -1,19 +1,4 @@
-/* ========================================================================
- * Copyright 1988-2007 University of Washington
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * ========================================================================
- */
-
-			   IMAP Toolkit Environment
-			         4 April 2007
-				 Mark Crispin
-
+			         GiantPanda IMAP
 
 			    UNIX QUICK BUILD NOTES
 
@@ -64,7 +49,3 @@ main program for c-client.  You should take a look at the source to figure
 out how to use it.  Briefly, it first asks for a mailbox name (either a 
 local file path or an IMAP mailbox in the form "{hostname}mailbox") and 
 then puts you in a command mode where "?" will give you a list of commands.
-
-     Pine is available separately on the FTP.CAC.Washington.EDU archives.
-
-     The focus of development and support is for UNIX and Win32.
