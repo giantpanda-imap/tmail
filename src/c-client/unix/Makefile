@@ -169,105 +169,105 @@ SOFILES=${BINARIES:.o=.so}
 # Here if no make argument established
 
 missing: osdep.h
-	$(MAKE) all `$(CAT) SPECIALS`
+    $(MAKE) all `$(CAT) SPECIALS`
 
 osdep.h:
-	@echo You must specify what type of system
-	@false
+    @echo You must specify what type of system
+    @false
 
 
 # Current ports
 
 bsf:	# FreeBSD
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 SIGTYPE=psx CRXTYPE=nfs \
-	 SPOOLDIR=/var \
-	 ACTIVEFILE=/usr/local/news/lib/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)" \
-	 BASELDFLAGS="-lcrypt"
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     SIGTYPE=psx CRXTYPE=nfs \
+     SPOOLDIR=/var \
+     ACTIVEFILE=/usr/local/news/lib/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)" \
+     BASELDFLAGS="-lcrypt"
 
 bsi:	# BSD/i386
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 CRXTYPE=nfs \
-	 SPOOLDIR=/var NEWSSPOOL=/var/news/spool \
-	 ACTIVEFILE=/var/news/etc/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)"
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     CRXTYPE=nfs \
+     SPOOLDIR=/var NEWSSPOOL=/var/news/spool \
+     ACTIVEFILE=/var/news/etc/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)"
 
 bso:	# OpenBSD
-	$(BUILD) `$(CAT) SPECIALS` OS=bsi \
-	 SIGTYPE=psx CRXTYPE=nfs \
-	 SPOOLDIR=/var \
-	 ACTIVEFILE=/usr/local/news/lib/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)"
+    $(BUILD) `$(CAT) SPECIALS` OS=bsi \
+     SIGTYPE=psx CRXTYPE=nfs \
+     SPOOLDIR=/var \
+     ACTIVEFILE=/usr/local/news/lib/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)"
 
 cyg:	# Cygwin - note that most local file drivers don't work!!
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	DEFAULTDRIVERS="imap nntp pop3 mbx unix maildir phile" \
-	SIGTYPE=psx CHECKPW=cyg LOGINPW=cyg CRXTYPE=std \
-	SPOOLDIR=/var \
-	ACTIVEFILE=/usr/local/news/lib/active \
-	RSHPATH=/usr/bin/rsh \
-	BASECFLAGS="$(GCCCFLAGS)" \
-	BASELDFLAGS="-lcrypt" \
-	CC=gcc
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+    DEFAULTDRIVERS="imap nntp pop3 mbx unix maildir phile" \
+    SIGTYPE=psx CHECKPW=cyg LOGINPW=cyg CRXTYPE=std \
+    SPOOLDIR=/var \
+    ACTIVEFILE=/usr/local/news/lib/active \
+    RSHPATH=/usr/bin/rsh \
+    BASECFLAGS="$(GCCCFLAGS)" \
+    BASELDFLAGS="-lcrypt" \
+    CC=gcc
 
 lnp:	# Linux Pluggable Authentication modules
-	$(BUILD) `$(CAT) SPECIALS` OS=slx \
-	 SIGTYPE=psx CHECKPW=pam CRXTYPE=nfs \
-	 SPOOLDIR=/var/spool \
-	 ACTIVEFILE=/var/lib/news/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)" \
-	 BASELDFLAGS="$(EXTRALDFLAGS) $(PAMLDFLAGS)"
+    $(BUILD) `$(CAT) SPECIALS` OS=slx \
+     SIGTYPE=psx CHECKPW=pam CRXTYPE=nfs \
+     SPOOLDIR=/var/spool \
+     ACTIVEFILE=/var/lib/news/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)" \
+     BASELDFLAGS="$(EXTRALDFLAGS) $(PAMLDFLAGS)"
 
 lnx:	# Linux non-shadow passwords
-	@echo You are building for traditional Linux *without* shadow
-	@echo passwords and with the crypt function in the C library.
-	@echo If your system has shadow passwords, or if crypt is not
-	@echo in the C library, you must use slx!
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 SIGTYPE=psx CRXTYPE=nfs \
-	 SPOOLDIR=/var/spool \
-	 ACTIVEFILE=/var/lib/news/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)"
+    @echo You are building for traditional Linux *without* shadow
+    @echo passwords and with the crypt function in the C library.
+    @echo If your system has shadow passwords, or if crypt is not
+    @echo in the C library, you must use slx!
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     SIGTYPE=psx CRXTYPE=nfs \
+     SPOOLDIR=/var/spool \
+     ACTIVEFILE=/var/lib/news/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)"
 
 mnt:	# Mint (FreeMint)
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 SIGTYPE=psx CRXTYPE=nfs \
-	 SPOOLDIR=/var/spool \
-	 ACTIVEFILE=/var/lib/news/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)"
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     SIGTYPE=psx CRXTYPE=nfs \
+     SPOOLDIR=/var/spool \
+     ACTIVEFILE=/var/lib/news/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)"
 
 neb:	# NetBSD
-	$(BUILD) `$(CAT) SPECIALS` OS=bsi \
-	 CRXTYPE=nfs \
-	 SPOOLDIR=/var \
-	 ACTIVEFILE=/var/db/news/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)" \
-	 BASELDFLAGS="-lcrypt"
+    $(BUILD) `$(CAT) SPECIALS` OS=bsi \
+     CRXTYPE=nfs \
+     SPOOLDIR=/var \
+     ACTIVEFILE=/var/db/news/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)" \
+     BASELDFLAGS="-lcrypt"
 
 osx:	# Mac OS X
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 CRXTYPE=nfs \
-	 SPOOLDIR=/var/spool MAILSPOOL=/var/mail \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCC4CFLAGS)"
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     CRXTYPE=nfs \
+     SPOOLDIR=/var/spool MAILSPOOL=/var/mail \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCC4CFLAGS)"
 
 slx:	# Secure Linux
-	@echo You are building for libc6/glibc versions of Secure Linux
-	$(BUILD) `$(CAT) SPECIALS` OS=$@ \
-	 SIGTYPE=psx CHECKPW=psx CRXTYPE=nfs \
-	 SPOOLDIR=/var/spool \
-	 ACTIVEFILE=/var/lib/news/active \
-	 RSHPATH=/usr/bin/rsh \
-	 BASECFLAGS="$(GCCCFLAGS)" \
-	 BASELDFLAGS="-lcrypt"
+    @echo You are building for libc6/glibc versions of Secure Linux
+    $(BUILD) `$(CAT) SPECIALS` OS=$@ \
+     SIGTYPE=psx CHECKPW=psx CRXTYPE=nfs \
+     SPOOLDIR=/var/spool \
+     ACTIVEFILE=/var/lib/news/active \
+     RSHPATH=/usr/bin/rsh \
+     BASECFLAGS="$(GCCCFLAGS)" \
+     BASELDFLAGS="-lcrypt"
 
 # Build it!
 
@@ -276,25 +276,25 @@ build:	clean once $(ARCHIVE) $(SHLIBNAME)
 all:	$(ARCHIVE) $(SHLIBNAME)
 
 $(ARCHIVE): $(BINARIES)
-	sh -c '$(RM) $(ARCHIVE) || true'
-	@$(CAT) ./ARCHIVE
-	@$(SH) ./ARCHIVE
+    sh -c '$(RM) $(ARCHIVE) || true'
+    @$(CAT) ./ARCHIVE
+    @$(SH) ./ARCHIVE
 
 $(SHLIBNAME):	$(SOFILES)
-	gcc -shared -Wl,-soname,$(SHLIBNAME) -o $(SHLIBNAME) $(SOFILES) `cat LDFLAGS`
-	ln -s $(SHLIBNAME) lib$(SHLIBBASE).so
+    $(CC) -shared -Wl,-soname,$(SHLIBNAME) -o $(SHLIBNAME) $(SOFILES) `cat LDFLAGS`
+    ln -s $(SHLIBNAME) lib$(SHLIBBASE).so
  
 .c.so:	osdep.h
-	$(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` ${@:.so=.c} -o $@
+    $(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` ${@:.so=.c} -o $@
 
 .c.o:
-	$(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` $*.c
+    $(CC) -fPIC -DPIC -D_REENTRANT -c `$(CAT) CFLAGS` $*.c
 
 
 # Cleanup
 
 clean:
-	sh -c '$(RM) auths.c crexcl.c ip_unix.c linkage.[ch] siglocal.c osdep*.[ch] *.o ARCHIVE *FLAGS *TYPE $(ARCHIVE) || true'
+    sh -c '$(RM) auths.c crexcl.c ip_unix.c linkage.[ch] siglocal.c osdep*.[ch] *.o ARCHIVE *FLAGS *TYPE $(ARCHIVE) || true'
 
 
 # Dependencies
@@ -331,140 +331,142 @@ maildir.o: mail.h misc.h osdep.h maildir.h dummy.h
 # OS-dependent
 
 OSDEPS= mail.h misc.h env.h fs.h ftl.h nl.h tcp.h \
-	osdep.h env_unix.h tcp_unix.h \
-	osdep.c env_unix.c fs_unix.c ftl_unix.c nl_unix.c tcp_unix.c ip_unix.c\
-	auths.c crexcl.c flockcyg.c flocklnx.c flocksim.c fsync.c \
-	gethstid.c getspnam.c \
-	gr_wait.c gr_wait4.c gr_waitp.c \
-	krb.c \
-	auth_ext.c auth_gss.c auth_log.c auth_md5.c auth_ntl.c auth_pla.c \
-	pmatch.c scandir.c setpgrp.c strerror.c truncate.c write.c \
-	memmove.c memmove2.c memset.c \
-	tz_bsd.c tz_nul.c tz_sv4.c \
-	write.c sslstdio.c \
-	strerror.c strpbrk.c strstr.c strtok.c strtoul.c \
-	OSCFLAGS
+    osdep.h env_unix.h tcp_unix.h \
+    osdep.c env_unix.c fs_unix.c ftl_unix.c nl_unix.c tcp_unix.c ip_unix.c\
+    auths.c crexcl.c flockcyg.c flocklnx.c flocksim.c fsync.c \
+    gethstid.c getspnam.c \
+    gr_wait.c gr_wait4.c gr_waitp.c \
+    krb.c \
+    auth_ext.c auth_gss.c auth_log.c auth_md5.c auth_ntl.c auth_pla.c \
+    pmatch.c scandir.c setpgrp.c strerror.c truncate.c write.c \
+    memmove.c memmove2.c memset.c \
+    tz_bsd.c tz_nul.c tz_sv4.c \
+    write.c sslstdio.c \
+    strerror.c strpbrk.c strstr.c strtok.c strtoul.c \
+    OSCFLAGS
 
 osdep.o:	$(OSDEPS)
-	$(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `$(CAT) OSCFLAGS` -c osdep.c
-	@echo ========================================================================
-	@echo Building OS-dependent module
-	@echo If you get No such file error messages for files x509.h, ssl.h,
-	@echo pem.h, buffer.h, bio.h, and crypto.h, that means that OpenSSL
-	@echo is not installed on your system.  Either install OpenSSL first
-	@echo or build with command: make `$(CAT) OSTYPE` SSLTYPE=none
-	@echo ========================================================================
+    $(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `$(CAT) OSCFLAGS` -c osdep.c
+    @echo ========================================================================
+    @echo Building OS-dependent module
+    @echo If you get No such file error messages for files x509.h, ssl.h,
+    @echo pem.h, buffer.h, bio.h, and crypto.h, that means that OpenSSL
+    @echo is not installed on your system.  Either install OpenSSL first
+    @echo or build with command: make `$(CAT) OSTYPE` SSLTYPE=none
+    @echo ========================================================================
 
 osdep.so:	$(OSDEPS)
-	$(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `cat OSCFLAGS` -c osdep.c -o $@
+    $(CC) -fPIC -DPIC -D_REENTRANT `$(CAT) CFLAGS` `cat OSCFLAGS` -c osdep.c -o $@
 
 osdep.c: osdepbas.c osdepckp.c osdeplog.c osdepssl.c
-	$(CAT) osdepbas.c osdepckp.c osdeplog.c osdepssl.c > osdep.c
+    $(CAT) osdepbas.c osdepckp.c osdeplog.c osdepssl.c > osdep.c
 
 osdepbas.c:
-	@echo osdepbas.c not found...try make clean and new make
-	@false
+    @echo osdepbas.c not found...try make clean and new make
+    @false
 
 osdepckp.c:
-	@echo osdepckp.c not found...try make clean and new make
-	@false
+    @echo osdepckp.c not found...try make clean and new make
+    @false
 
 osdeplog.c:
-	@echo osdeplog.c not found...try make clean and new make
-	@false
+    @echo osdeplog.c not found...try make clean and new make
+    @false
 
 osdepssl.c:
-	@echo osdepssl.c not found...try make clean and new make
-	@false
+    @echo osdepssl.c not found...try make clean and new make
+    @false
 
 siglocal.c:
-	@echo siglocal.c not found...try make clean and new make
-	@false
+    @echo siglocal.c not found...try make clean and new make
+    @false
 
 crexcl.c:
-	@echo crexcl.c not found...do make clean and new make
-	@false
+    @echo crexcl.c not found...do make clean and new make
+    @false
 
 ip_unix.c:
-	@echo ip_unix.c not found...do make clean and new make
-	@false
+    @echo ip_unix.c not found...do make clean and new make
+    @false
 
 # Once-only environment setup
 
 once:	onceenv ckp$(PASSWDTYPE) ssl$(SSLTYPE) osdep.c
 
 onceenv:
-	@echo Once-only environment setup...
-	echo $(CC) > CCTYPE
-	echo $(BASECFLAGS) '$(EXTRACFLAGS)' -DCHUNKSIZE=$(CHUNKSIZE) > CFLAGS
-	echo -DCREATEPROTO=$(CREATEPROTO) -DEMPTYPROTO=$(EMPTYPROTO) \
-	 -DMD5ENABLE=\"$(MD5PWD)\" -DMAILSPOOL=\"$(MAILSPOOL)\" \
-	 -DANONYMOUSHOME=\"$(MAILSPOOL)/anonymous\" \
-	 -DACTIVEFILE=\"$(ACTIVEFILE)\" -DNEWSSPOOL=\"$(NEWSSPOOL)\" \
-	 -DRSHPATH=\"$(RSHPATH)\" -DLOCKPGM=\"$(LOCKPGM)\" \
-	 -DLOCKPGM1=\"$(LOCKPGM1)\" -DLOCKPGM2=\"$(LOCKPGM2)\" \
-	 -DLOCKPGM3=\"$(LOCKPGM3)\" -DLOCKPGM4=\"$(LOCKPGM4)\" > OSCFLAGS
-	echo $(BASELDFLAGS) $(EXTRALDFLAGS) > LDFLAGS
-	echo "$(ARRC) $(ARCHIVE) $(BINARIES);$(RANLIB) $(ARCHIVE)" > ARCHIVE
-	echo $(OS) > OSTYPE
-	./drivers $(EXTRADRIVERS) $(DEFAULTDRIVERS) dummy
-	./mkauths $(EXTRAAUTHENTICATORS) $(DEFAULTAUTHENTICATORS)
-	echo "  mail_versioncheck (CCLIENTVERSION);" >> linkage.c
-	$(LN) os_$(OS).h osdep.h
-	$(LN) os_$(OS).c osdepbas.c
-	$(LN) log_$(LOGINPW).c osdeplog.c
-	$(LN) sig_$(SIGTYPE).c siglocal.c
-	$(LN) crx_$(CRXTYPE).c crexcl.c
-	$(LN) ip$(IP)_unix.c ip_unix.c
-	sh -c '(test $(OS) = sc5 -o $(OS) = sco -o ! -f /usr/include/sys/statvfs.h) && echo -DNOFSTATVFS >> OSCFLAGS || fgrep statvfs64 /usr/include/sys/statvfs.h > /dev/null || echo -DNOFSTATVFS64 >> OSCFLAGS'
+    @echo Once-only environment setup...
+    echo $(CC) > CCTYPE
+    echo $(BASECFLAGS) '$(EXTRACFLAGS)' -DCHUNKSIZE=$(CHUNKSIZE) > CFLAGS
+    echo -DCREATEPROTO=$(CREATEPROTO) -DEMPTYPROTO=$(EMPTYPROTO) \
+     -DMD5ENABLE=\"$(MD5PWD)\" -DMAILSPOOL=\"$(MAILSPOOL)\" \
+     -DANONYMOUSHOME=\"$(MAILSPOOL)/anonymous\" \
+     -DACTIVEFILE=\"$(ACTIVEFILE)\" -DNEWSSPOOL=\"$(NEWSSPOOL)\" \
+     -DRSHPATH=\"$(RSHPATH)\" -DLOCKPGM=\"$(LOCKPGM)\" \
+     -DLOCKPGM1=\"$(LOCKPGM1)\" -DLOCKPGM2=\"$(LOCKPGM2)\" \
+     -DLOCKPGM3=\"$(LOCKPGM3)\" -DLOCKPGM4=\"$(LOCKPGM4)\" > OSCFLAGS
+    echo $(BASELDFLAGS) $(EXTRALDFLAGS) > LDFLAGS
+    echo "$(ARRC) $(ARCHIVE) $(BINARIES);$(RANLIB) $(ARCHIVE)" > ARCHIVE
+    echo $(OS) > OSTYPE
+    ./drivers $(EXTRADRIVERS) $(DEFAULTDRIVERS) dummy
+    ./mkauths $(EXTRAAUTHENTICATORS) $(DEFAULTAUTHENTICATORS)
+    echo "  mail_versioncheck (CCLIENTVERSION);" >> linkage.c
+    $(LN) os_$(OS).h osdep.h
+    $(LN) os_$(OS).c osdepbas.c
+    $(LN) log_$(LOGINPW).c osdeplog.c
+    $(LN) sig_$(SIGTYPE).c siglocal.c
+    $(LN) crx_$(CRXTYPE).c crexcl.c
+    $(LN) ip$(IP)_unix.c ip_unix.c
+    sh -c '(test $(OS) = sc5 -o $(OS) = sco -o ! -f /usr/include/sys/statvfs.h) && echo -DNOFSTATVFS >> OSCFLAGS || fgrep statvfs64 /usr/include/sys/statvfs.h > /dev/null || echo -DNOFSTATVFS64 >> OSCFLAGS'
+    echo "libc-client.so.`grep CCLIENTVERSION mail.h | sed -e's/[^"]\{1,\}"\([0-9]\{1,\}\)"/\1/'`" > SHLIBNAME
+    test -z $(SHLIBFLAGS) && echo "-fPIC -DPIC -D_REENTRANT" > SHLIBFLAGS || echo "$(SHLIBFLAGS)" > SHLIBFLAGS
 
 
 # Password checkers
 
 ckpafs:	# AFS
-	@echo AFS password authentication
-	echo $(AFSCFLAGS) >> OSCFLAGS
+    @echo AFS password authentication
+    echo $(AFSCFLAGS) >> OSCFLAGS
 #	echo $(AFSLDFLAGS) >> LDFLAGS
 # Note: Steve Roseman says that AFS libraries have to be lunk before SSL
-	echo $(AFSLDFLAGS) `$(CAT) LDFLAGS` > LDFLAGS.tmp
-	mv LDFLAGS.tmp LDFLAGS
-	$(LN) ckp_afs.c osdepckp.c
+    echo $(AFSLDFLAGS) `$(CAT) LDFLAGS` > LDFLAGS.tmp
+    mv LDFLAGS.tmp LDFLAGS
+    $(LN) ckp_afs.c osdepckp.c
 
 ckpdce:	# DCE
-	@echo DCE password authentication
-	echo $(DCECFLAGS) >> OSCFLAGS
-	echo $(DCELDFLAGS) >> LDFLAGS
-	$(LN) ckp_dce.c osdepckp.c
+    @echo DCE password authentication
+    echo $(DCECFLAGS) >> OSCFLAGS
+    echo $(DCELDFLAGS) >> LDFLAGS
+    $(LN) ckp_dce.c osdepckp.c
 
 ckpgss:	# Kerberos V (must have gss EXTRAAUTHENTICATOR as well)
-	@echo Kerberos V password authentication
-	$(LN) ckp_gss.c osdepckp.c
+    @echo Kerberos V password authentication
+    $(LN) ckp_gss.c osdepckp.c
 
 ckpnul:	# NUL authenticator (disables all plaintext authentication)
-	@echo Plaintext authentication prohibited
-	echo "  mail_parameters (NIL,SET_DISABLEPLAINTEXT,(void *) 1);" >> linkage.c
-	$(LN) ckp_nul.c osdepckp.c
+    @echo Plaintext authentication prohibited
+    echo "  mail_parameters (NIL,SET_DISABLEPLAINTEXT,(void *) 1);" >> linkage.c
+    $(LN) ckp_nul.c osdepckp.c
 
 ckppam:	# Pluggable Authentication Modules authenticator
-	@echo PAM password authentication
-	echo $(PAMLDFLAGS) >> LDFLAGS
-	$(LN) ckp_pam.c osdepckp.c
+    @echo PAM password authentication
+    echo $(PAMLDFLAGS) >> LDFLAGS
+    $(LN) ckp_pam.c osdepckp.c
 
 ckpstd:	# Port standard
-	@echo Standard password authentication
-	$(LN) ckp_$(CHECKPW).c osdepckp.c
+    @echo Standard password authentication
+    $(LN) ckp_$(CHECKPW).c osdepckp.c
 
 ckptwo:	# Something plus standard
-	@echo $(CHECKPWALT) password authentication first, then standard
-	$(CAT) ckp_1st.c ckp_$(CHECKPWALT).c ckp_2nd.c ckp_$(CHECKPW).c \
-	 ckp_3rd.c > osdepckp.c
+    @echo $(CHECKPWALT) password authentication first, then standard
+    $(CAT) ckp_1st.c ckp_$(CHECKPWALT).c ckp_2nd.c ckp_$(CHECKPW).c \
+     ckp_3rd.c > osdepckp.c
 
 
 # SSL support
 
 sslnone:# No SSL
-	@echo Building without SSL support
-	$(LN) ssl_none.c osdepssl.c
+    @echo Building without SSL support
+    $(LN) ssl_none.c osdepssl.c
 
 sslnopwd: sslunix snopwd
 
@@ -473,20 +475,20 @@ sslunix.nopwd: sslnopwd
 sslunix: sbasic sldunix
 
 sbasic:	# UNIX OpenSSL
-	@echo Building with SSL
-	$(LN) ssl_unix.c osdepssl.c
-	echo $(SSLCFLAGS) >> OSCFLAGS
-	echo "  ssl_onceonlyinit ();" >> linkage.c
+    @echo Building with SSL
+    $(LN) ssl_unix.c osdepssl.c
+    echo $(SSLCFLAGS) >> OSCFLAGS
+    echo "  ssl_onceonlyinit ();" >> linkage.c
 
 snopwd:	# Plaintext disable
-	@echo Building with SSL and plaintext passwords disabled unless SSL/TLS
-	echo "  mail_parameters (NIL,SET_DISABLEPLAINTEXT,(void *) 2);" >> linkage.c
+    @echo Building with SSL and plaintext passwords disabled unless SSL/TLS
+    echo "  mail_parameters (NIL,SET_DISABLEPLAINTEXT,(void *) 2);" >> linkage.c
 
 sldunix:# Normal UNIX SSL load flags
-	echo $(SSLLDFLAGS) >> LDFLAGS
+    echo $(SSLLDFLAGS) >> LDFLAGS
 
 
 # A monument to a hack of long ago and far away...
 
 love:
-	@echo not war?
+    @echo not war?
